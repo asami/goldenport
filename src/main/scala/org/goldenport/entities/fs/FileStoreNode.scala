@@ -6,7 +6,7 @@ import org.goldenport.entity.datasource._
 import org.goldenport.entity.content.GContent
 import org.goldenport.entity.content.FileContent
 import org.goldenport.value.GTreeNodeStructureBase
-import com.asamioffice.io.UFile
+import com.asamioffice.goldenport.io.UFile
 
 /*
  * Aug. 10, 2008

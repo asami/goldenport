@@ -5,7 +5,7 @@ import scala.collection.mutable.ArrayBuffer
 import org.goldenport.entity.datasource.GDataSource
 import org.goldenport.entity.content._
 import org.goldenport.value.GTreeNodeStructureBase
-import com.asamioffice.text.UPathString
+import com.asamioffice.goldenport.text.UPathString
 
 /*
  * Aug.  5, 2008

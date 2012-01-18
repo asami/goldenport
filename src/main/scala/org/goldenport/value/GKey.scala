@@ -1,6 +1,6 @@
 package org.goldenport.value
 
-import com.asamioffice.text.UString
+import com.asamioffice.goldenport.text.UString
 
 /*
  * Oct. 13, 2008

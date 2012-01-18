@@ -1,7 +1,7 @@
 package org.goldenport.service
 
 import org.goldenport.parameter._
-import com.asamioffice.util._
+import com.asamioffice.goldenport.util._
 
 /*
  * Aug. 28, 2008

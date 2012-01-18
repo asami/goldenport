@@ -16,7 +16,7 @@ import org.goldenport.importer._
 import org.goldenport.exporter._
 import org.goldenport.parameter._
 import org.goldenport.application._
-import com.asamioffice.util.CommandParameterParser
+import com.asamioffice.goldenport.util.CommandParameterParser
 import org.goldenport.entity.datasource.GDataSource
 import org.goldenport.entity.datasource.BinaryDataSource
 
@@ -94,8 +94,8 @@ class Goldenport(theArgs: Array[String], aDesc: GApplicationDescriptor) extends 
   private def setup_application_parameters(aDesc: GApplicationDescriptor): GParameterRepository = {
     def get_classpath: String = {
       aDesc.classpath match {
-	case null => ""
-	case classpath => classpath.mkString(";")
+        case null => ""
+        case classpath => classpath.mkString(";")
       }
     }
 

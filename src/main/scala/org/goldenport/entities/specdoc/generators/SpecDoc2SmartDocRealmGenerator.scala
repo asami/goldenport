@@ -2,7 +2,7 @@ package org.goldenport.entities.specdoc.generators
 
 import org.goldenport.entities.smartdoc._
 import org.goldenport.entities.smartdoc.builder._
-import com.asamioffice.text.UJavaString
+import com.asamioffice.goldenport.text.UJavaString
 import org.goldenport.entities.specdoc._
 
 

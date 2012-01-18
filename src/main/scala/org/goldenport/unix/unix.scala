@@ -1,8 +1,8 @@
 package org.goldenport
 
 import java.io._
-import com.asamioffice.io.{UIO, UFile}
-import com.asamioffice.text.UPathString
+import com.asamioffice.goldenport.io.{UIO, UFile}
+import com.asamioffice.goldenport.text.UPathString
 import org.goldenport.unix._
 
 /*

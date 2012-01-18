@@ -5,7 +5,7 @@ import scala.collection.mutable.ArrayBuffer
 import java.io.File
 import org.goldenport.entity.GEntity
 import org.goldenport.parameter.GParameterRepository
-import com.asamioffice.io.UURL
+import com.asamioffice.goldenport.io.UURL
 
 /*
  * derived from ServiceRequestModel.java since Aug. 8, 2006

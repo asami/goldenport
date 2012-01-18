@@ -2,8 +2,8 @@ package org.goldenport.parameter
 
 import scala.collection.mutable.{ArrayBuffer, HashMap}
 import java.net.URL
-import com.asamioffice.text.UString
-import com.asamioffice.io.UURL
+import com.asamioffice.goldenport.text.UString
+import com.asamioffice.goldenport.io.UURL
 
 /*
  * @since   Oct. 30, 2008

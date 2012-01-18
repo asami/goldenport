@@ -5,7 +5,7 @@ import org.goldenport.value.GTable
 import org.goldenport.value.PlainTable
 import org.goldenport.sdoc.SDoc
 import org.goldenport.sdoc.inline.SElementRef
-import com.asamioffice.text.UJavaString
+import com.asamioffice.goldenport.text.UJavaString
 
 /*
  * derived from SDBaseNode.java since Feb. 18, 2007

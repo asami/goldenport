@@ -2,7 +2,7 @@ package org.goldenport.entity.locator
 
 import java.io.File
 import java.net.{URL, URI}
-import com.asamioffice.text.UPathString
+import com.asamioffice.goldenport.text.UPathString
 
 /*
  * @since   Aug.  7, 2008

@@ -9,7 +9,7 @@ import org.goldenport.parameter._
 import org.goldenport.entity.datasource._
 import org.goldenport.entity.content._
 import org.goldenport.entity.locator.ResourceLocator
-import com.asamioffice.io.UFile
+import com.asamioffice.goldenport.io.UFile
 
 /*
  * derived from SubRModelContext.java since Aug. 3, 2005.

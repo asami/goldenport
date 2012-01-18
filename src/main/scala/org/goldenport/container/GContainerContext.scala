@@ -7,7 +7,7 @@ import org.goldenport.GoldenportConstants
 import org.goldenport.monitor.{GMonitor, DefaultMonitor}
 import org.goldenport.recorder.ForwardingRecorder
 import org.goldenport.parameter._
-import com.asamioffice.util.ContextClassLoader
+import com.asamioffice.goldenport.util.ContextClassLoader
 
 /*
  * derived from IRContainerContext.java and AbstractContainerContext.java

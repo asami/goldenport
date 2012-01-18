@@ -6,7 +6,7 @@ import org.goldenport.entity._
 import org.goldenport.entity.datasource.{GDataSource, FileDataSource, BinaryDataSource, NullDataSource}
 import org.goldenport.entity.content.{GContent, BinaryContent}
 import org.goldenport.entities.workspace.TreeWorkspaceNode
-import com.asamioffice.io.ContextOutputStream
+import com.asamioffice.goldenport.io.ContextOutputStream
 
 /*
  * derived from ZipModel.java since Aug. 8, 2004

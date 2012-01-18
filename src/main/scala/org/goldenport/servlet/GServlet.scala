@@ -8,8 +8,8 @@ import org.goldenport.application.GApplicationDescriptor
 import org.goldenport.Goldenport
 import org.goldenport.exporter.FirstLeafResultExporterClass
 import org.goldenport.entity.content.BinaryContent
-import com.asamioffice.text.UString
-import com.asamioffice.text.UPathString
+import com.asamioffice.goldenport.text.UString
+import com.asamioffice.goldenport.text.UPathString
 import org.apache.commons.fileupload.disk.DiskFileItemFactory
 import org.apache.commons.fileupload.servlet.ServletFileUpload
 import org.apache.commons.fileupload.FileItem

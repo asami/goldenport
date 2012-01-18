@@ -6,7 +6,7 @@ import org.goldenport.sdoc._
 import org.goldenport.sdoc.inline.{SIAnchor, SElementRef}
 import org.goldenport.sdoc.parts.SHistory
 import org.goldenport.entities.specdoc.plain._
-import com.asamioffice.text.UJavaString
+import com.asamioffice.goldenport.text.UJavaString
 
 /*
  * SDNode

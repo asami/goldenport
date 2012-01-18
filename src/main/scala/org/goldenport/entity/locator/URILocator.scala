@@ -1,7 +1,7 @@
 package org.goldenport.entity.locator
 
 import java.net.URI
-import com.asamioffice.io.UURL
+import com.asamioffice.goldenport.io.UURL
 
 /*
  * Aug.  7, 2008

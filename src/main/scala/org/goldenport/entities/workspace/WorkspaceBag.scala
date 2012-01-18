@@ -2,7 +2,7 @@ package org.goldenport.entities.workspace
 
 import java.io._
 import org.goldenport.entity.GEntityContext
-import com.asamioffice.io.UIO
+import com.asamioffice.goldenport.io.UIO
 
 /*
  * original since Aug. 16, 2005

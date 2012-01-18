@@ -3,7 +3,7 @@ package org.goldenport.entity.content
 import java.io._
 import org.goldenport.entity.GEntityContext
 import org.goldenport.entity.datasource.FileDataSource
-import com.asamioffice.text.UPathString
+import com.asamioffice.goldenport.text.UPathString
 
 /*
  * Original since Jan.  3, 2004

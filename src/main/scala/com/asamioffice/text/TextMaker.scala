@@ -2,6 +2,8 @@ package com.asamioffice.text
 
 import java.io.Flushable
 
+import com.asamioffice.goldenport.text.UString;
+
 /*
  * @since   May.  5, 2009
  * @version Aug. 21, 2011

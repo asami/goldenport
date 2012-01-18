@@ -5,7 +5,7 @@ import java.io._
 import java.net.{URL, URI}
 import org.goldenport.entity._
 import org.goldenport.entity.locator.{GLocator, NullLocator}
-import com.asamioffice.io.UIO
+import com.asamioffice.goldenport.io.UIO
 import org.goldenport.entity.locator.NameLocator
 
 /*

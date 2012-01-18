@@ -10,7 +10,7 @@ import org.goldenport.sdoc.inline._
 import org.goldenport.sdoc.block._
 import org.goldenport.sdoc.structure._
 import org.goldenport.entities.smartdoc.block.SBBinaryContentFigure
-import com.asamioffice.text.UPathString
+import com.asamioffice.goldenport.text.UPathString
 import org.goldenport.entities.smartdoc._
 
 /*

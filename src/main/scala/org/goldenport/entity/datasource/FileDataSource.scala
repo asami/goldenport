@@ -3,8 +3,8 @@ package org.goldenport.entity.datasource
 import org.goldenport.entity.GEntityContext
 import org.goldenport.entity.locator.FileLocator
 import java.io._
-import com.asamioffice.text.UPathString
-import com.asamioffice.io.UFile
+import com.asamioffice.goldenport.text.UPathString
+import com.asamioffice.goldenport.io.UFile
 
 /*
  * @since   Aug.  6, 2008

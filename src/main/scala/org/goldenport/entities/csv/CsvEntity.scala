@@ -6,7 +6,7 @@ import org.goldenport.entity.datasource.GDataSource
 import org.goldenport.entity.datasource.GContentDataSource
 import org.goldenport.entity.locator.EntityLocator
 import org.goldenport.value.GTableBase
-import com.asamioffice.text.ReaderCsvTableMaker;
+import com.asamioffice.goldenport.text.ReaderCsvTableMaker;
 
 /*
  * Aug.  6, 2008

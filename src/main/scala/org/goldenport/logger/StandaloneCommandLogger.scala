@@ -3,8 +3,8 @@ package org.goldenport.logger
 import java.io._
 import org.goldenport.monitor.logger.GLogger
 import org.goldenport.container.GContainerContext
-import com.asamioffice.util.UDateTime
-import com.asamioffice.xml.UXML
+import com.asamioffice.goldenport.util.UDateTime
+import com.asamioffice.goldenport.xml.UXML
 
 /*
  * @since   Apr.  2, 2009

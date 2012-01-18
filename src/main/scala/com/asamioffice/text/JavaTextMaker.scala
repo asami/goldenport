@@ -1,5 +1,7 @@
 package com.asamioffice.text
 
+import com.asamioffice.goldenport.text.UJavaString;
+
 import scala.xml.Elem
 import scala.collection.mutable.ArrayBuffer
 

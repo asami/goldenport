@@ -6,7 +6,7 @@ import org.goldenport.entity.GEntityContext
 import org.goldenport.entity.datasource.GDataSource
 import org.goldenport.entity.locator.GLocator
 import org.goldenport.entity.locator.ContentLocator
-import com.asamioffice.io.UIO
+import com.asamioffice.goldenport.io.UIO
 
 /*
  * since Oct. 1, 2003

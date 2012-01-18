@@ -6,7 +6,7 @@ import org.goldenport.entity._
 import org.goldenport.sdoc._
 import org.goldenport.entities.smartdoc.transformers._
 import org.goldenport.entities.html.HtmlRealmEntity
-import com.asamioffice.text.{UString, UPathString, UJavaString}
+import com.asamioffice.goldenport.text.{UString, UPathString, UJavaString}
 import org.goldenport.entities.smartdoc._
 
 /*

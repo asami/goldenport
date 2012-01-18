@@ -3,7 +3,7 @@ package org.goldenport.entities.specdoc
 import scala.collection.mutable
 import org.goldenport.value.{GTreeNodeBase, GKey}
 import org.goldenport.sdoc.{SDoc, SEmpty}
-import com.asamioffice.text.UString
+import com.asamioffice.goldenport.text.UString
 
 /*
  * derived from SDFeature.java since Feb. 21, 2007

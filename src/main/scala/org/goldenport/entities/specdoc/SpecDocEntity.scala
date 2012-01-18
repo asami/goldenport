@@ -8,7 +8,7 @@ import org.goldenport.entity.content.GContent
 import org.goldenport.value._
 import org.goldenport.entities.specdoc.plain._
 import org.goldenport.sdoc.{SDoc, SEmpty, SText}
-import com.asamioffice.text.UJavaString
+import com.asamioffice.goldenport.text.UJavaString
 
 /*
  * derived from SpecDocModel since Feb. 17, 2007

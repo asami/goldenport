@@ -4,7 +4,7 @@ import scala.collection.mutable
 import org.goldenport.value.{GTreeNodeBase, GTable, PlainTable}
 import org.goldenport.sdoc.SDoc
 import org.goldenport.sdoc.inline.SElementRef
-import com.asamioffice.text.UJavaString
+import com.asamioffice.goldenport.text.UJavaString
 
 /*
  * derived from SDPackageNode.java since Feb. 18, 2007
