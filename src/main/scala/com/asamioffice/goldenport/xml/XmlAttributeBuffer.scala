@@ -1,4 +1,4 @@
-package com.asamioffice.xml
+package com.asamioffice.goldenport.xml
 
 import scala.collection.mutable.ArrayBuffer
 import scala.xml._

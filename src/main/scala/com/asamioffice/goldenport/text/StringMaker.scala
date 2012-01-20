@@ -1,4 +1,4 @@
-package com.asamioffice.text
+package com.asamioffice.goldenport.text
 
 /*
  * @since   May.  7, 2009

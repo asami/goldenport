@@ -1,7 +1,7 @@
 package org.goldenport.sdoc
 
 import java.util.Locale
-import com.asamioffice.util.LocaleRepository
+import com.asamioffice.goldenport.util.LocaleRepository
 
 /*
  * parts???

@@ -1,7 +1,7 @@
 package org.goldenport.entities.graphviz
 
 import scala.collection.mutable.LinkedHashMap
-import com.asamioffice.text.TextBuilder
+import com.asamioffice.goldenport.text.TextBuilder
 
 /*
  * @since   Jan. 14, 2009

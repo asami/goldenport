@@ -1,4 +1,4 @@
-package com.asamioffice.text
+package com.asamioffice.goldenport.text
 
 import java.io.Flushable
 

@@ -1,4 +1,4 @@
-package com.asamioffice.util
+package com.asamioffice.goldenport.util
 
 import java.util.Locale
 

@@ -4,7 +4,7 @@ import java.io._
 import org.goldenport.entity._
 import org.goldenport.entity.datasource.GDataSource
 import org.goldenport.entity.datasource.GContentDataSource
-import com.asamioffice.text.{AppendableTextBuilder, StringTextBuilder}
+import com.asamioffice.goldenport.text.{AppendableTextBuilder, StringTextBuilder}
 
 /*
  * Jan. 14, 2009

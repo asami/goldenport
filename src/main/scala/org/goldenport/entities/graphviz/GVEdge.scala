@@ -1,6 +1,6 @@
 package org.goldenport.entities.graphviz
 
-import com.asamioffice.text.TextBuilder
+import com.asamioffice.goldenport.text.TextBuilder
 
 /*
  * Jan. 14, 2009

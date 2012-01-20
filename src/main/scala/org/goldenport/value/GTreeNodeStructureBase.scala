@@ -3,7 +3,7 @@ package org.goldenport.value
 import scala.xml._
 import scala.collection.mutable.ArrayBuffer
 import java.util.Locale
-import com.asamioffice.xml.XmlAttributeBuffer
+import com.asamioffice.goldenport.xml.XmlAttributeBuffer
 
 /*
  * @since   Aug. 13, 2008

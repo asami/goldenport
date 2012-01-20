@@ -1,4 +1,4 @@
-package com.asamioffice.util
+package com.asamioffice.goldenport.util
 
 import scala.collection.mutable.ArrayBuffer
 import java.util.Locale

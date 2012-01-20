@@ -1,4 +1,4 @@
-package com.asamioffice.xml
+package com.asamioffice.goldenport.xml
 
 /*
  * Sep.  9, 2008
