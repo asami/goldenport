@@ -1,6 +1,9 @@
 package org.goldenport.entity.datasource
 
+import scalaz._
+import Scalaz._
 import java.io._
+import java.net.URI
 import org.goldenport.entity.GEntityContext
 import org.goldenport.entities.workspace.WorkspaceBag
 
@@ -8,13 +11,14 @@ import org.goldenport.entities.workspace.WorkspaceBag
  * since Aug.  7, 2004
  *
  * @since   Jan. 15, 2009
- * @version Jul. 15, 2010
- * @version Nov. 13, 2011
- * @version Dec.  5, 2011
+ *  version Jul. 15, 2010
+ *  version Nov. 13, 2011
+ *  version Dec.  5, 2011
+ * @version Jan. 20, 2012
  * @author  ASAMI, Tomoharu
  */
 class BinaryDataSource(aBag: BinaryBag, aContext: GEntityContext,
-    name: String = null, mimetype: String = null) extends GDataSource(aContext, name, mimetype) {
+    uri: URI = null, mimetype: String = null) extends GDataSource(aContext, uri, mimetype) {
 
   val bag = aBag.newWorkspaceBag
 
@@ -33,17 +37,26 @@ class BinaryDataSource(aBag: BinaryBag, aContext: GEntityContext,
 object BinaryDataSource {
   def createBinary(aBinary: Array[Byte], aContext: GEntityContext, 
       name: String = null, mimetype: String = null) = {
-    new BinaryDataSource(new ByteArrayBinaryBag(aBinary, aContext), aContext, name, mimetype)    
+    val uri = if (name == null) null else new URI(name)
+    new BinaryDataSource(new ByteArrayBinaryBag(aBinary, aContext), aContext, uri, mimetype)    
   }
   
   def createInputStream(aIn: InputStream, aContext: GEntityContext,
       name: String = null, mimetype: String = null) = {
-    new BinaryDataSource(new InputStreamBinaryBag(aIn, aContext), aContext, name, mimetype) 
+    val uri = if (name == null) null else new URI(name)
+    new BinaryDataSource(new InputStreamBinaryBag(aIn, aContext), aContext, uri, mimetype) 
   }
 
   def createWorkspaceBag(bag: WorkspaceBag, aContext: GEntityContext,
       name: String = null, mimetype: String = null) = {
-    new BinaryDataSource(new WorkspaceBagBinaryBag(bag, aContext), aContext, name, mimetype)
+    val uri = if (name == null) null else new URI(name)
+    new BinaryDataSource(new WorkspaceBagBinaryBag(bag, aContext), aContext, uri, mimetype)
+  }
+
+  def createBinaryBag(bag: BinaryBag, aContext: GEntityContext,
+      name: String = null, mimetype: String = null) = {
+    val uri = if (name == null) null else new URI(name)
+    new BinaryDataSource(bag, aContext, uri, mimetype)
   }
 }
 

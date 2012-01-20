@@ -4,16 +4,16 @@ import scala.xml.{XML, Elem}
 import java.io._
 import java.net.{URL, URI}
 import org.goldenport.entity._
-import org.goldenport.entity.locator.{GLocator, NullLocator}
+import org.goldenport.entity.locator.{GLocator, NullLocator, NameLocator, URILocator}
 import com.asamioffice.goldenport.io.UIO
-import org.goldenport.entity.locator.NameLocator
 
 /*
  * derived from IRDataSource.java and AbstractRDataSource since Aug. 12, 2005
  *
  * @since   Aug.  6, 2008
- * @version Jul. 15, 2010
- * @version Nov. 13, 2011
+ *  version Jul. 15, 2010
+ *  version Nov. 13, 2011
+ * @version Jan. 20, 2012
  * @author  ASAMI, Tomoharu
  */
 abstract class GDataSource(aLocator: GLocator, aContext: GEntityContext, mimetype: String) {
@@ -22,7 +22,8 @@ abstract class GDataSource(aLocator: GLocator, aContext: GEntityContext, mimetyp
 
   def this(aContext: GEntityContext) = this(NullLocator, aContext, null)
   def this(locator: GLocator, aContext: GEntityContext) = this(locator, aContext, null)
-  def this(aContext: GEntityContext, name: String, mimetype: String = null) = this(new NameLocator(name), aContext, mimetype)
+  def this(aContext: GEntityContext, name: String, mimetype: String) = this(new NameLocator(name), aContext, mimetype)
+  def this(aContext: GEntityContext, uri: URI, mimetype: String) = this(new URILocator(uri), aContext, mimetype)
 
   private var text_encoding: String = null
   val mimeType: Option[String] = Option(mimetype) 

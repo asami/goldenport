@@ -14,11 +14,13 @@ import org.goldenport.entity.datasource.BinaryBag
 import org.goldenport.entities.workspace.WorkspaceBag
 import org.goldenport.entity.datasource.WorkspaceBagBinaryBag
 import org.goldenport.entity.datasource.BinaryDataSource
+import java.net.URI
 
 /*
  * @since   Aug.  6, 2008
  *  version Sep. 17, 2010
- * @version Jan.  9, 2012
+ *  version Jan.  9, 2012
+ * @version Jan. 20, 2012
  * @author  ASAMI, Tomoharu
  */
 abstract class GEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityContext) extends GObject {
@@ -43,8 +45,8 @@ abstract class GEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityCon
   /*
    */
   final protected def assert_opened = {
-    if (open_count < 0) error("Illegal open count: " + open_count)
-    else if (open_count == 0) error("Entity must be opened")
+    if (open_count < 0) sys.error("Illegal open count: " + open_count)
+    else if (open_count == 0) sys.error("Entity must be opened")
   }
 
   /*
@@ -114,15 +116,15 @@ abstract class GEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityCon
   }
 
   protected def open_Entity_Create() {
-    error("missing open_Entity_Create():" + this)
+    sys.error("missing open_Entity_Create():" + this)
   }
 
   protected def open_Entity_Create(aDataSource: DataSource_TYPE) {
-    error("missing open_Entity_Create(GDataSource):" + this)
+    sys.error("missing open_Entity_Create(GDataSource):" + this)
   }
 
   protected def open_Entity_Update(aDataSource: DataSource_TYPE) {
-    error("missing open_Entity_Update(GDataSource):" + this)
+    sys.error("missing open_Entity_Update(GDataSource):" + this)
   }
 
   protected def open_Pre_Condition(): Unit = null
@@ -279,11 +281,11 @@ abstract class GEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityCon
   }
 
   protected def write_Content(aOut: OutputStream): Unit = {
-    error("missing write_Content(OutputStream):" + this)
+    sys.error("missing write_Content(OutputStream):" + this)
   }
 
   protected def write_Content(aOut: BufferedWriter): Unit = {
-    error("missing write_Content(BufferedWriter):" + this)
+    sys.error("missing write_Content(BufferedWriter):" + this)
   }
 
   def toBinaryContent: BinaryContent = {
@@ -292,7 +294,7 @@ abstract class GEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityCon
     try {
       write(out)
       val bag = new WorkspaceBagBinaryBag(work, entity_context)
-      val ds = new BinaryDataSource(bag, entity_context) // XXX: name, mimetype
+      val ds = BinaryDataSource.createBinaryBag(bag, entity_context)
       new BinaryContent(ds, entity_context)
     } finally {
       out.close()
@@ -305,7 +307,7 @@ abstract class GEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityCon
     try {
       write(out)
       val bag = new WorkspaceBagBinaryBag(work, entity_context)
-      val ds = new BinaryDataSource(bag, entity_context, name, mimetype)
+      val ds = new BinaryDataSource(bag, entity_context, new URI(name), mimetype)
       new BinaryContent(ds, entity_context)
     } finally {
       out.close()
