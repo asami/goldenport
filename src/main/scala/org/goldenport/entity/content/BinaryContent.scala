@@ -9,9 +9,10 @@ import org.goldenport.entities.workspace.WorkspaceBag
  * since Aug.  7, 2004
  *
  * @since   Jan. 15, 2009
- * @version Jul. 15, 2010
- * @version Nov. 13, 2011
- * @version Dec.  5, 2011
+ *  version Jul. 15, 2010
+ *  version Nov. 13, 2011
+ *  version Dec.  5, 2011
+ * @version Jan. 20, 2012
  * @author  ASAMI, Tomoharu
  */
 class BinaryContent(val binary: BinaryDataSource, aContext: GEntityContext) extends GDataSourceContent(binary, aContext) {
@@ -25,6 +26,11 @@ class BinaryContent(val binary: BinaryDataSource, aContext: GEntityContext) exte
 object BinaryContent {
   def apply(in: InputStream, ctx: GEntityContext, name: String, mimetype: String) = {
     val ds = BinaryDataSource.createInputStream(in, ctx, name, mimetype)
+    new BinaryContent(ds, ctx)
+  }
+
+  def apply(binary: Array[Byte], ctx: GEntityContext, name: String, mimetype: String) = {
+    val ds = BinaryDataSource.createBinary(binary, ctx, name, mimetype)
     new BinaryContent(ds, ctx)
   }
 }

@@ -9,12 +9,11 @@ import com.asamioffice.goldenport.text.UPathString
  * Aug. 11, 2006
  *
  * @since   Sep. 29, 2008
- * @version Jul. 15, 2010
+ *  version Jul. 15, 2010
+ * @version Jan. 20, 2012
  * @author  ASAMI, Tomoharu
  */
 class URIContent(aUri: URI, aContext: GEntityContext) extends GDataSourceContent(new URIDataSource(aUri, aContext), aContext) {
-  val uri: URI = aUri
-
   def this(aUri: String, aContext: GEntityContext) = this(new URI(aUri), aContext)
 
   override def get_Suffix: Option[String] = {

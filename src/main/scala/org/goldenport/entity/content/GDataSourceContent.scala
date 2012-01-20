@@ -3,11 +3,13 @@ package org.goldenport.entity.content
 import java.io._
 import org.goldenport.entity.GEntityContext
 import org.goldenport.entity.datasource.GDataSource
+import java.net.URI
 
 /*
  * @since   Aug. 20, 2008
- * @version Jul. 15, 2010
- * @version Nov. 13, 2011
+ *  version Jul. 15, 2010
+ *  version Nov. 13, 2011
+ * @version Jan. 20, 2012
  * @author  ASAMI, Tomoharu
  */
 abstract class GDataSourceContent(aIn: GDataSource, aOut: GDataSource, aContext: GEntityContext) extends GContent(aContext) {
@@ -29,6 +31,7 @@ abstract class GDataSourceContent(aIn: GDataSource, aOut: GDataSource, aContext:
     true
   }
 
+  def uri: URI = inputDataSource.uri
   def simpleName: String = inputDataSource.simpleName
   def suffix: Option[String] = inputDataSource.getSuffix()
 
