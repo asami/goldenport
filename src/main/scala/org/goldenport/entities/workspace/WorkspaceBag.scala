@@ -99,7 +99,7 @@ class WorkspaceBag(aContext: GEntityContext) {
       } else if (bag_buffer != null) {
 	bag_buffer(bag_count) = aByte.asInstanceOf[Byte]
       } else {
-	error("internal error")
+	sys.error("internal error")
       }
       bag_count += 1
     }

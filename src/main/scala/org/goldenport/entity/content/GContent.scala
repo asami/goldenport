@@ -78,7 +78,7 @@ abstract class GContent(aContext: GEntityContext) {
 
   final def openInputStream(): InputStream = {
     val in = open_InputStream()
-    if (in == null) error("no InputStream")
+    if (in == null) sys.error("no InputStream")
     in
   }
 
@@ -197,7 +197,7 @@ object GContent {
   def create(aValue: Any, aContext: GEntityContext): GContent = {
     aValue match {
       case string: String => create(string, aContext)
-      case _ => error("unimplement value = " + aValue)
+      case _ => sys.error("unimplement value = " + aValue)
     }
   }
 }

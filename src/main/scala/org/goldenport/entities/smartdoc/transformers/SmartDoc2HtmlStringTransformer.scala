@@ -99,7 +99,7 @@ class SmartDoc2HtmlStringTransformer(val sdoc: SDoc) {
         case s: SSSubSubSection => open_Structure(s)
         //
         case s: SATitle => 
-        case _ => error("Unsupported node = " + aNode)
+        case _ => sys.error("Unsupported node = " + aNode)
       }
     }
 
@@ -136,7 +136,7 @@ class SmartDoc2HtmlStringTransformer(val sdoc: SDoc) {
         case s: SSSubSubSection => close_Structure(s)
         //
         case s: SATitle => 
-        case _ => error("Unsupported node = " + aNode)
+        case _ => sys.error("Unsupported node = " + aNode)
       }
     }
 
@@ -208,7 +208,7 @@ class SmartDoc2HtmlStringTransformer(val sdoc: SDoc) {
         case s: SSSubSubSection => open_SubSubSection(s)
         //
         case s: SATitle => open_Title(s)
-        case _ => error("Unsupported node = " + aNode)
+        case _ => sys.error("Unsupported node = " + aNode)
       }
     }
 
@@ -245,7 +245,7 @@ class SmartDoc2HtmlStringTransformer(val sdoc: SDoc) {
         case s: SSSubSubSection => close_SubSubSection(s)
         //
         case s: SATitle => close_Title(s)
-        case _ => error("Unsupported node = " + aNode)
+        case _ => sys.error("Unsupported node = " + aNode)
       }
     }
 
@@ -529,7 +529,7 @@ class SmartDoc2HtmlStringTransformer(val sdoc: SDoc) {
     }
 
     protected def close_Table(table: SBTable) {
-      error("unused")
+      sys.error("unused")
     }
 
     // Views
@@ -567,7 +567,7 @@ class SmartDoc2HtmlStringTransformer(val sdoc: SDoc) {
     }
 
     protected def close_Views(aViews: SBViews) {
-      error("unused")
+      sys.error("unused")
     }
 
     // Figure
@@ -868,7 +868,7 @@ class SmartDoc2HtmlStringTransformer(val sdoc: SDoc) {
         case p: SSHead => open_Head_Title(aTitle)
         case p: SStructure => // do nothing
         case p: SBlock => // do nothing
-        case p => error("Unsupported node = " + p + " in " + aTitle)
+        case p => sys.error("Unsupported node = " + p + " in " + aTitle)
       }
       done_traverse(aTitle)
     }
@@ -878,7 +878,7 @@ class SmartDoc2HtmlStringTransformer(val sdoc: SDoc) {
         case p: SSHead => close_Head_Title(title)
         case p: SStructure => // do nothing
         case p: SBlock => // do nothing
-        case p => error("Unsupported node = " + p + " in " + title)
+        case p => sys.error("Unsupported node = " + p + " in " + title)
       }
     }
 

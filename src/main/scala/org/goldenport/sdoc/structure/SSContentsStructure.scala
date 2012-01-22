@@ -44,7 +44,7 @@ abstract class SSContentsStructure extends SStructure {
 	stringBuffer = null
 	nodeBuffer = null
       } else {
-	error("Should not reached.")
+	sys.error("Should not reached.")
       }
     }
 
@@ -89,7 +89,7 @@ abstract class SSContentsStructure extends SStructure {
 //	  state = Init()_
 	}
 	case attribute: SAttribute => // do nothing
-	case _ => error("Init:" + child + ", " + child.getClass)
+	case _ => sys.error("Init:" + child + ", " + child.getClass)
       }
     }
 
@@ -122,7 +122,7 @@ abstract class SSContentsStructure extends SStructure {
 	  nodes += structure
 	  state = Init()_
 	}
-	case _ => error("InLine")
+	case _ => sys.error("InLine")
       }
     }
 

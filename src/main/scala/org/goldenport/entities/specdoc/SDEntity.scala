@@ -23,7 +23,7 @@ class SDEntity(aName: String) extends SDNode(aName) {
       case pkg: SDPackage => new SElementRef(UJavaString.pathname2className(pkg.pathname),
 					 name)
       case entity: SDEntity => new SElementRef(UJavaString.pathname2packageName(entity.pathname), entity.name, name)
-      case _ => error("not implemented yet.")
+      case _ => sys.error("not implemented yet.")
     }
   }
 

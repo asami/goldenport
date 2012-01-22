@@ -24,7 +24,7 @@ abstract class SDoc(theChildren: SDoc*) extends GTreeNodeBase[SDoc] {
   private var _title: SATitle = _
 
   protected def new_Node(name: String): SDoc = {
-    error("newnode : " + this + "/" + getClass + " by " + name)
+    sys.error("newnode : " + this + "/" + getClass + " by " + name)
   }
 
   def isNil: Boolean = false

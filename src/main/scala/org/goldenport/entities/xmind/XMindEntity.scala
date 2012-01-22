@@ -112,7 +112,7 @@ class XMindEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityContext)
   private def make_content_xml: Elem = {
     def make_child(child: XMindNode): Elem = {
       child match {
-	case root: RootNode => error("not reached.")
+	case root: RootNode => sys.error("not reached.")
 	case sheet: SheetNode => {
 	  <sheet id={sheet.id} style-id="$NULL$map">
 	    { make_xml_node(sheet) }

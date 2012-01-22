@@ -18,7 +18,7 @@ class SDSummary(aName: String) extends SDNode(aName) {
     parent match {
       case pkg: SDPackage => SElementRef(UJavaString.pathname2className(pkg.pathname),
 					 name, null)
-      case _ => error("not implemented yet.")
+      case _ => sys.error("not implemented yet.")
     }
   }
 

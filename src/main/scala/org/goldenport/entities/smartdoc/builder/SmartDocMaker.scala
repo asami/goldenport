@@ -43,7 +43,7 @@ abstract class SmartDocMaker(val context: GEntityContext) extends GTreeVisitor[S
       case div: DivisionNode => enter_division(div)
       case desc: DescriptionNode => enter_description(desc)
       case table: TableNode => enter_table(table)
-      case node => error("not implemented yet:" + node)
+      case node => sys.error("not implemented yet:" + node)
     }
   }
 
@@ -54,24 +54,24 @@ abstract class SmartDocMaker(val context: GEntityContext) extends GTreeVisitor[S
       case div: DivisionNode => leave_division(div)
       case desc: DescriptionNode => leave_description(desc)
       case table: TableNode => leave_table(table)
-      case node => error("not implemented yet:" + node)
+      case node => sys.error("not implemented yet:" + node)
     }
   }
 
   private def enter_topic(div: TopicNode) {
-    error("topic")
+    sys.error("topic")
   }
 
   private def leave_topic(div: TopicNode) {
-    error("topic")
+    sys.error("topic")
   }
 
   private def enter_page(div: PageNode) {
-    error("page")
+    sys.error("page")
   }
 
   private def leave_page(div: PageNode) {
-    error("page")
+    sys.error("page")
   }
 
   private def enter_division(div: DivisionNode) {
@@ -80,8 +80,8 @@ abstract class SmartDocMaker(val context: GEntityContext) extends GTreeVisitor[S
       case _: SSChapter => SSSection()
       case _: SSSection => SSSubSection()
       case _: SSSubSection => SSSubSubSection()
-      case _: SSSubSubSection => error("too deep : " + current)
-      case _ => error("illegal structure node : " + current)
+      case _: SSSubSubSection => sys.error("too deep : " + current)
+      case _ => sys.error("illegal structure node : " + current)
     }
     child.title = div.title.deepCopy
     current.addChild(child)
@@ -116,7 +116,7 @@ abstract class SmartDocMaker(val context: GEntityContext) extends GTreeVisitor[S
       aDest.setHead(head)
     }
     if (aSrc.side.isDefined) {
-      error("not implemented yet.")
+      sys.error("not implemented yet.")
     }
     import_tabular(aSrc, aDest)
   }

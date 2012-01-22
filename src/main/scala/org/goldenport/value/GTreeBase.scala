@@ -98,7 +98,7 @@ trait GTreeBase[E] extends GTree[E] {
   }
 
   protected def copy_Node(aSource: GTreeNode[E], aTarget: GTreeNode[E]) {
-    error("missing implementation copy_Node(GTreeNode[E], GTreeNode[E]) : " + this)
+    sys.error("missing implementation copy_Node(GTreeNode[E], GTreeNode[E]) : " + this)
   }
 
   protected def open_Source(aSource: GTree[E]): Unit = null

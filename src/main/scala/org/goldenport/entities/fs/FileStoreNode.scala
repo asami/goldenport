@@ -26,7 +26,7 @@ class FileStoreNode(aName: String, aDataSource: FileDataSource, aEntity: GTreeCo
 
   private def fs_dataSource: FileDataSource = {
     get_dataSource() match {
-      case None => error("empty")
+      case None => sys.error("empty")
       case Some(ds) => ds.asInstanceOf[FileDataSource]
     }
   }

@@ -79,7 +79,7 @@ class SDocFactory(val rigid: Boolean) {
       case SSSubSubSectionXml(node) => node
       case SATitleXml(node) => node
       case SFragmentXml(node) => node
-      case _ => error("Unknown sdoc = " + xnode)
+      case _ => sys.error("Unknown sdoc = " + xnode)
     }
     for (child <- xnode.child) {
       snode.addChildOrChildren(create(child))

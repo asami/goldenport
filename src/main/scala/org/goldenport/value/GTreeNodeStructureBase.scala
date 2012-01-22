@@ -103,7 +103,7 @@ trait GTreeNodeStructureBase[E] extends GTreeNode[E] {
 
   protected def new_Node(name: String): TreeNode_TYPE
 
-  protected def copy_Node(): TreeNode_TYPE = error("missing copy_Node for deepCopy: " + this)
+  protected def copy_Node(): TreeNode_TYPE = sys.error("missing copy_Node for deepCopy: " + this)
 
   override def removeChild(aChild: GTreeNode[E]) {
     node_children -= aChild.asInstanceOf[TreeNode_TYPE]

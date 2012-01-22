@@ -163,7 +163,7 @@ class GParameterRepository {
       case Some("") => Nil
       case Some(string: String) => string2urls(string)
       case Some(url: URL) => url :: Nil
-      case Some(urls: Seq[URL]) => urls
+      case Some(urls: Seq[_]) if urls.forall(_.isInstanceOf[URL]) => urls.asInstanceOf[Seq[URL]]
       case Some(value) => string2urls(value.toString)
     }
   }

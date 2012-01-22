@@ -95,7 +95,7 @@ object ConsoleTitleServiceClass extends GServiceClass("") {
       case "" => new ConsoleTitleService(aCall, this)
       case "version" => new ConsoleVersionService(aCall, this)
       case "help" => new ConsoleHelpService(aCall, this)
-      case _ => error("not implemented yet")
+      case _ => sys.error("not implemented yet")
     }
   }
 }

@@ -41,10 +41,10 @@ trait GRecordable {
 
   //
   final protected def not_implemented_yet {
-    error("Not implmented yet (" + this + ")")
+    sys.error("Not implmented yet (" + this + ")")
   }
 
   final protected def not_implemented_yet(anAny: Any) {
-    error("Not implmented yet ( " + this + ") : " + anAny)
+    sys.error("Not implmented yet ( " + this + ") : " + anAny)
   }
 }

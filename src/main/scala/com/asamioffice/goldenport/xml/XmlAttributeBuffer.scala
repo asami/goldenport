@@ -12,7 +12,7 @@ class XmlAttributeBuffer {
 
   final def get(aKey: String): Option[Any] = {
     aKey match {
-      case PrefixedName(prefix, label) => error("")
+      case PrefixedName(prefix, label) => sys.error("")
       case _ => get(null, aKey)
     }
   }
@@ -26,7 +26,7 @@ class XmlAttributeBuffer {
 
   final def put(aKey: String, aValue: Any): Option[Any] = {
     aKey match {
-      case PrefixedName(prefix, label) => error("")
+      case PrefixedName(prefix, label) => sys.error("")
       case _ => put(null, aKey, aValue)
     }
   }

@@ -10,5 +10,5 @@ import org.goldenport.entity.datasource.GDataSource
  */
 class EntityDataSource(aContext: GEntityContext)(val entities: Entity*)  extends GDataSource(aContext) {
   override def is_Exist = true
-//  final def entities: List[Entity] = error("XXX")
+//  final def entities: List[Entity] = sys.error("XXX")
 }

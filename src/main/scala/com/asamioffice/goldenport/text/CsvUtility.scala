@@ -52,7 +52,7 @@ object CsvUtility {
 	    state = "init"
 	  }
 	}
-	case _ => error("bad state = " + state)
+	case _ => sys.error("bad state = " + state)
       }
     }
     if (state == "name") {
@@ -85,7 +85,7 @@ object CsvUtility {
     val start = value.indexOf('(')
     if (start == -1) return Nil
     val end = value.indexOf(')')
-    if (end == -1) error("syntax error: = " + value) // XXX
+    if (end == -1) sys.error("syntax error: = " + value) // XXX
     value.substring(start + 1, end).split("[;. ]+")
   }
 

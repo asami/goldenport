@@ -345,7 +345,7 @@ trait GTableBase[E] extends GTable[E] {
   }
 
   override def setSide(aSide: GAttributedTabular[SDoc]) = {
-    error("setSide")
+    sys.error("setSide")
   }
 
   private def calc_depth(node: GTreeNode[SDoc]) = {
@@ -436,7 +436,7 @@ trait GTableBase[E] extends GTable[E] {
 
   override def sideTree: Option[GTree[SDoc]] = {
     if (table_side == null) return None
-    error("")
+    sys.error("")
   }
 
   override def columnNames: Seq[SDoc] = {

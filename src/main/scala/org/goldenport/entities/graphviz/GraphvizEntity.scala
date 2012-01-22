@@ -25,11 +25,11 @@ class GraphvizEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityConte
   }
 
   override protected def open_Entity_Create(aDataSource: GDataSource) {
-    error("not implemented yet")
+    sys.error("not implemented yet")
   }
 
   override protected def open_Entity_Update(aDataSource: GDataSource) {
-    error("not implemented yet")
+    sys.error("not implemented yet")
   }
 
   override protected def write_Content(out: BufferedWriter) {

@@ -5,9 +5,11 @@ import org.goldenport.entity.content.GContent
 import org.goldenport.entity.content.EntityContent
 import com.asamioffice.goldenport.text.UPathString
 
-/*
- * Aug.  5, 2008
- * Mar. 12, 2009
+/**
+ * @since   Aug.  5, 2008
+ *  version Mar. 12, 2009
+ * @version Jan. 22, 2012
+ * @author  ASAMI, Tomoharu
  */
 abstract class GContainerEntityNode(aName: String, aEntity: GContainerEntity) {
   type ContainerEntity_TYPE <: GContainerEntity
@@ -61,7 +63,7 @@ abstract class GContainerEntityNode(aName: String, aEntity: GContainerEntity) {
   }
 
   def content_=(aContent: GContent) {
-    if (node_content == aContent) return node_content
+    if (node_content == aContent) return
     set_content(aContent)
     setDirty()
     notify_Set_Content(aContent)
@@ -114,7 +116,7 @@ abstract class GContainerEntityNode(aName: String, aEntity: GContainerEntity) {
     set_input_dataSource(aDataSource)
 //    if (this.isInstanceOf[org.goldenport.entities.fs.FileStoreNode]) { 2009-03-12
 //      println("setInputDataSource = " + aDataSource)
-//      error("???")
+//      sys.error("???")
 //    }
   }
 

@@ -127,10 +127,10 @@ abstract class GEntitySpace(val containerContext: GContainerContext, theParams: 
     else if (scheme == "http" || scheme == "https" || scheme == "ftp")
       new URLContent(uri.toURL(), aContext)
     else if (scheme == "tmp")
-      error("no TemporaryDirectoryContent")
+      sys.error("no TemporaryDirectoryContent")
 //      new TemporaryDirectoryContent(aContext)
     else if (scheme == "work")
-      error("no WorkFileContent")
+      sys.error("no WorkFileContent")
 //      new WorkFileContent(aContext)
     else
       new URIContent(uri, aContext)

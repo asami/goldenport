@@ -52,7 +52,7 @@ class GServiceRequest(val call: GServiceCall) {
 	value.toString.toLowerCase match {
 	  case "true" => Some(true)
 	  case "false" => Some(false)
-	  case _ => error("syntax error")
+	  case _ => sys.error("syntax error")
 	}
       }
       case None => None
@@ -105,7 +105,7 @@ class GServiceRequest(val call: GServiceCall) {
     try {
       UURL.getFileFromFileNameOrURLName(_arguments(0).toString)
     } catch {
-      case e => error("jump usage error")
+      case e => sys.error("jump usage error")
     }
   }
 
@@ -119,7 +119,7 @@ class GServiceRequest(val call: GServiceCall) {
 
   final def entity: GEntity = {
     if (_entity == null) {
-      error("jump usage error") // XXX
+      sys.error("jump usage error") // XXX
     }
     _entity
   }

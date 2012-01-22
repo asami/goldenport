@@ -29,7 +29,7 @@ abstract class GTreeEntityBase[E](aIn: GDataSource, aOut: GDataSource, aContext:
   }
 
   final override def copy_Node(aSource: GTreeNode[E], aTarget: GTreeNode[E]) {
-    error("not implemented yet.")
+    sys.error("not implemented yet.")
   }
 
   final override def open_Source(aSource: GTree[E]) {

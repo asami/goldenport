@@ -27,7 +27,7 @@ class DefaultExporter(aCall: GServiceCall) extends GExporter(aCall) {
 //	println("DefaultExporter entity = " + entry.entity)
         val pathname = if (entry.pathname != "") entry.pathname
         else if (entry.entity.name != "") entry.entity.name
-        else error("not implemented yet.")
+        else sys.error("not implemented yet.")
         output_realm.setEntity(pathname, entry.entity)
       } else {
         write_entity(entry.entity, entry.datasource)
@@ -37,7 +37,7 @@ class DefaultExporter(aCall: GServiceCall) extends GExporter(aCall) {
       if (entry.datasource == NullDataSource) {
 //	println("DefaultExporter content = " + entry.content)
         val pathname = if (entry.pathname != "") entry.pathname
-        else error("not implemented yet.")
+        else sys.error("not implemented yet.")
         output_realm.setContent(pathname, entry.content)
       } else {
         write_content(entry.content, entry.datasource)

@@ -1,7 +1,6 @@
 package org.goldenport.entities.graphviz
 
 import scala.collection.mutable.ArrayBuffer
-import com.asamioffice.text.TextBuilder
 
 /*
  * Jan. 17, 2009

@@ -26,7 +26,7 @@ class SmartDocRealmMaker(val context: GEntityContext) extends GTreeVisitor[SBNod
       case div: DivisionNode => enter_division(div)
       case desc: DescriptionNode => enter_description(desc)
       case table: TableNode => enter_table(table)
-      case node => error("not implemented yet:" + node)
+      case node => sys.error("not implemented yet:" + node)
     }
   }
 
@@ -37,7 +37,7 @@ class SmartDocRealmMaker(val context: GEntityContext) extends GTreeVisitor[SBNod
       case div: DivisionNode => leave_division(div)
       case desc: DescriptionNode => leave_description(desc)
       case table: TableNode => leave_table(table)
-      case node => error("not implemented yet:" + node)
+      case node => sys.error("not implemented yet:" + node)
     }
   }
 
@@ -102,7 +102,7 @@ class SmartDocRealmMaker(val context: GEntityContext) extends GTreeVisitor[SBNod
 	case div: DivisionNode => enter_index_division(div)
 	case desc: DescriptionNode => enter_index_description(desc)
 	case table: TableNode => enter_index_table(table)
-	case _ => error("not implemented yet:" + child + "/" + child.content)
+	case _ => sys.error("not implemented yet:" + child + "/" + child.content)
       }
     }
     indexBuilder.make

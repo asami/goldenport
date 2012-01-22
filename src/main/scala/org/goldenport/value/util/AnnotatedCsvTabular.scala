@@ -53,7 +53,7 @@ class AnnotatedCsvTabular(val csv: GTabular[String]) extends GTableBase[String] 
 	      val regex(key) = aCell
 	      (key, "")
 	    } catch {
-	      case ee: MatchError => error("illegal cell = " + aCell)
+	      case ee: MatchError => sys.error("illegal cell = " + aCell)
 	    }
 	  }
 	}
