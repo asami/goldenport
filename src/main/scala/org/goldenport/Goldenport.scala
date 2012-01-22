@@ -26,8 +26,8 @@ import org.goldenport.entity.datasource.BinaryDataSource
  * @author  ASAMI, Tomoharu
  */
 class Goldenport(theArgs: Array[String], aDesc: GApplicationDescriptor) extends GoldenportConstants {
-  val version = "0.2.4"
-  val build = "20120110"
+  val version = "0.3.0"
+  val build = "20120122"
   private var _system_parameters = setup_system_parameters
   private var _container_parameters = setup_container_parameters
   private var _application_parameters = setup_application_parameters(aDesc)
