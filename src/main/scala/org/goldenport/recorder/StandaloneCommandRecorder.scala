@@ -85,7 +85,7 @@ class StandaloneCommandRecorder(val context: GContainerContext) extends GRecorde
   override def record_info(message: String, args: Any*) {
     val msg = message.format(args: _*)
     if (RecorderLevel.isInfo(_message_level)) {
-      messager.message(msg)
+      messager.messageln(msg)
     }
     logger.info(msg)
   }
@@ -95,7 +95,7 @@ class StandaloneCommandRecorder(val context: GContainerContext) extends GRecorde
         RecorderLevel.isDebug(_logger_level)) {
       val msg = message
       if (RecorderLevel.isDebug(_message_level)) {
-        messager.message(msg)
+        messager.messageln(msg)
       }
       if (RecorderLevel.isDebug(_logger_level)) {
         logger.debug(msg)
@@ -108,7 +108,7 @@ class StandaloneCommandRecorder(val context: GContainerContext) extends GRecorde
         RecorderLevel.isTrace(_logger_level)) {
       val msg = message
       if (RecorderLevel.isTrace(_message_level)) {
-        messager.message(msg)
+        messager.messageln(msg)
       }
       if (RecorderLevel.isDebug(_logger_level)) {
         logger.trace(msg)

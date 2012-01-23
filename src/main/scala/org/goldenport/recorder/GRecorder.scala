@@ -65,6 +65,14 @@ trait GRecorder {
    */
   def record_trace(message: => String)
 
+  protected final def record_trace_block[T](label: String)(
+      enter: => String)(body: => T): T = {
+    record_trace("<enter> " + label + " <= " + enter)
+    val r = body
+    record_trace("<leave> " + label + " => " + r)
+    r
+  }
+
   /**
    * information for console message and report
    * 

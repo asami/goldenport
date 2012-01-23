@@ -9,11 +9,13 @@ import org.goldenport.entity.content.GContent
  * derived from DefaultRExporter.java since Aug. 11, 2006
  *
  * @since   Aug. 29, 2008
- * @version Sep. 26, 2010
+ *  version Sep. 26, 2010
+ * @version Jan. 23, 2012
  * @author  ASAMI, Tomoharu
  */
 class DefaultExporter(aCall: GServiceCall) extends GExporter(aCall) {
   override def execute_Export() {
+/*
     response.result match {
       case None => ;
       case result: Traversable[_] => {
@@ -22,6 +24,7 @@ class DefaultExporter(aCall: GServiceCall) extends GExporter(aCall) {
       }
       case result => record_message(result.toString)
     }
+*/    
     for (entry <- response.entities) {
       if (entry.datasource == NullDataSource) {
 //	println("DefaultExporter entity = " + entry.entity)

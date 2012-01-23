@@ -7,9 +7,10 @@ import org.goldenport.recorder.GRecordable
 import org.goldenport.entity._
 import org.goldenport.entities.fs.FileStoreEntity
 
-/*
+/**
  * @since   Aug. 29, 2008
- * @version Oct. 16, 2009
+ *  version Oct. 16, 2009
+ * @version Jan. 23, 2011
  * @author  ASAMI, Tomoharu
  */
 abstract class GExporter(val serviceCall: GServiceCall) extends GRecordable with GoldenportConstants {
@@ -32,7 +33,7 @@ abstract class GExporter(val serviceCall: GServiceCall) extends GRecordable with
       val filename = parameter(Container_Output_Base).toString
       require (filename != null && filename != "", filename)
       val file = new File(filename)
-      record_debug("DefaultExporter file = " + file.getAbsolutePath)
+      record_trace("Exporter file = " + file.getAbsolutePath)
       _output_realm = new FileStoreEntity(file, entityContext)
       _output_realm.open()
     }

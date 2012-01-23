@@ -33,37 +33,43 @@ object RecorderLevel {
 
   def isWarning(level: RecorderLevel): Boolean = {
     level match {
-      case ErrorLevel => true
+      case ErrorLevel => false
       case WarningLevel => true
+      case InfoLevel => true
+      case DebugLevel => true
+      case TraceLevel => true
       case _ => false
     }
   }
 
   def isInfo(level: RecorderLevel): Boolean = {
     level match {
-      case ErrorLevel => true
-      case WarningLevel => true
+      case ErrorLevel => false
+      case WarningLevel => false
       case InfoLevel => true
+      case DebugLevel => true
+      case TraceLevel => true
       case _ => false
     }
   }
 
   def isDebug(level: RecorderLevel): Boolean = {
     level match {
-      case ErrorLevel => true
-      case WarningLevel => true
-      case InfoLevel => true
+      case ErrorLevel => false
+      case WarningLevel => false
+      case InfoLevel => false
       case DebugLevel => true
+      case TraceLevel => true
       case _ => false
     }
   }
 
   def isTrace(level: RecorderLevel): Boolean = {
     level match {
-      case ErrorLevel => true
-      case WarningLevel => true
-      case InfoLevel => true
-      case DebugLevel => true
+      case ErrorLevel => false
+      case WarningLevel => false
+      case InfoLevel => false
+      case DebugLevel => false
       case TraceLevel => true
       case _ => false
     }
