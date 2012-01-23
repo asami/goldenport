@@ -8,7 +8,8 @@ import org.goldenport.monitor.GMonitor
  * Logger, Messager, Reporter
  *
  * @since   Oct. 29, 2008
- * @version Oct. 16, 2009
+ *  version Oct. 16, 2009
+ * @version Jan. 23, 2012
  * @author  ASAMI, Tomoharu
  */
 class MonitorRecorder(val monitor: GMonitor) extends GRecorder {
@@ -44,12 +45,12 @@ class MonitorRecorder(val monitor: GMonitor) extends GRecorder {
     logger.info(msg)
   }
 
-  override def record_debug(message: String, args: Any*) {
-    logger.debug(message.format(args: _*))
+  override def record_debug(message: => String) {
+    logger.debug(message)
   }
 
-  override def record_trace(message: String, args: Any*) {
-    logger.trace(message.format(args: _*))
+  override def record_trace(message: => String) {
+    logger.trace(message)
   }
 
   override def record_messageC(message: String, args: Any*) {

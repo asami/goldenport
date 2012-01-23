@@ -82,6 +82,11 @@ abstract class GContainerContext(val monitor: GMonitor, val parameters: GParamet
     RecorderLevel.create(level) | InfoLevel
   }
 
+  def loggerLevel: RecorderLevel = {
+    val level = loggerKind
+    RecorderLevel.create(level) | InfoLevel
+  }
+
   final def messagerKind: String = {
     parameters.get(Container_Message) match {
       case Some(kind) => kind.toString

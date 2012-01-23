@@ -17,7 +17,8 @@ import org.goldenport.parameter.GParameterRepository
  * </dl>
  *
  * @since   Oct. 28, 2008
- * @version Oct. 30, 2011
+ *  version Oct. 30, 2011
+ * @version Jan. 23, 2012
  * @author  ASAMI, Tomoharu
  */
 trait GRecorder {
@@ -57,12 +58,12 @@ trait GRecorder {
   /**
    * log: debug
    */
-  def record_debug(message: String, args: Any*)
+  def record_debug(message: => String)
 
   /**
    * log: trace
    */
-  def record_trace(message: String, args: Any*)
+  def record_trace(message: => String)
 
   /**
    * information for console message and report
@@ -101,10 +102,10 @@ trait NullRecorder extends GRecorder {
   override def record_info(message: String, args: Any*) {
   }
 
-  override def record_debug(message: String, args: Any*) {
+  override def record_debug(message: => String) {
   }
 
-  override def record_trace(message: String, args: Any*) {
+  override def record_trace(message: => String) {
   }
 
   override def record_messageC(message: String, args: Any*) {

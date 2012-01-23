@@ -6,7 +6,8 @@ package org.goldenport.recorder
  * Logger, Messager, Reporter
  *
  * @since   Oct. 28, 2008
- * @version Nov. 10, 2011
+ *  version Nov. 10, 2011
+ * @version Jan. 23, 2012
  * @author  ASAMI, Tomoharu
  */
 trait GRecordable {
@@ -35,8 +36,12 @@ trait GRecordable {
     recorder.record_message()
   }
 
-  final protected def record_debug(message: String, args: AnyRef*) {
-    recorder.record_debug(message, args: _*)
+  final protected def record_debug(message: => String) {
+    recorder.record_debug(message)
+  }
+
+  final protected def record_trace(message: => String) {
+    recorder.record_trace(message)
   }
 
   //

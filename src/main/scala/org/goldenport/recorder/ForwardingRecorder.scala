@@ -9,7 +9,8 @@ import org.goldenport.parameter.{GParameterRepository, NullParameterRepository}
  *
  * @since   Oct. 29, 2008
  *  version Nov.  5, 2011
- * @version Dec.  9, 2011
+ *  version Dec.  9, 2011
+ * @version Jan. 23, 2012
  * @author  ASAMI, Tomoharu
  */
 trait ForwardingRecorder extends GRecorder {
@@ -54,12 +55,12 @@ trait ForwardingRecorder extends GRecorder {
     _recorder.record_info(message, args: _*)
   }
 
-  override def record_debug(message: String, args: Any*) {
-    _recorder.record_debug(message, args: _*)
+  override def record_debug(message: => String) {
+    _recorder.record_debug(message)
   }
 
-  override def record_trace(message: String, args: Any*) {
-    _recorder.record_trace(message, args: _*)
+  override def record_trace(message: => String) {
+    _recorder.record_trace(message)
   }
 
   override def record_messageC(message: String, args: Any*) {
