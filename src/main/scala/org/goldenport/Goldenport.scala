@@ -22,12 +22,12 @@ import org.goldenport.entity.datasource.BinaryDataSource
 
 /*
  * @since   Aug. 28, 2008
- * @version Jan. 10, 2012
+ * @version Jan. 23, 2012
  * @author  ASAMI, Tomoharu
  */
 class Goldenport(theArgs: Array[String], aDesc: GApplicationDescriptor) extends GoldenportConstants {
-  val version = "0.3.0"
-  val build = "20120122"
+  val version = "0.3.1-SNAPSHOT"
+  val build = "20120123"
   private var _system_parameters = setup_system_parameters
   private var _container_parameters = setup_container_parameters
   private var _application_parameters = setup_application_parameters(aDesc)
@@ -85,6 +85,7 @@ class Goldenport(theArgs: Array[String], aDesc: GApplicationDescriptor) extends 
     params.put(Container_Text_Line_Separator, "\n")
     params.put(Container_Input_Base, ".")
     params.put(Container_Output_Base, ".")
+    params.put(Container_Message, "info")
     params.put(Container_Log, "none")
     params.put(Container_Report, "none")
     params.put(Container_Script, "false")
@@ -417,6 +418,7 @@ trait GoldenportConstants {
   val Container_Output_Report = "container.output.report"
   val Container_Output_Report_Alias = "output.report"
   val Container_Classpath = "container.classpath"
+  val Container_Message = "container.message"
   val Container_Log = "container.log"
   val Container_Report = "container.report"
   val Container_Script = "container.script"

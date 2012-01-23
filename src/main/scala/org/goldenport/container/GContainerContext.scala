@@ -1,5 +1,7 @@
 package org.goldenport.container
 
+import scalaz._
+import Scalaz._
 import java.io.File
 import java.net.URL
 import java.util.GregorianCalendar
@@ -8,13 +10,16 @@ import org.goldenport.monitor.{GMonitor, DefaultMonitor}
 import org.goldenport.recorder.ForwardingRecorder
 import org.goldenport.parameter._
 import com.asamioffice.goldenport.util.ContextClassLoader
+import org.goldenport.recorder.RecorderLevel
+import org.goldenport.recorder.InfoLevel
 
 /*
  * derived from IRContainerContext.java and AbstractContainerContext.java
  * since Jul. 11, 2006
  *
  * @since   Nov.  3, 2008
- * @version Jul. 31, 2010
+ *  version Jul. 31, 2010
+ * @version Jan. 23, 2012
  * @author  ASAMI, Tomoharu
  */
 abstract class GContainerContext(val monitor: GMonitor, val parameters: GParameterRepository) extends ForwardingRecorder with GoldenportConstants {
@@ -70,6 +75,18 @@ abstract class GContainerContext(val monitor: GMonitor, val parameters: GParamet
 
   final def getResource(aName: String): URL = {
     _classLoader.getResource(aName)
+  }
+
+  def messagerLevel: RecorderLevel = {
+    val level = messagerKind
+    RecorderLevel.create(level) | InfoLevel
+  }
+
+  final def messagerKind: String = {
+    parameters.get(Container_Message) match {
+      case Some(kind) => kind.toString
+      case _ => throw new IllegalStateException("%sに値が設定されていません。".format(Container_Message))
+    }
   }
 
   final def loggerKind: String = {

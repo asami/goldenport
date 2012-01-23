@@ -7,22 +7,25 @@ import org.goldenport.monitor.messager._
 import org.goldenport.logger._
 import org.goldenport.reporter._
 
-/*
+/**
  * Provides recording facility
  *
  * Logger, Messager, Reporter
  *
  * @since   Apr.  2, 2009
  * @version Oct. 30, 2011
+ *  version Jan. 23, 2012
  * @author  ASAMI, Tomoharu
  */
 class StandaloneCommandRecorder(val context: GContainerContext) extends GRecorder {
   private var messager: GMessager = _
   private var logger: GLogger = _
   private var reporter: GReporter = _
+  private var _message_level: RecorderLevel = null
 
   override def openRecorder() {
     messager = new ConsoleMessager
+    _message_level = context.messagerLevel
     logger = context.loggerKind match {
       case "none" => new NullLogger
       case _ => new StandaloneCommandLogger(context)
@@ -43,45 +46,61 @@ class StandaloneCommandRecorder(val context: GContainerContext) extends GRecorde
   }
 
   override def record_error(ex: Throwable) {
-    messager.errorln(ex.getMessage)
+    if (RecorderLevel.isError(_message_level)) {
+      messager.errorln(ex.getMessage)
+    }
     logger.error(ex)
     reporter.error(ex)
   }
 
   override def record_error(message: String, args: Any*) {
     val msg = message.format(args: _*)
-    messager.errorln(msg)
+    if (RecorderLevel.isError(_message_level)) {
+      messager.errorln(msg)
+    }
     logger.error(msg)
     reporter.error(msg)
   }
 
   override def record_error(ex: Throwable, message: String, args: Any*) {
     val msg = message.format(args: _*)
-    messager.errorln(msg)
+    if (RecorderLevel.isError(_message_level)) {
+      messager.errorln(msg)
+    }
     logger.error(ex, msg)
     reporter.error(ex, msg)
   }
 
   override def record_warning(message: String, args: Any*) {
     val msg = message.format(args: _*)
-    messager.warningln(msg)
+    if (RecorderLevel.isWarning(_message_level)) {
+      messager.warningln(msg)
+    }
     logger.warning(msg)
     reporter.warning(msg)
   }
 
   override def record_info(message: String, args: Any*) {
     val msg = message.format(args: _*)
-    messager.message(msg)
+    if (RecorderLevel.isInfo(_message_level)) {
+      messager.message(msg)
+    }
     logger.info(msg)
   }
 
   override def record_debug(message: String, args: Any*) {
     val msg = message.format(args: _*)
+    if (RecorderLevel.isDebug(_message_level)) {
+      messager.message(msg)
+    }
     logger.debug(msg)
   }
 
   override def record_trace(message: String, args: Any*) {
     val msg = message.format(args: _*)
+    if (RecorderLevel.isTrace(_message_level)) {
+      messager.message(msg)
+    }
     logger.trace(msg)
   }
 
