@@ -19,6 +19,7 @@ import org.goldenport.application._
 import com.asamioffice.goldenport.util.CommandParameterParser
 import org.goldenport.entity.datasource.GDataSource
 import org.goldenport.entity.datasource.BinaryDataSource
+import org.goldenport.entity.datasource.StringDataSource
 
 /*
  * @since   Aug. 28, 2008
@@ -273,7 +274,11 @@ class Goldenport(theArgs: Array[String], aDesc: GApplicationDescriptor) extends 
   def createDataSource(name: String, data: Array[Byte], mimetype: String = null): GDataSource = {
     BinaryDataSource.createBinary(data, entity_space.context, name, mimetype)
   }
-  
+
+  def createStringDataSource(name: String, data: String, mimetype: String = null): GDataSource = {
+    new StringDataSource(name, entity_space.context)(data)
+  }
+
   class GoldenportContainerContext(aMonitor: GMonitor, theParams: GParameterRepository) extends GContainerContext(aMonitor, theParams) {
     private var _encoding: Option[String] = None
     private var _newline: Option[String] = None
