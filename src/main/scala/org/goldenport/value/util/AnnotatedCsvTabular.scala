@@ -5,7 +5,8 @@ import org.goldenport.value.{GTabular, GTableBase, PlainTable}
 
 /*
  * @since   Feb.  3, 2009
- * @version Jul. 15, 2010
+ *  version Jul. 15, 2010
+ * @version Jan. 24, 2012
  * @author  ASAMI, Tomoharu
  */
 class AnnotatedCsvTabular(val csv: GTabular[String]) extends GTableBase[String] {
@@ -27,9 +28,9 @@ class AnnotatedCsvTabular(val csv: GTabular[String]) extends GTableBase[String] 
     def build_line(line: Seq[String]) {
       if (line.isEmpty) return
       if (line(0).startsWith("#")) {
-	build_annotations(line)
+      	build_annotations(line)
       } else {
-	build_data(line)
+        build_data(line)
       }
     }
 
@@ -41,32 +42,33 @@ class AnnotatedCsvTabular(val csv: GTabular[String]) extends GTableBase[String] 
 
     def build_annotations(aLine: Seq[String]) {
       def get_key_value(aCell: String): (String, String) = {
-	if (aCell == null) return null
-	try {
-	  val regex = """#?(\w+)\W*=\W*(\w+)\W*""".r
-	  val regex(key, value) = aCell
-	  (key, value)
-	} catch {
-	  case e: MatchError => {
-	    try {
-	      val regex = """#?(\w+)\W*""".r
-	      val regex(key) = aCell
-	      (key, "")
-	    } catch {
-	      case ee: MatchError => sys.error("illegal cell = " + aCell)
-	    }
-	  }
-	}
+        if (aCell == null) return null
+        if (aCell == "#") return ("", "")
+        try {
+          val regex = """#?(\w+)\W*=\W*(\w+)\W*""".r
+          val regex(key, value) = aCell
+          (key, value)
+        } catch {
+          case e: MatchError => {
+            try {
+              val regex = """#?(\w+)\W*""".r
+              val regex(key) = aCell
+              (key, "")
+            } catch {
+            case ee: MatchError => sys.error("illegal cell = " + aCell)
+            }
+          }
+        }
       }
 
       for (i <- 0 until aLine.length) {
-	val keyValue = get_key_value(aLine(i))
-	val attr = new Annotation(keyValue._1, keyValue._2)
-	if (current.length > i) {
-	  current(i) = attr
-	} else {
-	  current += attr
-	} 
+        val keyValue = get_key_value(aLine(i))
+        val attr = new Annotation(keyValue._1, keyValue._2)
+        if (current.length > i) {
+          current(i) = attr
+        } else {
+          current += attr
+        } 
       }
     }
 

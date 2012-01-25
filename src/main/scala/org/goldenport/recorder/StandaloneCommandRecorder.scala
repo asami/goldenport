@@ -14,7 +14,7 @@ import org.goldenport.reporter._
  *
  * @since   Apr.  2, 2009
  * @version Oct. 30, 2011
- *  version Jan. 23, 2012
+ *  version Jan. 25, 2012
  * @author  ASAMI, Tomoharu
  */
 class StandaloneCommandRecorder(val context: GContainerContext) extends GRecorder {
@@ -138,5 +138,8 @@ class StandaloneCommandRecorder(val context: GContainerContext) extends GRecorde
   override def record_report(message: String, args: Any*) {
     val msg = message.format(args: _*)
     reporter.message(msg)
+    if (RecorderLevel.isTrace(_message_level)) {
+        messager.messageln("[report] " + msg)
+    }    
   }
 }
