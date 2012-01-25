@@ -20,7 +20,7 @@ import java.net.URI
  * @since   Aug.  6, 2008
  *  version Sep. 17, 2010
  *  version Jan.  9, 2012
- * @version Jan. 20, 2012
+ * @version Jan. 25, 2012
  * @author  ASAMI, Tomoharu
  */
 abstract class GEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityContext) extends GObject {
@@ -109,9 +109,17 @@ abstract class GEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityCon
     if (input_dataSource == null || input_dataSource == NullDataSource) {
       open_Entity_Create()
     } else if (!input_dataSource.isExist) {
+      _set_name_if_needed
       open_Entity_Create(input_dataSource)
     } else {
+      _set_name_if_needed
       open_Entity_Update(input_dataSource)
+    }
+  }
+
+  private def _set_name_if_needed {
+    if (name == "") {
+      name = input_dataSource.simpleName
     }
   }
 
