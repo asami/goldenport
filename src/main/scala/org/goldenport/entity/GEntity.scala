@@ -20,7 +20,7 @@ import java.net.URI
  * @since   Aug.  6, 2008
  *  version Sep. 17, 2010
  *  version Jan.  9, 2012
- * @version Jan. 25, 2012
+ * @version Jan. 27, 2012
  * @author  ASAMI, Tomoharu
  */
 abstract class GEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityContext) extends GObject {
@@ -41,6 +41,8 @@ abstract class GEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityCon
 
   def this(aDataSource: GDataSource, aContext: GEntityContext) = this(aDataSource, aDataSource, aContext)
   def this(aContext: GEntityContext) = this(null, aContext)
+
+  setup_Recordable(aContext)
 
   /*
    */
