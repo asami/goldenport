@@ -17,7 +17,8 @@ import org.goldenport.entity._
  * since Feb. 6, 2006
  *
  * @since   Aug.  6, 2008
- * @version Sep. 18, 2010
+ *  version Sep. 18, 2010
+ * @version Feb.  1, 2012
  * @author  ASAMI, Tomoharu
  */
 abstract class GEntitySpace(val containerContext: GContainerContext, theParams: GParameterRepository) extends GTreeContainerObject {
@@ -43,7 +44,8 @@ abstract class GEntitySpace(val containerContext: GContainerContext, theParams: 
   }
 
   final def reconstitute[R <: GEntity](anAny: Any): Option[R] = {
-    reconstitute[R](getDataSource(anAny))
+    if (anAny.isInstanceOf[GEntity]) Some(anAny.asInstanceOf[R])
+    else reconstitute[R](getDataSource(anAny)) 
   }
 
   final def reconstitute[R <: GEntity](aDataSource: GDataSource): Option[R] = {

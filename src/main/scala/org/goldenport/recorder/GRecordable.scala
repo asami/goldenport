@@ -7,7 +7,7 @@ package org.goldenport.recorder
  *
  * @since   Oct. 28, 2008
  *  version Nov. 10, 2011
- * @version Jan. 23, 2012
+ * @version Feb.  1, 2012
  * @author  ASAMI, Tomoharu
  */
 trait GRecordable {
@@ -20,6 +20,10 @@ trait GRecordable {
   }
 
   //
+  def record_error(message: String, args: Any*) {
+    recorder.record_error(message, args: _*)
+  }
+
   def record_error(e: Throwable, message: String, args: Any*) { 
     recorder.record_error(e, message, args: _*)
   }
