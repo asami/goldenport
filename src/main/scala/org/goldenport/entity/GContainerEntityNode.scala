@@ -8,7 +8,7 @@ import com.asamioffice.goldenport.text.UPathString
 /**
  * @since   Aug.  5, 2008
  *  version Mar. 12, 2009
- * @version Jan. 22, 2012
+ * @version Feb.  3, 2012
  * @author  ASAMI, Tomoharu
  */
 abstract class GContainerEntityNode(aName: String, aEntity: GContainerEntity) {
@@ -53,9 +53,6 @@ abstract class GContainerEntityNode(aName: String, aEntity: GContainerEntity) {
 
   protected def node_Suffix: Option[String] = None
 
-  /*
-   * ??? should use Option?
-   */
   def content: GContent = {
     fill_node()
     if (node_content == null) null
@@ -67,6 +64,14 @@ abstract class GContainerEntityNode(aName: String, aEntity: GContainerEntity) {
     set_content(aContent)
     setDirty()
     notify_Set_Content(aContent)
+  }
+
+  def getContent: Option[GContent] = {
+    Option(content)
+  }
+
+  def isContent: Boolean = {
+    content != null
   }
 
   final protected def set_content(aContent: GContent) {
