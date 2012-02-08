@@ -4,7 +4,8 @@ import scala.xml.Node
 
 /*
  * @since   Aug. 12, 2008
- * @version Apr. 17, 2011
+ *  version Apr. 17, 2011
+ * @version Feb.  8, 2012
  * @author  ASAMI, Tomoharu
  */
 trait GTreeBase[E] extends GTree[E] {
@@ -22,7 +23,7 @@ trait GTreeBase[E] extends GTree[E] {
   }
 
   final def root: TreeNode_TYPE = {
-    require (root_node != null)
+    require (root_node != null, "GTreeBase: root node is empty")
     return root_node
   }
 
