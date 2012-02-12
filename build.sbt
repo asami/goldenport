@@ -24,6 +24,8 @@ resolvers += "Local Maven Repository" at "file://"+Path.userHome.absolutePath+"/
 
 libraryDependencies += "org.scala-lang" % "scala-compiler" % "2.9.1"
 
+libraryDependencies += "org.scala-lang" % "scala-swing" % "2.9.1"
+
 libraryDependencies += "org.scalatest" % "scalatest_2.9.1" % "1.6.1" % "test"
 
 libraryDependencies += "junit" % "junit" % "4.7" % "test"

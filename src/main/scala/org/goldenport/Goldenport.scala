@@ -11,6 +11,7 @@ import org.goldenport.container.GContainerContext
 import org.goldenport.session._
 import org.goldenport.service._
 import org.goldenport.services.ConsoleTitleServiceClass
+import org.goldenport.services.SwingExecutorServiceClass
 import org.goldenport.entity._
 import org.goldenport.importer._
 import org.goldenport.exporter._
@@ -23,12 +24,12 @@ import org.goldenport.entity.datasource.StringDataSource
 
 /*
  * @since   Aug. 28, 2008
- * @version Jan. 27, 2012
+ * @version Feb. 11, 2012
  * @author  ASAMI, Tomoharu
  */
 class Goldenport(theArgs: Array[String], aDesc: GApplicationDescriptor) extends GoldenportConstants {
-  val version = "0.3.1" // SNAPSHOT
-  val build = "20120127"
+  val version = "0.3.2-SNAPSHOT"
+  val build = "20120211"
   private var _system_parameters = setup_system_parameters
   private var _container_parameters = setup_container_parameters
   private var _application_parameters = setup_application_parameters(aDesc)
@@ -177,6 +178,7 @@ class Goldenport(theArgs: Array[String], aDesc: GApplicationDescriptor) extends 
 
   private def setup_default_services {
     addServiceClass(ConsoleTitleServiceClass)
+    addServiceClass(SwingExecutorServiceClass)
   }
 
   private def setup_application(aDesc: GApplicationDescriptor) {
