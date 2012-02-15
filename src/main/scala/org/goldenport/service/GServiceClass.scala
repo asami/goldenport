@@ -1,14 +1,25 @@
 package org.goldenport.service
 
+import scalaz._
+import Scalaz._
 import org.goldenport.GClass
+import com.asamioffice.goldenport.text.UString
+import org.smartdox.{Dox, Empty}
+import org.goldenport.record._
 
 /*
  * Service instance which binds with ServiceCall and Unitofwork.
  *
- * Aug. 28, 2008
- * Oct. 30, 2008
+ * @since   Aug. 28, 2008
+ *  version Oct. 30, 2008
+ * @version Feb. 15, 2012
+ * @author  Asami, Tomoharu
  */
 abstract class GServiceClass(val name: String) extends GClass {
+  var summary = ""
+  var description: Dox = Empty
+  var contract: RecordSchema = Schema()
+
   final def accept(aCall: GServiceCall): Boolean = {
     accept_Service_Name(aCall) match {
       case Some(result) => return result

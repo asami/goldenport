@@ -72,10 +72,8 @@ class ConsoleHelpService(aCall: GServiceCall, serviceClass: GServiceClass) exten
     record_message()
     record_message()
     for (service <- serviceContext.serviceSpace.serviceClasses
-	 if (service.name != "")) {
-      record_messageC("-")
-      record_messageC(service.name)
-      record_message()
+	       if service.name != "") {
+      record_message("- %s     \t%s", service.name, service.summary)
     }
   }
 }
