@@ -4,7 +4,7 @@ import scalaz._
 import Scalaz._
 import org.goldenport.GClass
 import com.asamioffice.goldenport.text.UString
-import org.smartdox.{Dox, Empty}
+import org.smartdox.DescriptionVar
 import org.goldenport.record._
 
 /*
@@ -12,12 +12,11 @@ import org.goldenport.record._
  *
  * @since   Aug. 28, 2008
  *  version Oct. 30, 2008
- * @version Feb. 15, 2012
+ * @version Feb. 17, 2012
  * @author  Asami, Tomoharu
  */
 abstract class GServiceClass(val name: String) extends GClass {
-  var summary = ""
-  var description: Dox = Empty
+  var description = new DescriptionVar
   var contract: RecordSchema = Schema()
 
   final def accept(aCall: GServiceCall): Boolean = {

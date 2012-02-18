@@ -12,18 +12,20 @@ import org.goldenport.entity._
 import org.goldenport.record._
 import org.goldenport.swing._
 import org.goldenport.util.ArrayMap
+import org.goldenport.record.DefaultRecordContext
 
 /**
  * @since   Feb. 11, 2012
- * @version Feb. 16, 2012
+ * @version Feb. 18, 2012
  * @author  ASAMI, Tomoharu
  */
 class SwingExecutorService(aCall: GServiceCall, serviceClass: GServiceClass) extends GService(aCall, serviceClass) {
   def execute_Service(aRequest: GServiceRequest, aResponse: GServiceResponse) {
     val swing = new SimpleSwingApplication {
-      def top = new MainFrame {
+      def top = new Frame {
         title = "SimpleModeler"
         contents = new ExecutionPanel(serviceContext)
+        minimumSize = new Dimension(480, 320)
       }
     }
     swing.main(Array.empty)
@@ -76,11 +78,11 @@ class ExecutionPanel(val serviceContext: GServiceContext) extends BorderPanel {
 
   private def _system_properties = {
     val schema = Schema() 
-    new PropertySheetPanel(schema)
+    new PropertySheetPanel(schema)(DefaultSwingContext)
   }
 
   private def _command_properties(s: GServiceClass) = {
-    new PropertySheetPanel(s.contract)
+    new PropertySheetPanel(s.contract)(DefaultSwingContext)
   }
 
   private def _header = {
