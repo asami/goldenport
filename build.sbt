@@ -2,7 +2,7 @@ seq(giter8Settings :_*)
 
 name := "goldenport"
 
-version := "0.3.2-SNAPSHOT"
+version := "0.3.2"
 
 organization := "org.goldenport"
 
@@ -16,11 +16,13 @@ scalacOptions += "-deprecation"
 
 scalacOptions += "-unchecked"
 
-resolvers += "Scala Tools Snapshots" at "http://scala-tools.org/repo-snapshots/"
+// resolvers += "Scala Tools Snapshots" at "http://scala-tools.org/repo-snapshots/"
 
-resolvers += Classpaths.typesafeResolver
+// resolvers += Classpaths.typesafeResolver
 
-resolvers += "Local Maven Repository" at "file://"+Path.userHome.absolutePath+"/.m2/repository"
+// resolvers += "Local Maven Repository" at "file://"+Path.userHome.absolutePath+"/.m2/repository"
+
+resolvers += "Asami Maven Repository" at "http://www.asamioffice.com/maven"
 
 libraryDependencies += "org.scala-lang" % "scala-compiler" % "2.9.1"
 
@@ -41,5 +43,13 @@ libraryDependencies += "org.apache.poi" % "poi" % "3.8-beta4" % "provided"
 libraryDependencies += "org.apache.poi" % "poi-ooxml" % "3.8-beta4" % "provided"
 
 libraryDependencies += "org.scalaz" %% "scalaz-core" % "6.0.3"
+
+libraryDependencies += "org.goldenport" % "goldenport-java-lib" % "0.1.0"
+
+libraryDependencies += "org.goldenport" %% "goldenport-scala-lib" % "0.1.2"
+
+libraryDependencies += "org.goldenport" %% "goldenport-record" % "0.1.0"
+
+libraryDependencies += "org.goldenport" %% "goldenport-swing" % "0.1.0"
 
 publishTo := Some(Resolver.file("asamioffice", file("target/maven-repository")))
