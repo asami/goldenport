@@ -1,11 +1,13 @@
 package org.goldenport.value
 
 import scala.xml.Node
+import scalaz._
+import Scalaz._
 
 /*
  * @since   Aug. 12, 2008
  *  version Apr. 17, 2011
- * @version Feb.  8, 2012
+ * @version Feb. 21, 2012
  * @author  ASAMI, Tomoharu
  */
 trait GTreeBase[E] extends GTree[E] {
@@ -144,5 +146,27 @@ trait GTreeBase[E] extends GTree[E] {
   final def toPrettyXml: String = {
     assert(root_node != null)
     root_node.toPrettyXml
+  }
+
+  def ztree: Tree[GTreeNode[E]] = {
+    _ztree(root_node)
+  }
+
+  private def _ztree(node: GTreeNode[E]): Tree[GTreeNode[E]] = {
+    val cs = node.children.toStream.map {
+      x => _ztree(x.asInstanceOf[GTreeNode[E]])
+    }
+    Scalaz.node(node, cs)
+  }
+
+  def ztree0: Tree[E] = {
+    _ztree0(root_node)
+  }
+
+  private def _ztree0(node: TreeNode_TYPE): Tree[E] = {
+    val cs = node.children.toStream.map {
+      x => _ztree0(x.asInstanceOf[TreeNode_TYPE])    
+    }
+    Scalaz.node(node.content, cs)
   }
 }

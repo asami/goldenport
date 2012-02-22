@@ -4,19 +4,26 @@ import scala.xml._
 import scala.collection.mutable.ArrayBuffer
 import java.util.Locale
 import com.asamioffice.goldenport.xml.XmlAttributeBuffer
+import java.util.UUID
 
-/*
+/**
  * @since   Aug. 13, 2008
- * @version Sep. 19, 2011
+ *  version Sep. 19, 2011
+ * @version Feb. 22, 2012
  * @author  ASAMI, Tomoharu
  */
 trait GTreeNodeStructureBase[E] extends GTreeNode[E] {
+  val id: String = UUID.randomUUID.toString
+  private var node_title: String = _
   private var node_parent: GTreeNode[E] = _
   private val node_children = new ArrayBuffer[GTreeNode[E]]()
   private var node_facade: GTree[E] = _
   private var is_filled_children = false
   private var is_modified = false
   private var xml_attributes = new XmlAttributeBuffer
+
+  override def title: String = node_title
+  override def title_=(s: String) = node_title = s
 
   override def isRoot: Boolean = { parent == null }
 

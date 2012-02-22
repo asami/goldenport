@@ -6,22 +6,23 @@ import java.util.UUID
 import org.goldenport.value.GTreeNodeBase
 import org.goldenport.sdoc.attribute._
 
-/*
+/**
  * derived from SNode.java since Sep. 17, 2006
  *
- * Sep.  1, 2008
- * Nov.  9, 2008
+ * @since   Sep.  1, 2008
+ *  version Nov.  9, 2008
+ * @version Nov.  9, 2008
+ * @author  ASAMI, Tomoharu
  */
 abstract class SDoc(theChildren: SDoc*) extends GTreeNodeBase[SDoc] {
   type TreeNode_TYPE = SDoc
   content = this
   theChildren.foreach(addChildOrChildren)
 
-  var id: String = _
   var style: String = ""
   var tocNumber: Int = 0
   private var _effective_id: String = _
-  private var _title: SATitle = _
+  private var _sdoc_title: SATitle = _
 
   protected def new_Node(name: String): SDoc = {
     sys.error("newnode : " + this + "/" + getClass + " by " + name)
@@ -44,16 +45,18 @@ abstract class SDoc(theChildren: SDoc*) extends GTreeNodeBase[SDoc] {
   }
 
   final def title_=(aTitle: SATitle) {
-    _title = aTitle
-    addChild(_title)
+    _sdoc_title = aTitle
+    title = aTitle.toText
+    addChild(_sdoc_title)
   }
 
-  final def title: SATitle = {
-    if (_title != null) return _title
+  final def sdocTitle: SATitle = {
+    if (_sdoc_title != null) return _sdoc_title
     val titles = children.filter(_.isInstanceOf[SATitle]).map(_.asInstanceOf[SATitle])
     if (!titles.isEmpty) return titles(0) // XXX
     val mayTitle = getXmlAttributeString("title")
     if (mayTitle.isDefined) return SATitle(mayTitle.get)
+    if (title != null) return SATitle(title)
     SATitle()
   }
 

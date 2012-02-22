@@ -8,7 +8,8 @@ import org.goldenport.entities.specdoc._
  * derived from SpecDoc2SmartDocTransformer.java since Mar. 12, 2007
  *
  * @since   Sep.  6, 2008
- * @version Jul. 15, 2010
+ *  version Jul. 15, 2010
+ * @version Feb. 22, 2012
  * @author  ASAMI, Tomoharu
  */
 class SpecDoc2SmartDocTransformer(val specdoc: SpecDocEntity) {
@@ -47,7 +48,7 @@ class SpecDoc2SmartDocTransformer(val specdoc: SpecDocEntity) {
 
   private def transform_head {
     builder.name = specdoc.name
-    builder.title = specdoc.title
+    builder.title = specdoc.sdocTitle
   }
 
   private def transform_body {

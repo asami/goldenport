@@ -10,18 +10,19 @@ import org.goldenport.entities.specdoc.plain._
 import org.goldenport.sdoc.{SDoc, SEmpty, SText}
 import com.asamioffice.goldenport.text.UJavaString
 
-/*
+/**
  * derived from SpecDocModel since Feb. 17, 2007
  *
  * @since   Sep.  4, 2008
- * @version Apr. 17, 2011
+ *  version Apr. 17, 2011
+ * @version Feb. 22, 2012
  * @author  ASAMI, Tomoharu
  */
 class SpecDocEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityContext) extends GTreeEntityBase[SDNode](aIn, aOut, aContext) {
   type DataSource_TYPE = GDataSource
   override type TreeNode_TYPE = SDNode
   override def is_Text_Output = true
-  var title: SDoc = SEmpty
+  var sdocTitle: SDoc = SEmpty
 
 //  val packageCategories: Buffer[SDCategory] = new ArrayBuffer[SDCategory]
 //  val entityCategories: Buffer[SDCategory] = new ArrayBuffer[SDCategory]
@@ -57,7 +58,7 @@ class SpecDocEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityContex
       mayPkg.get.asInstanceOf[SDPackage] // XXX
     } else {
       val pkg = setNode(aPackageName).asInstanceOf[SDPackage]
-      pkg.title = SText(UJavaString.pathname2className(aPackageName))
+      pkg.sdocTitle = SText(UJavaString.pathname2className(aPackageName))
       pkg
     }
   }

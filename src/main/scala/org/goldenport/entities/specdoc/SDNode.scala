@@ -8,7 +8,7 @@ import org.goldenport.sdoc.parts.SHistory
 import org.goldenport.entities.specdoc.plain._
 import com.asamioffice.goldenport.text.UJavaString
 
-/*
+/**
  * SDNode
  * derived from SDNode.java since Feb. 17, 2007
  *
@@ -24,14 +24,15 @@ import com.asamioffice.goldenport.text.UJavaString
  * </ul>
  *
  * @since   Sep.  4, 2008
- * @version Aug.  6, 2009
+ *  version Aug.  6, 2009
+ * @version Feb. 22, 2012
  * @author  ASAMI, Tomoharu
  */
 abstract class SDNode(aName: String) extends GTreeNodeBase[SDNode] {
   type TreeNode_TYPE = SDNode
   content = this
   set_name(aName)
-  var title: SDoc = SEmpty
+  var sdocTitle: SDoc = SEmpty
   var subtitle: SDoc = SEmpty
   val resume = new SSummary
   private var _overview: SDoc = SEmpty
@@ -76,7 +77,8 @@ abstract class SDNode(aName: String) extends GTreeNodeBase[SDNode] {
   }
 
   final def effectiveTitle: SDoc = {
-    if (!title.isNil) title
+    if (!sdocTitle.isNil) sdocTitle
+    else if (title != null) SText(title)
     else SText(name)
   }
 

@@ -15,7 +15,8 @@ import java.util.UUID
 
 /*
  * @since   Nov. 30, 2011
- * @version Nov. 30, 2011
+ *  version Nov. 30, 2011
+ * @version Feb. 22, 2012
  * @Author  ASAMI, Tomoharu
  */
 abstract class OutlineEntityBase(aIn: GDataSource, aOut: GDataSource, aContext: GEntityContext) extends GTreeEntityBase[OutlineNode](aIn, aOut, aContext) {
@@ -64,9 +65,6 @@ abstract class OutlineNode(aName: String) extends GTreeNodeBase[OutlineNode] {
   type TreeNode_TYPE = OutlineNode
   set_name(aName)
   content = this
-
-  var id: String = UUID.randomUUID.toString
-  var title: String = ""
 
   override protected def new_Node(aName: String): TreeNode_TYPE = {
     new TopicNode(aName)

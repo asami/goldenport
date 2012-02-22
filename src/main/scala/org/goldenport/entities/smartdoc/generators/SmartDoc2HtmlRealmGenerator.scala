@@ -6,9 +6,10 @@ import org.goldenport.entities.smartdoc._
 import org.goldenport.entities.smartdoc.transformers._
 import org.goldenport.entities.html.HtmlRealmEntity
 
-/*
+/**
  * @since   Oct.  5, 2008
- * @version Jul. 15, 2010
+ *  version Jul. 15, 2010
+ * @version Feb. 22, 2012
  * @author  ASAMI, Tomoharu
  */
 class SmartDoc2HtmlRealmGenerator(val sdoc: SmartDocEntity, val name: String, val context: GEntityContext) {
@@ -36,7 +37,7 @@ class SmartDoc2HtmlRealmGenerator(val sdoc: SmartDocEntity, val name: String, va
   private def document_name = {
     if (name != "") name
     else if (sdoc.name != "") sdoc.name
-    else normalize_file_name(sdoc.head.title.toText)
+    else normalize_file_name(sdoc.head.sdocTitle.toText)
   }
 
   private def normalize_file_name(aName: String): String = {

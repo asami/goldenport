@@ -1,6 +1,8 @@
 package org.goldenport.entity.content
 
 import scala.xml.{XML, Elem}
+import scalaz._
+import Scalaz._
 import java.io._
 import org.goldenport.entity.GEntityContext
 import org.goldenport.entity.datasource.GDataSource
@@ -15,7 +17,8 @@ import com.asamioffice.goldenport.io.UIO
  *
  * @since   Aug. 10, 2008
  *  version Jul. 29, 2010
- * @version Dec. 14, 2011
+ *  version Dec. 14, 2011
+ * @version Feb. 21, 2012
  * @author  ASAMI, Tomoharu
  */
 abstract class GContent(aContext: GEntityContext) {
@@ -199,5 +202,11 @@ object GContent {
       case string: String => create(string, aContext)
       case _ => sys.error("unimplement value = " + aValue)
     }
+  }
+}
+
+object GContentShow extends Show[GContent] {
+  def show(a: GContent) = {
+    (Option(a).map(_.toString) | "-").toList 
   }
 }

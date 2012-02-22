@@ -147,7 +147,7 @@ class SmartDoc2HtmlStringTransformer(val sdoc: SDoc) {
 */
 
     protected def open_Head(head: SSHead) {
-      _doc_title = head.title
+      _doc_title = head.sdocTitle
     }
 
     protected def open_Structure(structure: SStructure) {
@@ -436,7 +436,7 @@ class SmartDoc2HtmlStringTransformer(val sdoc: SDoc) {
       }
 
       open_block_tag("table", Array(("class", "basic-table")))
-      make_caption(aTable.title)
+      make_caption(aTable.sdocTitle)
       make_thead(aTable.table)
       make_tbody(aTable.table)
       close_block_tag("table")
@@ -735,7 +735,7 @@ class SmartDoc2HtmlStringTransformer(val sdoc: SDoc) {
       }
 
       private def make_node_title(aStructure: SStructure): String = {
-        aStructure.title.toText
+        aStructure.sdocTitle.toText
       }
     }
 

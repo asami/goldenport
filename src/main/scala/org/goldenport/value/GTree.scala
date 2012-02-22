@@ -1,10 +1,12 @@
 package org.goldenport.value
 
 import scala.xml.Node
+import scalaz.Tree
 
 /*
  * @since   Jul. 27, 2008
- * @version Apr. 17, 2011
+ *  version Apr. 17, 2011
+ * @version Feb. 21, 2012
  * @author  ASAMI, Tomoharu
  */
 trait GTree[E] {
@@ -26,4 +28,5 @@ trait GTree[E] {
   def cursor: GTreeCursor[E]
   def toXml: Node
   def toPrettyXml: String
+  def ztree: Tree[GTreeNode[E]]
 }

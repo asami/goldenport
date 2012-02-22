@@ -1,16 +1,21 @@
 package org.goldenport.value
 
 import scala.xml.Node
+import scalaz._
+import Scalaz._
 
 /*
  * @since   Jul. 27, 2008
- * @version Apr. 17, 2011
+ *  version Apr. 17, 2011
+ * @version Feb. 22, 2012
  * @author  ASAMI, Tomoharu
  */
 trait GTreeNode[E] {
   type TreeNode_TYPE <: GTreeNode[E]
 
   def name: String
+  def title: String
+  def title_=(s: String)
   def content: E
   def content_=(aContent: E)
   def parent: TreeNode_TYPE
@@ -66,5 +71,15 @@ trait GTreeNode[E] {
       node = node.parent
     }
     pb.toString
+  }
+}
+
+class GTreeNodeShow[E] extends Show[GTreeNode[E]] {
+  def show(a: GTreeNode[E]) = {
+    val d = for {
+      b <- Option(a)
+      c <- Option(b.name)
+    } yield c
+    (d | "-").toList
   }
 }

@@ -11,7 +11,8 @@ import org.goldenport.entities.smartdoc._
 
 /*
  * @since   Oct.  6, 2008
- * @version Apr. 17, 2011
+ *  version Apr. 17, 2011
+ * @version Feb. 22, 2012
  * @author  ASAMI, Tomoharu
  */
 class SmartDocRealm2HtmlRealmGenerator(val sdoc: SmartDocRealmEntity, val name: String, val context: GEntityContext) {
@@ -70,7 +71,7 @@ class SmartDocRealm2HtmlRealmGenerator(val sdoc: SmartDocRealmEntity, val name: 
 	  case sdoc: SmartDocEntity => {
 	    val child = __current.setChild(aNode.name)
 	    val dir = new DirectoryEntry
-	    dir.title = sdoc.head.title.toContents
+	    dir.title = sdoc.head.sdocTitle.toContents
 	    dir.pathname = aNode.pathname
 	    dir.node = aNode
 	    child.content = dir
