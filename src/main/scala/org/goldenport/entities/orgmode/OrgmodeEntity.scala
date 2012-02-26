@@ -4,6 +4,8 @@ import scala.xml.{Node, Elem, Group}
 import java.io.OutputStream
 import scalaz._
 import Scalaz._
+import org.goldenport.z._
+import org.goldenport.Z._
 import org.goldenport.entity._
 import org.goldenport.entity.datasource.{GDataSource, NullDataSource, ResourceDataSource}
 import org.goldenport.entity.content.GContent
@@ -41,7 +43,8 @@ class OrgmodeEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityContex
 
   private def _load_dox(tree: Tree[Dox]) {
     // XXX addresses doc meta data
-    val (stubs, content) = _subs_content(tree.subForest)
+    val home = ZTrees.find(tree)(_.rootLabel.isInstanceOf[Body]) | tree
+    val (stubs, content) = _subs_content(home.subForest)
     stubs.foreach(root.addChild)
   }
 
