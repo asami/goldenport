@@ -13,8 +13,9 @@ import org.goldenport.entities.outline._
 
 /**
  * @since   Sep. 15, 2010 (in g3)
- * @since   Nov. 29, 2011
- * @version Dec.  1, 2011
+ *  since   Nov. 29, 2011
+ *  version Dec.  1, 2011
+ * @version Feb. 26, 2012
  * @author  ASAMI, Tomoharu
  */
 class OpmlEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityContext) extends OutlineEntityBase(aIn, aOut, aContext) {
@@ -36,7 +37,7 @@ class OpmlEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityContext) 
 
   private def add_topic(aTopic: Node, aParent: OutlineNode) {
     val text = (aTopic \ "@text").text
-    val topic = new TopicNode(text)
+    val topic = TopicNode(text)
     topic.title = text
     aParent.addChild(topic)
     for (child <- aTopic \ "outline") {

@@ -1,6 +1,8 @@
 package org.goldenport.entities.outline
 
 import scala.xml.{Node, Elem, Group}
+import scalaz._
+import Scalaz._
 import java.io.OutputStream
 import org.goldenport.entity._
 import org.goldenport.entity.datasource.{GDataSource, NullDataSource, ResourceDataSource}
@@ -10,13 +12,14 @@ import org.goldenport.sdoc.structure._
 import org.goldenport.entities.workspace.TreeWorkspaceEntity
 import org.goldenport.entities.zip.ZipEntity
 import org.goldenport.value.GTreeBase
+import org.goldenport.value.GTreeNode
 import org.goldenport.value.GTreeNodeBase
-import java.util.UUID
+import org.smartdox._
 
 /*
  * @since   Nov. 30, 2011
  *  version Nov. 30, 2011
- * @version Feb. 22, 2012
+ * @version Feb. 26, 2012
  * @Author  ASAMI, Tomoharu
  */
 abstract class OutlineEntityBase(aIn: GDataSource, aOut: GDataSource, aContext: GEntityContext) extends GTreeEntityBase[OutlineNode](aIn, aOut, aContext) {
@@ -61,21 +64,44 @@ abstract class OutlineEntityBase(aIn: GDataSource, aOut: GDataSource, aContext: 
   }
 }
 
-abstract class OutlineNode(aName: String) extends GTreeNodeBase[OutlineNode] {
+abstract class OutlineNode(aTitle: Dox) extends GTreeNodeBase[OutlineNode] {
   type TreeNode_TYPE = OutlineNode
-  set_name(aName)
+  // Title is not name.
+  // name is unique id like representation in tree.
+  // set_name(aName)
+  if (aTitle != null) {
+    title = aTitle.toText // XXX: GTreeNode title should be Dox.
+  }
   content = this
 
-  override protected def new_Node(aName: String): TreeNode_TYPE = {
-    new TopicNode(aName)
+  override protected def new_Node(aTitle: String): TreeNode_TYPE = {
+    TopicNode(aTitle)
   }
 }
 
 class RootNode extends OutlineNode(null) {
 }
 
-class SheetNode(aName: String) extends OutlineNode(aName) {
+class SheetNode(aTitle: Dox) extends OutlineNode(aTitle) {
 }
 
-class TopicNode(aName: String) extends OutlineNode(aName) {
+class TopicNode(aTitle: Dox, content: Option[Dox]) extends OutlineNode(aTitle) {
+}
+
+object TopicNode {
+  def apply(title: String) = {
+    new TopicNode(Text(title), None)
+  }
+
+  def apply(title: Dox, subtopics: Seq[TopicNode], content: Option[Dox]) = {
+    new TopicNode(title, content) {
+      subtopics.foreach(addChild)
+    }
+  }
+}
+
+object OutlineNodeShow extends Show[GTreeNode[OutlineNode]] {
+  def show(a: GTreeNode[OutlineNode]) = {
+    (a.title ?? "").toList
+  }
 }
