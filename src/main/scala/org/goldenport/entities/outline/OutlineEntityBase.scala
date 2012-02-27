@@ -19,7 +19,7 @@ import org.smartdox._
 /*
  * @since   Nov. 30, 2011
  *  version Nov. 30, 2011
- * @version Feb. 26, 2012
+ * @version Feb. 27, 2012
  * @Author  ASAMI, Tomoharu
  */
 abstract class OutlineEntityBase(aIn: GDataSource, aOut: GDataSource, aContext: GEntityContext) extends GTreeEntityBase[OutlineNode](aIn, aOut, aContext) {
@@ -56,10 +56,10 @@ abstract class OutlineEntityBase(aIn: GDataSource, aOut: GDataSource, aContext: 
 
   protected def load_Datasource(aDataSource: GDataSource)
 
-  final def firstThema: TopicNode = {
+  final def firstThema: OutlineNode = {
     root.getChild(0) match {
-      case s: SheetNode => s.getChild(0).asInstanceOf[TopicNode]
-      case t => t.asInstanceOf[TopicNode]
+      case s: SheetNode => s
+      case t => root
     }
   }
 }

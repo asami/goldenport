@@ -7,12 +7,16 @@ import Scalaz._
 /*
  * @since   Aug. 12, 2008
  *  version Apr. 17, 2011
- * @version Feb. 21, 2012
+ * @version Feb. 27, 2012
  * @author  ASAMI, Tomoharu
  */
 trait GTreeBase[E] extends GTree[E] {
   private var root_node: TreeNode_TYPE = _
   private var is_modified: Boolean = false
+
+  protected def dbc_invariants {
+    assert (root_node != null, "Tree not opened")
+  }
 
   protected final def set_root(aRoot: TreeNode_TYPE) {
     require (aRoot != null)
@@ -25,7 +29,7 @@ trait GTreeBase[E] extends GTree[E] {
   }
 
   final def root: TreeNode_TYPE = {
-    require (root_node != null, "GTreeBase: root node is empty")
+    dbc_invariants
     return root_node
   }
 
@@ -42,13 +46,13 @@ trait GTreeBase[E] extends GTree[E] {
 
   final def getNode(path: String): Option[TreeNode_TYPE] = {
     require(path != null)
-    assert(root_node != null)
+    dbc_invariants
     root_node.getNode(path).asInstanceOf[Option[TreeNode_TYPE]]
   }
 
   final def getContent(path: String): Option[E] = {
     require(path != null)
-    assert(root_node != null)
+    dbc_invariants
     val mayNode = root_node.getNode(path)
     if (mayNode.isEmpty) None
     else if (mayNode.get.content != null) Some(mayNode.get.content)
@@ -57,13 +61,13 @@ trait GTreeBase[E] extends GTree[E] {
 
   final def setNode(path: String): TreeNode_TYPE = {
     require(path != null)
-    assert(root_node != null)
+    dbc_invariants
     root_node.setNode(path).asInstanceOf[TreeNode_TYPE]
   }
 
   final def setContent(path: String, content: E): TreeNode_TYPE = {
     require(path != null)
-    assert(root_node != null)
+    dbc_invariants
     root_node.setContent(path, content).asInstanceOf[TreeNode_TYPE]
   }
 
@@ -78,7 +82,7 @@ trait GTreeBase[E] extends GTree[E] {
 
   final def copyIn(aSource: GTree[E]) {
     require(aSource != null)
-    assert(root_node != null)
+    dbc_invariants
     open_Source(aSource)
     copy_in(aSource.root, root)
     close_Source(aSource)
@@ -86,7 +90,7 @@ trait GTreeBase[E] extends GTree[E] {
 
   final def copyIn(aPathname: String, aSource: GTree[E]) {
     require(aSource != null)
-    assert(root_node != null)
+    dbc_invariants
     open_Source(aSource)
     copy_in(aSource.root, setNode(aPathname))
     close_Source(aSource)
@@ -139,12 +143,12 @@ trait GTreeBase[E] extends GTree[E] {
   }
 
   final def toXml: Node = {
-    assert(root_node != null)
+    dbc_invariants
     root_node.toXml
   }
 
   final def toPrettyXml: String = {
-    assert(root_node != null)
+    dbc_invariants
     root_node.toPrettyXml
   }
 
