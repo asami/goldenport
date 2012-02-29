@@ -2,10 +2,12 @@ package org.goldenport.services
 
 import org.goldenport.service._
 import org.goldenport.entity._
+import org.goldenport.record._
 
 /*
  * @since   Oct. 30, 2008
- * @version Jul. 15, 2010
+ *  version Jul. 15, 2010
+ * @version Feb. 29, 2012
  * @author  ASAMI, Tomoharu
  */
 class ConsoleTitleService(aCall: GServiceCall, serviceClass: GServiceClass) extends GService(aCall, serviceClass) {
@@ -68,12 +70,39 @@ class ConsoleHelpService(aCall: GServiceCall, serviceClass: GServiceClass) exten
     record_message()
     record_messageC("Usage: ")
     record_messageC(application_commnad_name)
-    record_messageC(" [-options] [args...]")
+    aRequest.arguments.toList match {
+      case Nil => _help_index
+      case x :: xs => _help_detail(x.toString)
+    }
+  }
+
+  private def _help_index {
+    record_messageC(" command [-options ...] [args ...]")
     record_message()
     record_message()
     for (service <- serviceContext.serviceSpace.serviceClasses
-	       if service.name != "") {
+         if service.name != "") {
       record_message("- %s     \t%s", service.name, service.description.titleString)
+    }
+  }
+
+  private def _help_detail(s: String) {
+    serviceContext.serviceSpace.serviceClasses.find(_.name == s) match {
+      case Some(service) => {
+        record_message(" %s [-options ...] [args ...]".format(service.name))
+        record_message(service.name)
+        record_message(service.description.titleString)
+        record_message(service.description.summaryString)
+        record_message(service.description.contentString)
+        _help_detail_contract(service.contract)
+      }
+      case None => _help_index
+    }
+  }
+
+  private def _help_detail_contract(contract: RecordSchema) {
+    for (f <- contract.fields) {
+      record_message("-%s     \t%s", f.name, f.description.map(_.title.toText) getOrElse "")
     }
   }
 }

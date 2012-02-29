@@ -4,7 +4,7 @@ import scalaz._
 import Scalaz._
 import org.goldenport.GClass
 import com.asamioffice.goldenport.text.UString
-import org.smartdox.DescriptionVar
+import org.smartdox.{DescriptionVar, UseDox} 
 import org.goldenport.record._
 
 /*
@@ -12,10 +12,10 @@ import org.goldenport.record._
  *
  * @since   Aug. 28, 2008
  *  version Oct. 30, 2008
- * @version Feb. 17, 2012
+ * @version Feb. 28, 2012
  * @author  Asami, Tomoharu
  */
-abstract class GServiceClass(val name: String) extends GClass {
+abstract class GServiceClass(val name: String) extends GClass with UseDox {
   var description = new DescriptionVar
   var contract: RecordSchema = Schema()
 
