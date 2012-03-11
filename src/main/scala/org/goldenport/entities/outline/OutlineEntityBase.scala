@@ -19,7 +19,7 @@ import org.smartdox._
 /*
  * @since   Nov. 30, 2011
  *  version Nov. 30, 2011
- * @version Feb. 27, 2012
+ * @version Mar. 11, 2012
  * @Author  ASAMI, Tomoharu
  */
 abstract class OutlineEntityBase(aIn: GDataSource, aOut: GDataSource, aContext: GEntityContext) extends GTreeEntityBase[OutlineNode](aIn, aOut, aContext) {
@@ -73,28 +73,31 @@ abstract class OutlineNode(aTitle: Dox) extends GTreeNodeBase[OutlineNode] {
     title = aTitle.toText // XXX: GTreeNode title should be Dox.
   }
   content = this
+  val doc: Dox
 
   override protected def new_Node(aTitle: String): TreeNode_TYPE = {
     TopicNode(aTitle)
   }
 }
 
-class RootNode extends OutlineNode(null) {
+class RootNode extends OutlineNode(EmptyDox) {
+  val doc = EmptyDox 
 }
 
 class SheetNode(aTitle: Dox) extends OutlineNode(aTitle) {
+  val doc = EmptyDox 
 }
 
-class TopicNode(aTitle: Dox, content: Option[Dox]) extends OutlineNode(aTitle) {
+class TopicNode(aTitle: Dox, val doc: Dox) extends OutlineNode(aTitle) {
 }
 
 object TopicNode {
   def apply(title: String) = {
-    new TopicNode(Text(title), None)
+    new TopicNode(Text(title), EmptyDox)
   }
 
-  def apply(title: Dox, subtopics: Seq[TopicNode], content: Option[Dox]) = {
-    new TopicNode(title, content) {
+  def apply(title: Dox, subtopics: Seq[TopicNode], doc: Dox) = {
+    new TopicNode(title, doc) {
       subtopics.foreach(addChild)
     }
   }

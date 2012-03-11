@@ -22,7 +22,7 @@ import org.smartdox.parser.DoxParser
  * @since   Sep. 15, 2010 (in g3)
  *  since   Nov. 29, 2011
  *  version Nov. 29, 2011
- * @version Feb. 26, 2012
+ * @version Mar.  3, 2012
  * @author  ASAMI, Tomoharu
  */
 class OrgmodeEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityContext) extends OutlineEntityBase(aIn, aOut, aContext) {
@@ -68,7 +68,7 @@ class OrgmodeEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityContex
   }
 */
 
-  private def _subs_content(cs: Stream[Tree[Dox]]): (Seq[TopicNode], Option[Dox]) = {
+  private def _subs_content(cs: Stream[Tree[Dox]]): (Seq[TopicNode], Dox) = {
     def tosections(ss: Stream[Tree[Dox]]): Seq[TopicNode] = {
       ss.map(t => (t, t.rootLabel)) collect {
         case (t, s: Section) => {
@@ -77,11 +77,11 @@ class OrgmodeEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityContex
         }
       }
     }
-    def tocontent(c: Stream[Tree[Dox]]): Option[Dox] = {
+    def tocontent(c: Stream[Tree[Dox]]): Dox = {
       c.toList.map(_.rootLabel) match {
-        case Nil => none
-        case List(x) => x.some
-        case xs => Fragment(xs).some
+        case Nil => EmptyDox
+        case List(x) => x
+        case xs => Fragment(xs)
       }
     }
     val (c, ss) = cs.span(!_.rootLabel.isInstanceOf[Section])
