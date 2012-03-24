@@ -2,12 +2,15 @@ package org.goldenport.value
 
 import org.goldenport.sdoc._
 
-/*
- * Jul. 27, 2008
- * Dec. 23, 2008
+/**
+ * @since   Jul. 27, 2008
+ *          Dec. 23, 2008
+ * @version Mar. 17, 2012
+ * @author  ASAMI, Tomoharu
  */
 trait GTable[E] extends GAttributedTabular[E] {
   def head: Option[GAttributedTabular[SDoc]]
+  def headAsStringList: Option[List[String]]
   def setHead(head: GAttributedTabular[SDoc])
   def setHead(head: GTree[SDoc])
   def setHead(head: Seq[SDoc])

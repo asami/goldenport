@@ -7,8 +7,9 @@ import org.goldenport.sdoc._
  * XXX immutable
  *
  * @since   Aug.  6, 2008
- * @version Mar. 19, 2011
- * @version Dec.  1, 2011
+ *  version Mar. 19, 2011
+ *  version Dec.  1, 2011
+ * @version Mar. 17, 2012
  * @author  ASAMI, Tomoharu
  */
 trait GTableBase[E] extends GTable[E] {
@@ -268,6 +269,15 @@ trait GTableBase[E] extends GTable[E] {
   override def head: Option[GAttributedTabular[SDoc]] = {
     if (table_head == null) return None
     Some(table_head)
+  }
+
+  override def headAsStringList: Option[List[String]] = {
+    if (table_head == null) None
+    else if (table_head.height == 0) None
+    else {
+      // XXX join upper label for prefix
+      Some(table_head.rows(table_head.height - 1).map(_.toText).toList)
+    }
   }
 
   override def setHead(aHead: GAttributedTabular[SDoc]) = {
