@@ -2,7 +2,7 @@ seq(giter8Settings :_*)
 
 name := "goldenport"
 
-version := "0.3.3-SNAPSHOT"
+version := "0.3.3"
 
 organization := "org.goldenport"
 
@@ -48,8 +48,10 @@ libraryDependencies += "org.goldenport" % "goldenport-java-lib" % "0.1.0"
 
 libraryDependencies += "org.goldenport" %% "goldenport-scala-lib" % "0.1.2"
 
-libraryDependencies += "org.goldenport" %% "goldenport-record" % "0.1.0"
+libraryDependencies += "org.goldenport" %% "goldenport-record" % "0.1.1"
 
 libraryDependencies += "org.goldenport" %% "goldenport-swing" % "0.1.0"
+
+libraryDependencies += "org.smartdox" %% "smartdox" % "0.2.4"
 
 publishTo := Some(Resolver.file("asamioffice", file("target/maven-repository")))
