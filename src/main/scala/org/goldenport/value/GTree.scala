@@ -6,7 +6,8 @@ import scalaz.Tree
 /*
  * @since   Jul. 27, 2008
  *  version Apr. 17, 2011
- * @version Feb. 21, 2012
+ *  version Feb. 21, 2012
+ * @version Apr. 30, 2012
  * @author  ASAMI, Tomoharu
  */
 trait GTree[E] {
@@ -24,7 +25,17 @@ trait GTree[E] {
   def traverse(visitor: GTreeVisitor[E])
   def traverse(visitor: GTreeVisitor[E], filter: GTreeNode[E] => Boolean)
   def traverse(aProcedure: E => Unit)
-  def collect(aCollector: GTreeNode[E] => Boolean): Seq[GTreeNode[E]] // XXX Seq[E]
+  def collect(aCollector: GTreeNode[E] => Boolean): Seq[GTreeNode[E]]
+  //
+  def collect[T](pf: PartialFunction[GTreeNode[E], T]): Seq[T]
+  def collect[T](pathname: String, pf: PartialFunction[GTreeNode[E], T]): Seq[T]
+  def traverse[T](pf: PartialFunction[GTreeNode[E], T]): Unit
+  def traverse[T](pathname: String, pf: PartialFunction[GTreeNode[E], T]): Unit
+  def collectContent[T](pf: PartialFunction[E, T]): Seq[T]
+  def collectContent[T](pathname: String, pf: PartialFunction[E, T]): Seq[T]
+  def traverseContent[T](pf: PartialFunction[E, T]): Unit
+  def traverseContent[T](pathname: String, pf: PartialFunction[E, T]): Unit
+  //
   def cursor: GTreeCursor[E]
   def toXml: Node
   def toPrettyXml: String

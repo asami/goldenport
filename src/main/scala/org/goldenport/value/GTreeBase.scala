@@ -7,7 +7,8 @@ import Scalaz._
 /*
  * @since   Aug. 12, 2008
  *  version Apr. 17, 2011
- * @version Feb. 27, 2012
+ *  version Feb. 27, 2012
+ * @version Apr. 30, 2012
  * @author  ASAMI, Tomoharu
  */
 trait GTreeBase[E] extends GTree[E] {
@@ -128,6 +129,44 @@ trait GTreeBase[E] extends GTree[E] {
     val collector = new GTreeCollector[E](aFilter)
     traverse(collector)
     collector.result
+  }
+
+  final def collect[T](pf: PartialFunction[GTreeNode[E], T]): Seq[T] = {
+    sys.error("??")
+  }
+
+  final def collect[T](pathname: String, pf: PartialFunction[GTreeNode[E], T]): Seq[T] = {
+    sys.error("??")
+    
+  }
+
+  final def traverse[T](pf: PartialFunction[GTreeNode[E], T]): Unit = {
+    sys.error("??")
+    
+  }
+
+  final def traverse[T](pathname: String, pf: PartialFunction[GTreeNode[E], T]): Unit = {
+    sys.error("??")
+    
+  }
+
+  final def collectContent[T](pf: PartialFunction[E, T]): Seq[T] = {
+    sys.error("??")
+  }
+
+  final def collectContent[T](pathname: String, pf: PartialFunction[E, T]): Seq[T] = {
+    sys.error("??")
+    
+  }
+
+  final def traverseContent[T](pf: PartialFunction[E, T]): Unit = {
+    sys.error("??")
+    
+  }
+
+  final def traverseContent[T](pathname: String, pf: PartialFunction[E, T]): Unit = {
+    sys.error("??")
+    
   }
 
   def print {

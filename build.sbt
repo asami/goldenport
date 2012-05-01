@@ -2,7 +2,7 @@ seq(giter8Settings :_*)
 
 name := "goldenport"
 
-version := "0.3.3"
+version := "0.3.4-SNAPSHOT"
 
 organization := "org.goldenport"
 
