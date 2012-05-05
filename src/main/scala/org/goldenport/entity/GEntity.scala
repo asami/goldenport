@@ -20,7 +20,8 @@ import java.net.URI
  * @since   Aug.  6, 2008
  *  version Sep. 17, 2010
  *  version Jan.  9, 2012
- * @version Jan. 27, 2012
+ *  version Jan. 27, 2012
+ * @version May.  5, 2012
  * @author  ASAMI, Tomoharu
  */
 abstract class GEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityContext) extends GObject {
@@ -322,6 +323,15 @@ abstract class GEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityCon
     } finally {
       out.close()
     }
+  }
+
+  def toText: String = {
+    require (is_Text_Output)
+    val s = new StringWriter()
+    var writer = new BufferedWriter(s)
+    write_Content(writer)
+    writer.flush()
+    s.toString()
   }
 
   def using[T](body: => T): T = {

@@ -8,7 +8,7 @@ import Scalaz._
  * @since   Aug. 12, 2008
  *  version Apr. 17, 2011
  *  version Feb. 27, 2012
- * @version May.  3, 2012
+ * @version May.  6, 2012
  * @author  ASAMI, Tomoharu
  */
 trait GTreeBase[E] extends GTree[E] {
@@ -114,10 +114,12 @@ trait GTreeBase[E] extends GTree[E] {
   protected def close_Source(aSource: GTree[E]): Unit = null
 
   final def traverse(visitor: GTreeVisitor[E]) {
+    dbc_invariants
     root_node.traverse(visitor)
   }
 
   final def traverse(visitor: GTreeVisitor[E], filter: GTreeNode[E] => Boolean) {
+    dbc_invariants
     root_node.traverse(visitor, filter)
   }
 
