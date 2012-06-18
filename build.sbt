@@ -38,11 +38,11 @@ libraryDependencies += "commons-fileupload" % "commons-fileupload" % "1.2.2" % "
 
 libraryDependencies += "commons-io" % "commons-io" % "1.3.2" % "provided"
 
-libraryDependencies += "org.apache.poi" % "poi" % "3.8-beta4" % "provided"
+libraryDependencies += "org.apache.poi" % "poi" % "3.8" % "provided"
 
-libraryDependencies += "org.apache.poi" % "poi-ooxml" % "3.8-beta4" % "provided"
+// libraryDependencies += "org.apache.poi" % "poi-ooxml" % "3.8-beta4" % "provided"
 
-libraryDependencies += "org.scalaz" %% "scalaz-core" % "6.0.3"
+libraryDependencies += "org.scalaz" %% "scalaz-core" % "6.0.4"
 
 libraryDependencies += "org.goldenport" % "goldenport-java-lib" % "0.1.0"
 
@@ -52,6 +52,6 @@ libraryDependencies += "org.goldenport" %% "goldenport-record" % "0.1.1"
 
 libraryDependencies += "org.goldenport" %% "goldenport-swing" % "0.1.0"
 
-libraryDependencies += "org.smartdox" %% "smartdox" % "0.2.4"
+libraryDependencies += "org.smartdox" %% "smartdox" % "0.2.5"
 
 publishTo := Some(Resolver.file("asamioffice", file("target/maven-repository")))

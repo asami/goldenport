@@ -11,22 +11,21 @@ import org.goldenport.entities.zip.ZipEntity
 import org.goldenport.value.GTreeBase
 import org.apache.poi.hssf.usermodel.HSSFWorkbook
 import java.io.InputStream
-import scala.collection.mutable.LinkedHashMap
+import org.goldenport.value.GTableBase
 
 /**
- * @since   Nov. 29, 2011
- * @version Jun. 19, 2012
+ * @since   Jun. 12, 2012
+ * @version Jun. 12, 2012
  * @author  ASAMI, Tomoharu
  */
-class ExcelBookEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityContext) extends GTableListEntity(aIn, aOut, aContext) {
+class ExcelxTableEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityContext) 
+    extends GTableEntity[AnyRef](aIn, aOut, aContext) with GTableBase[AnyRef] {
   type DataSource_TYPE = GDataSource
-
-  private var _workbook: HSSFWorkbook  = null;
-  private val _sheets = new LinkedHashMap[String, ExcelSheetEntity]()
 
   val excelContext = new GSubEntityContext(entityContext) {
     override def text_Encoding = Some("UTF-8")
   }
+  private var _book: ExcelBookEntity  = null
 
   def this(aDataSource: GDataSource, aContext: GEntityContext) = this(aDataSource, aDataSource, aContext)
   def this(aContext: GEntityContext) = this(null, aContext)
@@ -44,16 +43,9 @@ class ExcelBookEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityCont
   private def load_datasource(ds: GDataSource) {
     var in: InputStream = null
     try {
-      if (!ds.isExist) {
-        _workbook = new HSSFWorkbook()
-      } else {
-        in = ds.openInputStream()
-        _workbook = new HSSFWorkbook(in)
-        val nSheets = _workbook.getNumberOfSheets()
-        for (i <- 0 to nSheets) {
-          val sheet = new ExcelSheetEntity(_workbook.getSheetAt(i), this, excelContext)
-          _sheets += sheet.name -> sheet
-        }
+      _book = new ExcelBookEntity(ds, excelContext)
+      for (sheet <- _book.firstSheet) {
+        copyIn(sheet)
       }
     } finally {
       if (in != null) {
@@ -64,41 +56,15 @@ class ExcelBookEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityCont
         }
       }
     }
-  }    
+  }
 
   override protected def write_Content(anOut: OutputStream): Unit = {
   }
 
-  def workbook = {
-    _workbook ensuring(_workbook != null, "ExcelBookEntity#workbook")
-  }
-
-  def firstSheet: Option[ExcelSheetEntity] = {
-    _sheets.values.headOption
-  }
-
-  def sheet(key: String): Option[ExcelSheetEntity] = {
-    _sheets.get(key)
-  }
-
 /*
-    public ExcelSheetModel getSheetModel(String key) throws RModelException {
-        return (ExcelSheetModel)getModel(key);
-        
-    }
-
-    public ExcelSheetModel getFirstSheetModel() throws RModelException {
-        return (ExcelSheetModel)getModel(0);
-    }
-
-    public ExcelSheetModel[] getSheetModels() throws RModelException {
-        String[] keys = keySetArray();
-        ExcelSheetModel[] tables = new ExcelSheetModel[keys.length];
-        for (int i = 0;i < keys.length;i++) {
-            tables[i] = getSheetModel(keys[i]);
-        }
-        return tables;
-    }
+  def workbook = {
+    _workbook ensuring(_workbook != null, "ExcelxTableEntity#workbook")
+  }
 
     public ExcelSheetModel createSheetModel() throws RModelException {
         ExcelSheetModel sheet = new ExcelSheetModel(this, _context);
@@ -116,14 +82,14 @@ class ExcelBookEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityCont
 */
 }
 
-class ExcelBookEntityClass extends GEntityClass {
-  type Instance_TYPE = ExcelBookEntity
+class ExcelxTableEntityClass extends GEntityClass {
+  type Instance_TYPE = ExcelxTableEntity
 
   override def accept_Suffix(suffix: String): Boolean = {
-    suffix == "xls" || suffix  == "xlsx"
+    suffix  == "xlsx"
   }
 
-  override def reconstitute_DataSource(aDataSource: GDataSource, aContext: GEntityContext): Option[Instance_TYPE] = Some(new ExcelBookEntity(aDataSource, aContext))
+  override def reconstitute_DataSource(aDataSource: GDataSource, aContext: GEntityContext): Option[Instance_TYPE] = Some(new ExcelxTableEntity(aDataSource, aContext))
 }
 
-object ExcelBookEntity extends ExcelBookEntityClass
+object ExcelxTableEntity extends ExcelxTableEntityClass

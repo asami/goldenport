@@ -14,15 +14,15 @@ import java.io.InputStream
 import scala.collection.mutable.LinkedHashMap
 
 /**
- * @since   Nov. 29, 2011
+ * @since   Jun. 12, 2012
  * @version Jun. 19, 2012
  * @author  ASAMI, Tomoharu
  */
-class ExcelBookEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityContext) extends GTableListEntity(aIn, aOut, aContext) {
+class ExcelxBookEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityContext) extends GTableListEntity(aIn, aOut, aContext) {
   type DataSource_TYPE = GDataSource
 
   private var _workbook: HSSFWorkbook  = null;
-  private val _sheets = new LinkedHashMap[String, ExcelSheetEntity]()
+  private val _sheets = new LinkedHashMap[String, ExcelxSheetEntity]()
 
   val excelContext = new GSubEntityContext(entityContext) {
     override def text_Encoding = Some("UTF-8")
@@ -51,7 +51,7 @@ class ExcelBookEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityCont
         _workbook = new HSSFWorkbook(in)
         val nSheets = _workbook.getNumberOfSheets()
         for (i <- 0 to nSheets) {
-          val sheet = new ExcelSheetEntity(_workbook.getSheetAt(i), this, excelContext)
+          val sheet = new ExcelxSheetEntity(_workbook.getSheetAt(i), this, excelContext)
           _sheets += sheet.name -> sheet
         }
       }
@@ -70,45 +70,40 @@ class ExcelBookEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityCont
   }
 
   def workbook = {
-    _workbook ensuring(_workbook != null, "ExcelBookEntity#workbook")
+    _workbook ensuring(_workbook != null, "ExcelxBookEntity#workbook")
   }
 
-  def firstSheet: Option[ExcelSheetEntity] = {
+  def firstSheet: Option[ExcelxSheetEntity] = {
     _sheets.values.headOption
   }
-
-  def sheet(key: String): Option[ExcelSheetEntity] = {
-    _sheets.get(key)
-  }
-
 /*
-    public ExcelSheetModel getSheetModel(String key) throws RModelException {
-        return (ExcelSheetModel)getModel(key);
+    public ExcelxSheetModel getSheetModel(String key) throws RModelException {
+        return (ExcelxSheetModel)getModel(key);
         
     }
 
-    public ExcelSheetModel getFirstSheetModel() throws RModelException {
-        return (ExcelSheetModel)getModel(0);
+    public ExcelxSheetModel getFirstSheetModel() throws RModelException {
+        return (ExcelxSheetModel)getModel(0);
     }
 
-    public ExcelSheetModel[] getSheetModels() throws RModelException {
+    public ExcelxSheetModel[] getSheetModels() throws RModelException {
         String[] keys = keySetArray();
-        ExcelSheetModel[] tables = new ExcelSheetModel[keys.length];
+        ExcelxSheetModel[] tables = new ExcelxSheetModel[keys.length];
         for (int i = 0;i < keys.length;i++) {
             tables[i] = getSheetModel(keys[i]);
         }
         return tables;
     }
 
-    public ExcelSheetModel createSheetModel() throws RModelException {
-        ExcelSheetModel sheet = new ExcelSheetModel(this, _context);
+    public ExcelxSheetModel createSheetModel() throws RModelException {
+        ExcelxSheetModel sheet = new ExcelxSheetModel(this, _context);
         putModel(sheet.getName(), sheet);
         _setDirty();
         return sheet;
     }
 
-    public ExcelSheetModel createSheetModel(String tableName) throws RModelException {
-        ExcelSheetModel sheet = new ExcelSheetModel(tableName, this, _context);
+    public ExcelxSheetModel createSheetModel(String tableName) throws RModelException {
+        ExcelxSheetModel sheet = new ExcelxSheetModel(tableName, this, _context);
         putModel(sheet.getName(), sheet);
         _setDirty();
         return sheet;
@@ -116,14 +111,14 @@ class ExcelBookEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityCont
 */
 }
 
-class ExcelBookEntityClass extends GEntityClass {
-  type Instance_TYPE = ExcelBookEntity
+class ExcelxBookEntityClass extends GEntityClass {
+  type Instance_TYPE = ExcelxBookEntity
 
   override def accept_Suffix(suffix: String): Boolean = {
-    suffix == "xls" || suffix  == "xlsx"
+    suffix  == "xlsx"
   }
 
-  override def reconstitute_DataSource(aDataSource: GDataSource, aContext: GEntityContext): Option[Instance_TYPE] = Some(new ExcelBookEntity(aDataSource, aContext))
+  override def reconstitute_DataSource(aDataSource: GDataSource, aContext: GEntityContext): Option[Instance_TYPE] = Some(new ExcelxBookEntity(aDataSource, aContext))
 }
 
-object ExcelBookEntity extends ExcelBookEntityClass
+object ExcelxBookEntity extends ExcelxBookEntityClass
