@@ -2,13 +2,13 @@ seq(giter8Settings :_*)
 
 name := "goldenport"
 
-version := "0.3.4-SNAPSHOT"
+version := "0.4.0-SNAPSHOT"
 
 organization := "org.goldenport"
 
 scalaVersion := "2.9.1"
 
-// crossScalaVersions := Seq("2.9.0")
+// crossScalaVersions := Seq("2.9.1", "2.9.2")
 
 // retrieveManaged := true
 
@@ -28,7 +28,12 @@ libraryDependencies += "org.scala-lang" % "scala-compiler" % "2.9.1"
 
 libraryDependencies += "org.scala-lang" % "scala-swing" % "2.9.1"
 
-libraryDependencies += "org.scalatest" % "scalatest_2.9.1" % "1.6.1" % "test"
+// libraryDependencies <<= (scalaVersion, libraryDependencies) { (sv, deps) =>
+//   deps :+ "org.scala-lang" % "scala-compiler" % sv
+//   deps :+ "org.scala-lang" % "scala-swing" % sv
+// }
+
+libraryDependencies += "org.scalatest" %% "scalatest" % "1.6.1" % "test"
 
 libraryDependencies += "junit" % "junit" % "4.7" % "test"
 
@@ -42,7 +47,7 @@ libraryDependencies += "org.apache.poi" % "poi" % "3.8-beta4" % "provided"
 
 libraryDependencies += "org.apache.poi" % "poi-ooxml" % "3.8-beta4" % "provided"
 
-libraryDependencies += "org.scalaz" %% "scalaz-core" % "6.0.3"
+libraryDependencies += "org.scalaz" %% "scalaz-core" % "6.0.4"
 
 libraryDependencies += "org.goldenport" % "goldenport-java-lib" % "0.1.0"
 
@@ -52,6 +57,6 @@ libraryDependencies += "org.goldenport" %% "goldenport-record" % "0.1.1"
 
 libraryDependencies += "org.goldenport" %% "goldenport-swing" % "0.1.0"
 
-libraryDependencies += "org.smartdox" %% "smartdox" % "0.2.4"
+libraryDependencies += "org.smartdox" %% "smartdox" % "0.3.0-SNAPSHOT"
 
 publishTo := Some(Resolver.file("asamioffice", file("target/maven-repository")))
