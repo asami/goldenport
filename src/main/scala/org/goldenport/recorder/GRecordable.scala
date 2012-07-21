@@ -7,10 +7,26 @@ package org.goldenport.recorder
  *
  * @since   Oct. 28, 2008
  *  version Nov. 10, 2011
- * @version Feb.  1, 2012
+ *  version Feb.  1, 2012
+ * @version Jun. 17, 2012
  * @author  ASAMI, Tomoharu
  */
-trait GRecordable {
+trait GRecordable extends Recordable {
+  final protected def setup_Recordable(aRecorder: GRecorder) {
+    setup_FowardingRecorder(aRecorder)
+  }
+
+  //
+  final protected def not_implemented_yet {
+    sys.error("Not implmented yet (" + this + ")")
+  }
+
+  final protected def not_implemented_yet(anAny: Any) {
+    sys.error("Not implmented yet ( " + this + ") : " + anAny)
+  }
+}
+
+trait GRecordable0 {
   var recorder: GRecorder = NullRecorder
 
   final protected def setup_Recordable(aRecorder: GRecorder) {
