@@ -9,13 +9,13 @@ import org.goldenport.sdoc.structure._
 import org.goldenport.entities.workspace.TreeWorkspaceEntity
 import org.goldenport.entities.zip.ZipEntity
 import org.goldenport.value.GTreeBase
-import org.apache.poi.hssf.usermodel.HSSFWorkbook
+import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import java.io.InputStream
 import org.goldenport.value.GTableBase
 
 /**
  * @since   Jun. 12, 2012
- * @version Jun. 12, 2012
+ * @version Jul. 22, 2012
  * @author  ASAMI, Tomoharu
  */
 class ExcelxTableEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityContext) 

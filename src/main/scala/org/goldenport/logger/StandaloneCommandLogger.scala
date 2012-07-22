@@ -8,7 +8,8 @@ import com.asamioffice.goldenport.xml.UXML
 
 /*
  * @since   Apr.  2, 2009
- * @version Oct. 30, 2011
+ *  version Oct. 30, 2011
+ * @version Jul. 21, 2012
  * @author  ASAMI, Tomoharu
  */
 class StandaloneCommandLogger(val context: GContainerContext) extends GLogger {
@@ -95,7 +96,7 @@ class StandaloneCommandLogger(val context: GContainerContext) extends GLogger {
   }
 
   override def error(e: Throwable, message: String, args: AnyRef*) {
-    log_record_exception("error", String.format(message, args: _*), e)
+    log_record_exception("error", context.formatString(message, args: _*), e)
   }
 
   override def error(e: Throwable) {
@@ -103,7 +104,7 @@ class StandaloneCommandLogger(val context: GContainerContext) extends GLogger {
   }
 
   override def warning(message: String, args: AnyRef*) {
-    throw new Exception("")
+    log_record("warning", context.formatString(message, args: _*))
   }
 
   override def warning(e: Throwable, message: String, args: AnyRef*) {
@@ -111,11 +112,11 @@ class StandaloneCommandLogger(val context: GContainerContext) extends GLogger {
   }
 
   override def info(message: String, args: AnyRef*) {
-    log_record("info", String.format(message, args: _*))
+    log_record("info", context.formatString(message, args: _*))
   }
 
   override def info(e: Throwable, message: String, args: AnyRef*) {
-    log_record("info", String.format(message, args: _*))
+    log_record("info", context.formatString(message, args: _*))
   }
 
   override def config(message: String, args: AnyRef*) {
@@ -143,7 +144,7 @@ class StandaloneCommandLogger(val context: GContainerContext) extends GLogger {
   }
 
   override def debug(message: String, args: AnyRef*) {
-    log_record("debug", String.format(message, args: _*))
+    log_record("debug", context.formatString(message, args: _*))
   }
 
   override def debug(e: Throwable, message: String, args: AnyRef*) {
@@ -151,7 +152,7 @@ class StandaloneCommandLogger(val context: GContainerContext) extends GLogger {
   }
 
   override def trace(message: String, args: AnyRef*) {
-    throw new Exception("")
+    log_record("trace", context.formatString(message, args: _*))
   }
 
   override def debug_scala(message: String) {
@@ -159,7 +160,7 @@ class StandaloneCommandLogger(val context: GContainerContext) extends GLogger {
   }
 
   override def debug_scala(message: String, args: Array[AnyRef]) {
-    log_record("debug", String.format(message, args: _*))
+    log_record("debug", context.formatString(message, args: _*))
   }
 
   private def make_stacktrace(e: Throwable) = {

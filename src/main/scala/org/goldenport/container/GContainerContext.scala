@@ -19,7 +19,8 @@ import org.goldenport.recorder.InfoLevel
  *
  * @since   Nov.  3, 2008
  *  version Jul. 31, 2010
- * @version Jan. 23, 2012
+ *  version Jan. 23, 2012
+ * @version Jul. 21, 2012
  * @author  ASAMI, Tomoharu
  */
 abstract class GContainerContext(val monitor: GMonitor, val parameters: GParameterRepository) extends ForwardingRecorder with GoldenportConstants {
@@ -90,21 +91,21 @@ abstract class GContainerContext(val monitor: GMonitor, val parameters: GParamet
   final def messagerKind: String = {
     parameters.get(Container_Message) match {
       case Some(kind) => kind.toString
-      case _ => throw new IllegalStateException("%sに値が設定されていません。".format(Container_Message))
+      case _ => throw new IllegalStateException(formatString("%sに値が設定されていません。", Container_Message))
     }
   }
 
   final def loggerKind: String = {
     parameters.get(Container_Log) match {
       case Some(kind) => kind.toString
-      case _ => throw new IllegalStateException("%sに値が設定されていません。".format(Container_Log))
+      case _ => throw new IllegalStateException(formatString("%sに値が設定されていません。", Container_Log))
     }
   }
 
   final def reporterKind: String = {
     parameters.get(Container_Report) match {
       case Some(kind) => kind.toString
-      case _ => throw new IllegalStateException("%sに値が設定されていません。".format(Container_Report))
+      case _ => throw new IllegalStateException(formatString("%sに値が設定されていません。", Container_Report))
     }
   }
 
@@ -112,11 +113,11 @@ abstract class GContainerContext(val monitor: GMonitor, val parameters: GParamet
     parameters.get(Container_Output_Log) match {
       case Some(dirname) => new File(dirname.toString)
       case None => parameters.get(Container_Output_Auxiliary) match {
-	case Some(dirname) => new File(dirname.toString)
-	case None => parameters.get(Container_Output_Base) match {
-	  case Some(dirname) => new File(dirname.toString)
-	  case None => throw new InternalError("no log output directory")
-	}
+        case Some(dirname) => new File(dirname.toString)
+        case None => parameters.get(Container_Output_Base) match {
+          case Some(dirname) => new File(dirname.toString)
+          case None => throw new InternalError("no log output directory")
+        }
       }
     }
   }
@@ -125,13 +126,24 @@ abstract class GContainerContext(val monitor: GMonitor, val parameters: GParamet
     parameters.get(Container_Output_Report) match {
       case Some(dirname) => new File(dirname.toString)
       case None => parameters.get(Container_Output_Auxiliary) match {
-	case Some(dirname) => new File(dirname.toString)
-	case None => parameters.get(Container_Output_Base) match {
-	  case Some(dirname) => new File(dirname.toString)
-	  case None => throw new InternalError("no report output directory")
-	}
+        case Some(dirname) => new File(dirname.toString)
+        case None => parameters.get(Container_Output_Base) match {
+          case Some(dirname) => new File(dirname.toString)
+          case None => throw new InternalError("no report output directory")
+        }
       }
     }
+  }
+
+  /**
+   * I18N
+   */
+  def formatString(message: String, args: Any*): String = {
+    message.format(args: _*) // TODO I18N
+  }
+
+  def formatStringAscii(message: String, args: Any*): String = {
+    message.format(args: _*) // TODO I18N
   }
 
   def compileSource(file: File) {

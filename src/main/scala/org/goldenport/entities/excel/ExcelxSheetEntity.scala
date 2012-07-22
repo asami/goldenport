@@ -7,16 +7,17 @@ import org.goldenport.entity.datasource.GContentDataSource
 import org.goldenport.entity.locator.EntityLocator
 import org.goldenport.value.GTableBase
 import com.asamioffice.goldenport.text.ReaderCsvTableMaker;
-import org.apache.poi.hssf.usermodel._
+import org.apache.poi.xssf.usermodel._
 
 /**
  * derived from ExcelSheetModel (Aug. 12, 2005)
  * 
  * @since   Nov. 30, 2011
- * @version Jun. 19, 2012
+ *  version Jun. 19, 2012
+ * @version Jul. 22, 2012
  * @author  ASAMI, Tomoharu
  */
-class ExcelxSheetEntity(sheet: HSSFSheet, val book: ExcelxBookEntity,
+class ExcelxSheetEntity(sheet: XSSFSheet, val book: ExcelxBookEntity,
     properties: Map[String, AnyRef], aContext: GEntityContext)
     extends GTableEntity[AnyRef](null, null, aContext) with GTableBase[AnyRef] {
   type DataSource_TYPE = GDataSource
@@ -43,7 +44,7 @@ class ExcelxSheetEntity(sheet: HSSFSheet, val book: ExcelxBookEntity,
 
   def this(book: ExcelxBookEntity, properties: Map[String, AnyRef], aContext: GEntityContext) = this(null, book, properties, aContext)
 
-  def this(sheet: HSSFSheet, book: ExcelxBookEntity, aContext: GEntityContext) = this(sheet, book, null, aContext)
+  def this(sheet: XSSFSheet, book: ExcelxBookEntity, aContext: GEntityContext) = this(sheet, book, null, aContext)
 
   def this(book: ExcelxBookEntity, aContext: GEntityContext) = this(book, null, aContext)
 
@@ -54,6 +55,9 @@ class ExcelxSheetEntity(sheet: HSSFSheet, val book: ExcelxBookEntity,
   }
 
   override protected def open_Entity_Update(aDataSource: GDataSource) {
+  }
+
+  override protected def open_Entity() {
     import org.apache.poi.ss.usermodel.Cell
     name = _sheet_name
     var nRows = _sheet.getPhysicalNumberOfRows();
@@ -108,7 +112,7 @@ class ExcelxSheetEntity(sheet: HSSFSheet, val book: ExcelxBookEntity,
       val sheetName = name
       val currentName = _sheet.getSheetName()
       if (!currentName.equals(sheetName)) {
-        _workbook.setSheetName(_sheet_number, sheetName) // , HSSFWorkbook.ENCODING_UTF_16)
+        _workbook.setSheetName(_sheet_number, sheetName) // , XSSFWorkbook.ENCODING_UTF_16)
       }
 //      val width = getWidth()
 //      val height = getHeight()
@@ -153,18 +157,18 @@ class ExcelxSheetEntity(sheet: HSSFSheet, val book: ExcelxBookEntity,
             if (cell == null) {
               cell = row.createCell(x)
             }
-            cell.setEncoding(HSSFCell.ENCODING_UTF_16)
+            cell.setEncoding(XSSFCell.ENCODING_UTF_16)
             cell.setCellValue(value)
             //
-            HSSFCellStyle style = workbook_.createCellStyle()
-            style.setBorderBottom(HSSFCellStyle.BORDER_THIN)
-            style.setBottomBorderColor(HSSFColor.BLACK.index)
-            style.setBorderLeft(HSSFCellStyle.BORDER_THIN)
-            style.setLeftBorderColor(HSSFColor.BLACK.index)
-            style.setBorderRight(HSSFCellStyle.BORDER_THIN)
-            style.setRightBorderColor(HSSFColor.BLACK.index)
-            style.setBorderTop(HSSFCellStyle.BORDER_THIN)
-            style.setRightBorderColor(HSSFColor.BLACK.index)
+            XSSFCellStyle style = workbook_.createCellStyle()
+            style.setBorderBottom(XSSFCellStyle.BORDER_THIN)
+            style.setBottomBorderColor(XSSFColor.BLACK.index)
+            style.setBorderLeft(XSSFCellStyle.BORDER_THIN)
+            style.setLeftBorderColor(XSSFColor.BLACK.index)
+            style.setBorderRight(XSSFCellStyle.BORDER_THIN)
+            style.setRightBorderColor(XSSFColor.BLACK.index)
+            style.setBorderTop(XSSFCellStyle.BORDER_THIN)
+            style.setRightBorderColor(XSSFColor.BLACK.index)
             //
             val attr = getAttribute(x, y)
             if (attr != null) {
@@ -178,13 +182,13 @@ class ExcelxSheetEntity(sheet: HSSFSheet, val book: ExcelxBookEntity,
               if (halign != null) {
                 switch (halign) {
                   case LEFT => {
-                    style.setAlignment(HSSFCellStyle.ALIGN_LEFT)
+                    style.setAlignment(XSSFCellStyle.ALIGN_LEFT)
                   }
                   case CENTER => {
-                    style.setAlignment(HSSFCellStyle.ALIGN_CENTER)
+                    style.setAlignment(XSSFCellStyle.ALIGN_CENTER)
                   }
                   case RIGHT => {
-                    style.setAlignment(HSSFCellStyle.ALIGN_RIGHT)
+                    style.setAlignment(XSSFCellStyle.ALIGN_RIGHT)
                   }
                 }
               }
@@ -192,21 +196,21 @@ class ExcelxSheetEntity(sheet: HSSFSheet, val book: ExcelxBookEntity,
               if (valign != null) {
                 switch (valign) {
                   case TOP => {
-                    style.setVerticalAlignment(HSSFCellStyle.VERTICAL_TOP)                      
+                    style.setVerticalAlignment(XSSFCellStyle.VERTICAL_TOP)                      
                   }
                   case MIDDLE => {
-                    style.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER)
+                    style.setVerticalAlignment(XSSFCellStyle.VERTICAL_CENTER)
                   }
                   case BOTTOM => {
-                    style.setVerticalAlignment(HSSFCellStyle.VERTICAL_BOTTOM)
+                    style.setVerticalAlignment(XSSFCellStyle.VERTICAL_BOTTOM)
                   }
                 }
               }
               val bgColor = attr.backgroundColor
               if (bgColor != null) {
 //                                 style.setFillForegroundColor((short)bgColor.getRGB())
-                style.setFillForegroundColor(HSSFColor.GREY_25_PERCENT.index) // XXX
-                style.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND)
+                style.setFillForegroundColor(XSSFColor.GREY_25_PERCENT.index) // XXX
+                style.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND)
               }
               val fontWeight = attr.fontWeight
               if (fontWeight != null || attr.fontStyle != null) {
@@ -214,7 +218,7 @@ class ExcelxSheetEntity(sheet: HSSFSheet, val book: ExcelxBookEntity,
                 if (fontWeight != null) { 
                   switch (fontWeight) {
                     case BOLD => {
-                      font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD)
+                      font.setBoldweight(XSSFFont.BOLDWEIGHT_BOLD)
                     }
                   }
                 }

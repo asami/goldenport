@@ -9,19 +9,19 @@ import org.goldenport.sdoc.structure._
 import org.goldenport.entities.workspace.TreeWorkspaceEntity
 import org.goldenport.entities.zip.ZipEntity
 import org.goldenport.value.GTreeBase
-import org.apache.poi.hssf.usermodel.HSSFWorkbook
+import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import java.io.InputStream
 import scala.collection.mutable.LinkedHashMap
 
 /**
  * @since   Jun. 12, 2012
- * @version Jun. 19, 2012
+ * @version Jul. 22, 2012
  * @author  ASAMI, Tomoharu
  */
-class ExcelxBookEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityContext) extends GTableListEntity(aIn, aOut, aContext) {
+class ExcelxBookEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityContext) extends GTableListEntity[ExcelxSheetEntity](aIn, aOut, aContext) {
   type DataSource_TYPE = GDataSource
 
-  private var _workbook: HSSFWorkbook  = null;
+  private var _workbook: XSSFWorkbook  = null;
   private val _sheets = new LinkedHashMap[String, ExcelxSheetEntity]()
 
   val excelContext = new GSubEntityContext(entityContext) {
@@ -45,13 +45,13 @@ class ExcelxBookEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityCon
     var in: InputStream = null
     try {
       if (!ds.isExist) {
-        _workbook = new HSSFWorkbook()
+        _workbook = new XSSFWorkbook()
       } else {
         in = ds.openInputStream()
-        _workbook = new HSSFWorkbook(in)
+        _workbook = new XSSFWorkbook(in)
         val nSheets = _workbook.getNumberOfSheets()
-        for (i <- 0 to nSheets) {
-          val sheet = new ExcelxSheetEntity(_workbook.getSheetAt(i), this, excelContext)
+        for (i <- 0 until nSheets) {
+          val sheet = new ExcelxSheetEntity(_workbook.getSheetAt(i), this, null, excelContext)
           _sheets += sheet.name -> sheet
         }
       }
@@ -76,6 +76,8 @@ class ExcelxBookEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityCon
   def firstSheet: Option[ExcelxSheetEntity] = {
     _sheets.values.headOption
   }
+
+  def head: ExcelxSheetEntity = firstSheet.get
 /*
     public ExcelxSheetModel getSheetModel(String key) throws RModelException {
         return (ExcelxSheetModel)getModel(key);

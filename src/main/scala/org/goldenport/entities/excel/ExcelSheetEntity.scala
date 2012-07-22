@@ -13,7 +13,8 @@ import org.apache.poi.hssf.usermodel._
  * derived from ExcelSheetModel (Aug. 12, 2005)
  * 
  * @since   Nov. 30, 2011
- * @version Dec.  1, 2011
+ *  version Dec.  1, 2011
+ * @version Jul. 22, 2012
  * @author  ASAMI, Tomoharu
  */
 class ExcelSheetEntity(sheet: HSSFSheet, val book: ExcelBookEntity,
@@ -32,13 +33,13 @@ class ExcelSheetEntity(sheet: HSSFSheet, val book: ExcelBookEntity,
 
   private def _sheet_number: Int = {
     val length = _workbook.getNumberOfSheets();
-    for (i <- 0 to length) {
+    for (i <- 0 until length) {
       val target = _workbook.getSheetAt(i);
       if (target == _sheet) {
         return i;
       }
     }
-    throw new IllegalStateException("Illega sheet number")
+    throw new IllegalStateException("Illegal sheet number")
   }
 
   def this(book: ExcelBookEntity, properties: Map[String, AnyRef], aContext: GEntityContext) = this(null, book, properties, aContext)
@@ -54,6 +55,9 @@ class ExcelSheetEntity(sheet: HSSFSheet, val book: ExcelBookEntity,
   }
 
   override protected def open_Entity_Update(aDataSource: GDataSource) {
+  }
+
+  override protected def open_Entity() {
     import org.apache.poi.ss.usermodel.Cell
     name = _sheet_name
     var nRows = _sheet.getPhysicalNumberOfRows();

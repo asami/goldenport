@@ -24,18 +24,13 @@ scalacOptions += "-unchecked"
 
 resolvers += "Asami Maven Repository" at "http://www.asamioffice.com/maven"
 
-libraryDependencies += "org.scala-lang" % "scala-compiler" % "2.9.1"
+libraryDependencies <+= scalaVersion { "org.scala-lang" % "scala-compiler" % _ }
 
-libraryDependencies += "org.scala-lang" % "scala-swing" % "2.9.1"
-
-// libraryDependencies <<= (scalaVersion, libraryDependencies) { (sv, deps) =>
-//   deps :+ "org.scala-lang" % "scala-compiler" % sv
-//   deps :+ "org.scala-lang" % "scala-swing" % sv
-// }
+libraryDependencies <+= scalaVersion { "org.scala-lang" % "scala-swing" % _ }
 
 libraryDependencies += "org.scalatest" %% "scalatest" % "1.6.1" % "test"
 
-libraryDependencies += "junit" % "junit" % "4.7" % "test"
+libraryDependencies += "junit" % "junit" % "4.10" % "test"
 
 libraryDependencies += "javax.servlet" % "servlet-api" % "2.5" % "provided"
 
@@ -45,7 +40,7 @@ libraryDependencies += "commons-io" % "commons-io" % "1.3.2" % "provided"
 
 libraryDependencies += "org.apache.poi" % "poi" % "3.8" % "provided"
 
-// libraryDependencies += "org.apache.poi" % "poi-ooxml" % "3.8-beta4" % "provided"
+libraryDependencies += "org.apache.poi" % "poi-ooxml" % "3.8" % "provided"
 
 libraryDependencies += "org.scalaz" %% "scalaz-core" % "6.0.4"
 

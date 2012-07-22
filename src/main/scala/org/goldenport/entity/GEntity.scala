@@ -21,7 +21,8 @@ import java.net.URI
  *  version Sep. 17, 2010
  *  version Jan.  9, 2012
  *  version Jan. 27, 2012
- * @version May.  5, 2012
+ *  version May.  5, 2012
+ * @version Jul. 21, 2012
  * @author  ASAMI, Tomoharu
  */
 abstract class GEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityContext) extends GObject {
@@ -89,6 +90,7 @@ abstract class GEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityCon
     open_count += 1
     if (open_count == 1) {
       open_Pre_Condition()
+      open_entity()
       open_Entity()
       open_Post_Condition()
       clear_dirty()
@@ -108,7 +110,7 @@ abstract class GEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityCon
   }
 
 
-  final protected def open_Entity() {
+  final protected def open_entity() {
     if (input_dataSource == null || input_dataSource == NullDataSource) {
       open_Entity_Create()
     } else if (!input_dataSource.isExist) {
@@ -118,6 +120,9 @@ abstract class GEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityCon
       _set_name_if_needed
       open_Entity_Update(input_dataSource)
     }
+  }
+
+  protected def open_Entity() {
   }
 
   private def _set_name_if_needed {
@@ -138,9 +143,11 @@ abstract class GEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityCon
     sys.error("missing open_Entity_Update(GDataSource):" + this)
   }
 
-  protected def open_Pre_Condition(): Unit = null
+  protected def open_Pre_Condition() {
+  }
 
-  protected def open_Post_Condition(): Unit = null
+  protected def open_Post_Condition() {
+  }
 
   /*
    * The close does not mean to be a invalid state.

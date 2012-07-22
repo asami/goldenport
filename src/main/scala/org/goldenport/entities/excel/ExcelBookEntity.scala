@@ -15,10 +15,11 @@ import scala.collection.mutable.LinkedHashMap
 
 /**
  * @since   Nov. 29, 2011
- * @version Jun. 19, 2012
+ *  version Jun. 19, 2012
+ * @version Jul. 21, 2012
  * @author  ASAMI, Tomoharu
  */
-class ExcelBookEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityContext) extends GTableListEntity(aIn, aOut, aContext) {
+class ExcelBookEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityContext) extends GTableListEntity[ExcelSheetEntity](aIn, aOut, aContext) {
   type DataSource_TYPE = GDataSource
 
   private var _workbook: HSSFWorkbook  = null;
@@ -50,8 +51,9 @@ class ExcelBookEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityCont
         in = ds.openInputStream()
         _workbook = new HSSFWorkbook(in)
         val nSheets = _workbook.getNumberOfSheets()
-        for (i <- 0 to nSheets) {
+        for (i <- 0 until nSheets) {
           val sheet = new ExcelSheetEntity(_workbook.getSheetAt(i), this, excelContext)
+          sheet.open
           _sheets += sheet.name -> sheet
         }
       }
@@ -64,7 +66,11 @@ class ExcelBookEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityCont
         }
       }
     }
-  }    
+  }
+
+  override protected def close_Entity() {
+    _sheets.values.foreach(_.close)
+  }
 
   override protected def write_Content(anOut: OutputStream): Unit = {
   }
@@ -81,6 +87,7 @@ class ExcelBookEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityCont
     _sheets.get(key)
   }
 
+  def head: ExcelSheetEntity = firstSheet.get
 /*
     public ExcelSheetModel getSheetModel(String key) throws RModelException {
         return (ExcelSheetModel)getModel(key);
@@ -120,7 +127,7 @@ class ExcelBookEntityClass extends GEntityClass {
   type Instance_TYPE = ExcelBookEntity
 
   override def accept_Suffix(suffix: String): Boolean = {
-    suffix == "xls" || suffix  == "xlsx"
+    suffix == "xls"
   }
 
   override def reconstitute_DataSource(aDataSource: GDataSource, aContext: GEntityContext): Option[Instance_TYPE] = Some(new ExcelBookEntity(aDataSource, aContext))

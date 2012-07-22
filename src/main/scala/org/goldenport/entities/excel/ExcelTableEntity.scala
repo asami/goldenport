@@ -15,7 +15,8 @@ import org.goldenport.value.GTableBase
 
 /**
  * @since   Dec.  1, 2011
- * @version Dec.  1, 2011
+ *  version Dec.  1, 2011
+ * @version Jul. 21, 2012
  * @author  ASAMI, Tomoharu
  */
 class ExcelTableEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityContext) 
@@ -86,7 +87,7 @@ class ExcelTableEntityClass extends GEntityClass {
   type Instance_TYPE = ExcelTableEntity
 
   override def accept_Suffix(suffix: String): Boolean = {
-    suffix == "xls" || suffix  == "xlsx"
+    suffix == "xls"
   }
 
   override def reconstitute_DataSource(aDataSource: GDataSource, aContext: GEntityContext): Option[Instance_TYPE] = Some(new ExcelTableEntity(aDataSource, aContext))
