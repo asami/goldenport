@@ -18,7 +18,8 @@ import org.goldenport.entity._
  *
  * @since   Aug.  6, 2008
  *  version Sep. 18, 2010
- * @version Feb.  1, 2012
+ *  version Feb.  1, 2012
+ * @version Aug.  4, 2012
  * @author  ASAMI, Tomoharu
  */
 abstract class GEntitySpace(val containerContext: GContainerContext, theParams: GParameterRepository) extends GTreeContainerObject {
@@ -145,6 +146,10 @@ abstract class GEntitySpace(val containerContext: GContainerContext, theParams: 
 
     final def makeReferenceContent(aReference: String): GContent = {
       GEntitySpace.this.makeReferenceContent(aReference, this)
+    }
+
+    def formatString(s: String, args: Any*): String = {
+      containerContext.formatString(s, args: _*)
     }
   }
 }

@@ -13,7 +13,8 @@ import org.goldenport.parameter._
  * since Aug. 2, 2005.
  *
  * @since   Aug.  5, 2008
- * @version Jul. 15, 2010
+ *  version Jul. 15, 2010
+ * @version Aug.  4, 2012
  * @author  ASAMI, Tomoharu
  */
 abstract class GEntityContext extends ForwardingRecorder {
@@ -32,6 +33,8 @@ abstract class GEntityContext extends ForwardingRecorder {
   def executeCommand(aCommandLine: String, envp: Array[String], dir: File): Process
   def makeReferenceContent(aReference: String): GContent
   def normalizeFilename(aName: String): String
+  // I18N
+  def formatString(s: String, args: Any*): String
 }
 
 class NullEntityContext extends GEntityContext with NullRecorder {
@@ -92,6 +95,10 @@ class NullEntityContext extends GEntityContext with NullRecorder {
   }
 
   def normalizeFilename(aName: String): String = {
+    throw new UnsupportedOperationException("unsupported")
+  }
+
+  def formatString(s: String, args: Any*): String = {
     throw new UnsupportedOperationException("unsupported")
   }
 }

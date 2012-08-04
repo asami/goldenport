@@ -15,7 +15,8 @@ import com.asamioffice.goldenport.io.UFile
  * derived from SubRModelContext.java since Aug. 3, 2005.
  *
  * @since   Feb. 28, 2009
- * @version Jul. 15, 2010
+ *  version Jul. 15, 2010
+ * @version Aug.  4, 2012
  * @author  ASAMI, Tomoharu
  */
 abstract class GSubEntityContext(val parentContext: GEntityContext, theParams: GParameterRepository) extends GEntityContext {
@@ -90,5 +91,9 @@ abstract class GSubEntityContext(val parentContext: GEntityContext, theParams: G
 
   def normalizeFilename(aName: String): String = {
     parentContext.normalizeFilename(aName)
+  }
+
+  def formatString(s: String, args: Any*): String = {
+    parentContext.formatString(s, args: _*)
   }
 }

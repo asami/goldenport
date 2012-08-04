@@ -22,7 +22,8 @@ import java.net.URI
  *  version Jan.  9, 2012
  *  version Jan. 27, 2012
  *  version May.  5, 2012
- * @version Jul. 21, 2012
+ *  version Jul. 21, 2012
+ * @version Aug.  4, 2012
  * @author  ASAMI, Tomoharu
  */
 abstract class GEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityContext) extends GObject {
@@ -348,5 +349,9 @@ abstract class GEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityCon
     } finally {
       close()
     }
+  }
+
+  protected final def m(s: String, args: Any*): String = {
+    entityContext.formatString(s, args: _*)
   }
 }
