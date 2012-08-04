@@ -52,6 +52,7 @@ class ExcelxBookEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityCon
         val nSheets = _workbook.getNumberOfSheets()
         for (i <- 0 until nSheets) {
           val sheet = new ExcelxSheetEntity(_workbook.getSheetAt(i), this, null, excelContext)
+          sheet.open
           _sheets += sheet.name -> sheet
         }
       }
