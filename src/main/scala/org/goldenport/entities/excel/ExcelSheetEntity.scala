@@ -14,7 +14,8 @@ import org.apache.poi.hssf.usermodel._
  * 
  * @since   Nov. 30, 2011
  *  version Dec.  1, 2011
- * @version Jul. 22, 2012
+ *  version Jul. 22, 2012
+ * @version Aug.  5, 2012
  * @author  ASAMI, Tomoharu
  */
 class ExcelSheetEntity(sheet: HSSFSheet, val book: ExcelBookEntity,
@@ -65,12 +66,15 @@ class ExcelSheetEntity(sheet: HSSFSheet, val book: ExcelBookEntity,
     while (nRows > 0) {
       val row = _sheet.getRow(y)
       if (row != null) {
+        val rstyle = row.getRowStyle()
+        //
         nRows -= 1
         var nColumns = row.getPhysicalNumberOfCells() 
         var x = 0
         while (nColumns > 0) {
           val cell = row.getCell(x);
           if (cell != null) {
+            val cstyle = cell.getCellStyle()
             nColumns -= 1
             cell.getCellType() match {
               case Cell.CELL_TYPE_NUMERIC => {
@@ -94,6 +98,7 @@ class ExcelSheetEntity(sheet: HSSFSheet, val book: ExcelBookEntity,
               case Cell.CELL_TYPE_ERROR => {}
               case _ => {}
             }
+            cstyle
             x += 1
           }
         }

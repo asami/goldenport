@@ -23,7 +23,7 @@ import java.net.URI
  *  version Jan. 27, 2012
  *  version May.  5, 2012
  *  version Jul. 21, 2012
- * @version Aug.  4, 2012
+ * @version Aug.  5, 2012
  * @author  ASAMI, Tomoharu
  */
 abstract class GEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityContext) extends GObject {
@@ -32,6 +32,7 @@ abstract class GEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityCon
   private val output_dataSource: DataSource_TYPE = aOut.asInstanceOf[DataSource_TYPE]
   private var entity_context: GEntityContext = aContext
   private var open_count: Int = 0
+  private var _is_exists: Boolean = false
   private var is_dirty: Boolean = false
   private var entity_dataSource: EntityDataSource = _
   private var entity_locator: EntityLocator = _
@@ -108,6 +109,7 @@ abstract class GEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityCon
     } else {
       open_Entity_Create()
     }
+    open_Entity()
   }
 
 
@@ -231,7 +233,15 @@ abstract class GEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityCon
 
   def isCommtable: Boolean = is_Commitable
 
-  def isDirty: Boolean = is_dirty
+  def isExist: Boolean = {
+    assert_opened
+    _is_exists
+  }
+
+  def isDirty: Boolean = {
+    assert_opened
+    is_dirty
+  }
 
   private[entity] def setDirty(): Unit = { // visibility
     set_dirty()
