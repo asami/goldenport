@@ -1,4 +1,4 @@
-seq(giter8Settings :_*)
+// seq(giter8Settings :_*)
 
 name := "goldenport"
 
@@ -6,9 +6,9 @@ version := "0.4.0-SNAPSHOT"
 
 organization := "org.goldenport"
 
-scalaVersion := "2.9.1"
+// scalaVersion := "2.9.2"
 
-// crossScalaVersions := Seq("2.9.1", "2.9.2")
+crossScalaVersions := Seq("2.9.2", "2.9.1")
 
 // retrieveManaged := true
 
@@ -50,7 +50,7 @@ libraryDependencies += "org.goldenport" %% "goldenport-scala-lib" % "0.1.2"
 
 libraryDependencies += "org.goldenport" %% "goldenport-record" % "0.2.0-SNAPSHOT"
 
-libraryDependencies += "org.goldenport" %% "goldenport-swing" % "0.1.0"
+libraryDependencies += "org.goldenport" %% "goldenport-swing" % "0.2.0-SNAPSHOT"
 
 libraryDependencies += "org.smartdox" %% "smartdox" % "0.3.0-SNAPSHOT"
 
