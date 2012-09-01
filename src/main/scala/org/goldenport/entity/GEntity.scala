@@ -1,5 +1,6 @@
 package org.goldenport.entity
 
+import com.asamioffice.goldenport.text.UPathString
 import java.io._
 import org.goldenport.GObject
 import org.goldenport.entity.datasource.{GDataSource, NullDataSource}
@@ -23,7 +24,7 @@ import java.net.URI
  *  version Jan. 27, 2012
  *  version May.  5, 2012
  *  version Jul. 21, 2012
- * @version Aug.  5, 2012
+ * @version Aug. 25, 2012
  * @author  ASAMI, Tomoharu
  */
 abstract class GEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityContext) extends GObject {
@@ -317,6 +318,7 @@ abstract class GEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityCon
     sys.error("missing write_Content(BufferedWriter):" + this)
   }
 
+  //
   def toBinaryContent: BinaryContent = {
     val work = new WorkspaceBag(entity_context)
     val out = work.openOutputStream()
@@ -361,6 +363,15 @@ abstract class GEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityCon
     }
   }
 
+  def getBaseUriAsString(): Option[String] = {
+    if (inputDataSource == null || inputDataSource == NullDataSource) {
+      None
+    } else {
+      Some(UPathString.getContainerPathname(inputDataSource.getUrl.toString))
+    }
+  }
+
+  // utilities for concrete entities.
   protected final def m(s: String, args: Any*): String = {
     entityContext.formatString(s, args: _*)
   }
