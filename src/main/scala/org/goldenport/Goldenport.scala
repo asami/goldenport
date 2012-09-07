@@ -240,6 +240,16 @@ class Goldenport(theArgs: Array[String], aDesc: GApplicationDescriptor) extends 
         context.record_error(ex)
         None
       }
+      case ex: java.io.FileNotFoundException => {
+        val context = _session.sessionContext
+        context.record_error(ex)
+        None
+      }
+      case ex: java.io.IOException => {
+        val context = _session.sessionContext
+        context.record_error(ex)
+        None
+      }
     }
   }
 
