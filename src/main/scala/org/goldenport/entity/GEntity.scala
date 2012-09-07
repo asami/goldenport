@@ -24,7 +24,8 @@ import java.net.URI
  *  version Jan. 27, 2012
  *  version May.  5, 2012
  *  version Jul. 21, 2012
- * @version Aug. 25, 2012
+ *  version Aug. 25, 2012
+ * @version Sep.  8, 2012
  * @author  ASAMI, Tomoharu
  */
 abstract class GEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityContext) extends GObject {
@@ -367,7 +368,7 @@ abstract class GEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityCon
     if (inputDataSource == null || inputDataSource == NullDataSource) {
       None
     } else {
-      Some(UPathString.getContainerPathname(inputDataSource.getUrl.toString))
+      inputDataSource.getUrl.map(x => UPathString.getContainerPathname(x.toString))
     }
   }
 
