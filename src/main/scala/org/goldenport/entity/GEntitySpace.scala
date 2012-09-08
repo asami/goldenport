@@ -19,7 +19,8 @@ import org.goldenport.entity._
  * @since   Aug.  6, 2008
  *  version Sep. 18, 2010
  *  version Feb.  1, 2012
- * @version Aug.  4, 2012
+ *  version Aug.  4, 2012
+ * @version Sep.  9, 2012
  * @author  ASAMI, Tomoharu
  */
 abstract class GEntitySpace(val containerContext: GContainerContext, theParams: GParameterRepository) extends GTreeContainerObject {
@@ -140,6 +141,8 @@ abstract class GEntitySpace(val containerContext: GContainerContext, theParams: 
   } ensuring(_ != null)
 
   class EntitySpaceEntityContext(aContainerContext: GContainerContext, theParams: GParameterRepository) extends GRootEntityContext(aContainerContext, theParams) {
+    final def entitySpace = GEntitySpace.this
+
     final def reconstitute(aNode: GContainerEntityNode): Option[GEntity] = {
       GEntitySpace.this.reconstitute(aNode)
     }

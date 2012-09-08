@@ -14,10 +14,12 @@ import org.goldenport.parameter._
  *
  * @since   Aug.  5, 2008
  *  version Jul. 15, 2010
- * @version Aug.  4, 2012
+ *  version Aug.  4, 2012
+ * @version Sep.  9, 2012
  * @author  ASAMI, Tomoharu
  */
 abstract class GEntityContext extends ForwardingRecorder {
+  def entitySpace: GEntitySpace
   def textEncoding: String
   def newLine: String
   def newInstance[R <: Any](aName: String): R
@@ -38,6 +40,10 @@ abstract class GEntityContext extends ForwardingRecorder {
 }
 
 class NullEntityContext extends GEntityContext with NullRecorder {
+  def entitySpace: GEntitySpace = {
+    throw new UnsupportedOperationException("unsupported")
+  }
+
   def textEncoding: String = {
     throw new UnsupportedOperationException("unsupported")
   }
