@@ -2,7 +2,7 @@
 
 name := "goldenport"
 
-version := "0.4.0-SNAPSHOT"
+version := "0.4.0"
 
 organization := "org.goldenport"
 
@@ -48,10 +48,10 @@ libraryDependencies += "org.goldenport" % "goldenport-java-lib" % "0.1.0"
 
 libraryDependencies += "org.goldenport" %% "goldenport-scala-lib" % "0.1.2"
 
-libraryDependencies += "org.goldenport" %% "goldenport-record" % "0.2.0-SNAPSHOT"
+libraryDependencies += "org.goldenport" %% "goldenport-record" % "0.2.0"
 
-libraryDependencies += "org.goldenport" %% "goldenport-swing" % "0.2.0-SNAPSHOT"
+libraryDependencies += "org.goldenport" %% "goldenport-swing" % "0.2.0"
 
-libraryDependencies += "org.smartdox" %% "smartdox" % "0.3.0-SNAPSHOT"
+libraryDependencies += "org.smartdox" %% "smartdox" % "0.3.0"
 
 publishTo := Some(Resolver.file("asamioffice", file("target/maven-repository")))
