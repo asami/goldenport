@@ -13,8 +13,9 @@ import org.goldenport.reporter._
  * Logger, Messager, Reporter
  *
  * @since   Apr.  2, 2009
- * @version Oct. 30, 2011
+ *  version Oct. 30, 2011
  *  version Jan. 25, 2012
+ * @version Sep. 18, 2012
  * @author  ASAMI, Tomoharu
  */
 class StandaloneCommandRecorder(val context: GContainerContext) extends GRecorder {
@@ -47,9 +48,33 @@ class StandaloneCommandRecorder(val context: GContainerContext) extends GRecorde
     logger = null
   }
 
+  private def _messager_errorln(msg: String) {
+    messager.errorln(Console.WHITE_B + Console.RED + Console.BOLD + msg + Console.RESET)
+  }
+
+  private def _messager_warningln(msg: String) {
+    messager.warningln(Console.WHITE_B + Console.YELLOW + msg + Console.RESET)
+  }
+
+  private def _messager_infoln(msg: String) {
+    messager.message(msg)
+  }
+
+  private def _messager_debugln(msg: String) {
+    messager.warningln(Console.CYAN_B + Console.BLACK + msg + Console.RESET)
+  }
+
+  private def _messager_traceln(msg: String) {
+    messager.warningln(Console.CYAN_B + Console.BLUE + msg + Console.RESET)
+  }
+
+  private def _messager_reportln(msg: String) {
+    messager.message(Console.UNDERLINED + msg + Console.RESET)
+  }
+
   override def record_error(ex: Throwable) {
     if (RecorderLevel.isError(_message_level)) {
-      messager.errorln(ex.getMessage)
+      _messager_errorln(ex.getMessage)
     }
     logger.error(ex)
     reporter.error(ex)
@@ -58,7 +83,7 @@ class StandaloneCommandRecorder(val context: GContainerContext) extends GRecorde
   override def record_error(message: String, args: Any*) {
     val msg = message.format(args: _*)
     if (RecorderLevel.isError(_message_level)) {
-      messager.errorln(msg)
+      _messager_errorln(msg)
     }
     logger.error(msg)
     reporter.error(msg)
@@ -67,7 +92,7 @@ class StandaloneCommandRecorder(val context: GContainerContext) extends GRecorde
   override def record_error(ex: Throwable, message: String, args: Any*) {
     val msg = message.format(args: _*)
     if (RecorderLevel.isError(_message_level)) {
-      messager.errorln(msg)
+      _messager_errorln(msg)
     }
     logger.error(ex, msg)
     reporter.error(ex, msg)
@@ -76,7 +101,7 @@ class StandaloneCommandRecorder(val context: GContainerContext) extends GRecorde
   override def record_warning(message: String, args: Any*) {
     val msg = message.format(args: _*)
     if (RecorderLevel.isWarning(_message_level)) {
-      messager.warningln(msg)
+      _messager_warningln(msg)
     }
     logger.warning(msg)
     reporter.warning(msg)
@@ -85,7 +110,7 @@ class StandaloneCommandRecorder(val context: GContainerContext) extends GRecorde
   override def record_info(message: String, args: Any*) {
     val msg = message.format(args: _*)
     if (RecorderLevel.isInfo(_message_level)) {
-      messager.messageln(msg)
+      _messager_infoln(msg)
     }
     logger.info(msg)
   }
@@ -95,7 +120,7 @@ class StandaloneCommandRecorder(val context: GContainerContext) extends GRecorde
         RecorderLevel.isDebug(_logger_level)) {
       val msg = message
       if (RecorderLevel.isDebug(_message_level)) {
-        messager.messageln(msg)
+        _messager_debugln(msg)
       }
       if (RecorderLevel.isDebug(_logger_level)) {
         logger.debug(msg)
@@ -108,7 +133,7 @@ class StandaloneCommandRecorder(val context: GContainerContext) extends GRecorde
         RecorderLevel.isTrace(_logger_level)) {
       val msg = message
       if (RecorderLevel.isTrace(_message_level)) {
-        messager.messageln(msg)
+        _messager_traceln(msg)
       }
       if (RecorderLevel.isDebug(_logger_level)) {
         logger.trace(msg)
@@ -116,6 +141,7 @@ class StandaloneCommandRecorder(val context: GContainerContext) extends GRecorde
     }
   }
 
+  // XXX
   override def record_messageC(message: String, args: Any*) {
     val msg = message.format(args:_*)
     messager.message(msg)
@@ -123,6 +149,7 @@ class StandaloneCommandRecorder(val context: GContainerContext) extends GRecorde
     reporter.message(msg)
   }
 
+  // XXX
   override def record_message(message: String, args: Any*) {
     val msg = message.format(args:_*)
     messager.messageln(msg)
@@ -130,6 +157,7 @@ class StandaloneCommandRecorder(val context: GContainerContext) extends GRecorde
     reporter.message(msg)
   }
 
+  // XXX
   override def record_message() {
     messager.messageln()
     logger.info("")
@@ -139,7 +167,7 @@ class StandaloneCommandRecorder(val context: GContainerContext) extends GRecorde
     val msg = message.format(args: _*)
     reporter.message(msg)
     if (RecorderLevel.isTrace(_message_level)) {
-        messager.messageln("[report] " + msg)
+        _messager_reportln("[report] " + msg)
     }    
   }
 }

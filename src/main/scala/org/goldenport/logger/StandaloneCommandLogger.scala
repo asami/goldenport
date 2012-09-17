@@ -7,9 +7,12 @@ import com.asamioffice.goldenport.util.UDateTime
 import com.asamioffice.goldenport.xml.UXML
 
 /*
+ * TODO log configuration same as Report
+ * 
  * @since   Apr.  2, 2009
  *  version Oct. 30, 2011
- * @version Jul. 21, 2012
+ *  version Jul. 21, 2012
+ * @version Sep. 18, 2012
  * @author  ASAMI, Tomoharu
  */
 class StandaloneCommandLogger(val context: GContainerContext) extends GLogger {
