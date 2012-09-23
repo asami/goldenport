@@ -17,7 +17,8 @@ import org.goldenport.value.GTable
  *  version Jan. 26, 2012
  *  version Jul. 21, 2012
  *  version Aug. 25, 2012
- * @version Sep.  9, 2012 (goldenport)
+ *  version Sep.  9, 2012 (goldenport)
+ * @version Sep. 24, 2012
  * @author  ASAMI, Tomoharu
  */
 trait Dox2Dox {
@@ -69,7 +70,8 @@ trait Dox2Dox {
 
   protected final def load_table(t: Table, tt: TTable): (Table, Stream[Tree[Dox]]) = {
     val (h, b) = load_table(tt)
-    (t, Stream(h, b.some).flatten.map(Dox.tree))
+    val table = t.copy(caption = tt.caption, label = tt.label)
+    (table, Stream(tt.caption, h, b.some).flatten.map(Dox.tree))
   }
 
   protected final def load_table(tt: TTable): (Option[THead], TBody) = {
