@@ -25,6 +25,7 @@ trait Dox2Dox {
   self: Recordable =>
   protected val entitySpace: GEntitySpace
   protected val baseUri: Option[String]
+  protected def tableLoader: TableLoader = PlainTableLoader
 
   protected final def dox2doxVW(d: Dox): DoxVW = {
     Dox.treeLensVW.mod(d.toVW, tdox2_TdoxVW)
@@ -121,8 +122,49 @@ trait Dox2Dox {
   }
 
   private def _load_table_trees(t: GTable[_]) = {
+    tableLoader.loadTable(t)
+  }
+
+  protected def transform_Dox(t: Tree[Dox]): Tree[Dox]
+}
+
+trait TableLoader {
+  def loadTable(t: GTable[_]): (Option[THead], TBody)
+}
+
+class HeaderTableLoader(nlines: Int) extends TableLoader {
+  def loadTable(t: GTable[_]): (Option[THead], TBody) = {
+    val (h, b) = _load_table(t)
+    (Some(THead(h)), TBody(b))
+  }
+
+  private def _load_table(t: GTable[_]): (List[TR], List[TR]) = {
+    val h = for (y <- 0 until nlines) yield {
+      val r = for (x <- 0 until t.width) yield {
+        t.getOption(x, y) match {
+          case Some(s) => TH(List(Text(s.toString)))
+          case None => TH(Nil)
+        }
+      } 
+      TR(r.toList)
+    }
+    val b = for (y <- nlines until t.height) yield {
+      val r = for (x <- 0 until t.width) yield {
+        t.getOption(x, y) match {
+          case Some(s) => TD(List(Text(s.toString)))
+          case None => TD(Nil)
+        }
+      } 
+      TR(r.toList)
+    }
+    (h.toList, b.toList)
+  }
+}
+
+object WholeTableLoader extends TableLoader {
+  def loadTable(t: GTable[_]): (Option[THead], TBody) = {
     val a = _load_table(t)
-    (None, TBody(a.toList))    
+    (None, TBody(a.toList))
   }
 
   private def _load_table(t: GTable[_]) = {
@@ -136,8 +178,9 @@ trait Dox2Dox {
       TR(b.toList)
     }    
   }
+}
 
-  protected def transform_Dox(t: Tree[Dox]): Tree[Dox]
+object PlainTableLoader extends HeaderTableLoader(1) {
 }
 
 class Dox2DoxEvaluater(
