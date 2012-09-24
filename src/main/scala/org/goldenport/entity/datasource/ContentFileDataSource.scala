@@ -6,10 +6,11 @@ import org.goldenport.entity.locator.FileLocator
 
 /*
  * @since   Aug. 13, 2008
- * @version Jul. 15, 2010
+ *  version Jul. 15, 2010
+ * @version Sep. 24, 2012
  * @author  ASAMI, Tomoharu
  */
-abstract class ContentFileDataSource(aFile: FileLocator, aContext: GEntityContext) extends FileDataSource(aFile, aContext) {
+abstract class ContentFileDataSource(aFile: FileLocator, aContext: GEntityContext) extends FileDataSource(aContext, aFile, None) {
 
   def this(filename: String, aContext: GEntityContext) = this(new FileLocator(filename), aContext)
 

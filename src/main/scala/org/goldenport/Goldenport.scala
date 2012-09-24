@@ -25,12 +25,12 @@ import org.goldenport.entity.datasource.StringDataSource
 /*
  * @since   Aug. 28, 2008
  *  version Feb. 21, 2012
- * @version Sep. 18, 2012
+ * @version Sep. 25, 2012
  * @author  ASAMI, Tomoharu
  */
 class Goldenport(theArgs: Array[String], aDesc: GApplicationDescriptor) extends GoldenportConstants {
-  val version = "0.4.1"
-  val build = "20120918"
+  val version = "0.4.2-SNAPSHOT"
+  val build = "20120925"
   private var _system_parameters = setup_system_parameters
   private var _container_parameters = setup_container_parameters
   private var _application_parameters = setup_application_parameters(aDesc)

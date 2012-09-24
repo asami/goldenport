@@ -8,10 +8,11 @@ import org.goldenport.entity.content.GContent
 
 /*
  * @since   Aug. 16, 2008
- * @version Jul. 15, 2010
+ *  version Jul. 15, 2010
+ * @version Sep. 24, 2012
  * @author  ASAMI, Tomoharu
  */
-class EntityDataSource(aEntity: GEntity, aContext: GEntityContext) extends GDataSource(aEntity.locator, aContext) {
+class EntityDataSource(aEntity: GEntity, aContext: GEntityContext) extends GDataSource(aContext, aEntity.locator) {
   val ds_entity = aEntity
 
   override def write_OutputStream(aOut: OutputStream): Boolean = {

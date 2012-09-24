@@ -3,6 +3,7 @@ package org.goldenport.entity.datasource
 import scala.xml.{XML, Elem}
 import java.io._
 import java.net.{URL, URI}
+import org.goldenport.util.{MimeType, UriAux}
 import org.goldenport.entity._
 import org.goldenport.entity.locator.{GLocator, NullLocator, NameLocator, URILocator}
 import com.asamioffice.goldenport.io.UIO
@@ -13,20 +14,23 @@ import com.asamioffice.goldenport.io.UIO
  * @since   Aug.  6, 2008
  *  version Jul. 15, 2010
  *  version Nov. 13, 2011
- * @version Jan. 20, 2012
+ *  version Jan. 20, 2012
+ * @version Sep. 25, 2012
  * @author  ASAMI, Tomoharu
  */
-abstract class GDataSource(aLocator: GLocator, aContext: GEntityContext, mimetype: String) {
-  val context: GEntityContext = aContext
-  val locator: GLocator = aLocator
-
-  def this(aContext: GEntityContext) = this(NullLocator, aContext, null)
-  def this(locator: GLocator, aContext: GEntityContext) = this(locator, aContext, null)
-  def this(aContext: GEntityContext, name: String, mimetype: String) = this(new NameLocator(name), aContext, mimetype)
-  def this(aContext: GEntityContext, uri: URI, mimetype: String) = this(new URILocator(uri), aContext, mimetype)
+abstract class GDataSource(
+  val context: GEntityContext,
+  val locator: GLocator,
+  val resource: Option[UriAux] = None,
+  val mimeType: Option[MimeType] = None
+) {
+  def this(aContext: GEntityContext) = this(aContext, NullLocator, null)
+  def this(aContext: GEntityContext, locator: GLocator) = this(aContext, locator, null)
+  def this(aContext: GEntityContext, name: String, mimetype: MimeType) = this(aContext, new NameLocator(name), None, Some(mimetype))
+  def this(aContext: GEntityContext, uri: URI, mimetype: String) = this(aContext, new URILocator(uri), Some(UriAux(uri)), if (mimetype == null) None else Some(MimeType(mimetype)))
+  def this(aContext: GEntityContext, uri: Option[URI], mimetype: Option[MimeType]) = this(aContext, uri.map(x => new URILocator(x)).getOrElse(NullLocator), uri.map(UriAux.apply), mimetype)
 
   private var text_encoding: String = null
-  val mimeType: Option[String] = Option(mimetype) 
   def simpleName: String = locator.simpleName
   def getSuffix(): Option[String] = locator.getSuffix()
   def getFile(): Option[File] = locator.getFile()

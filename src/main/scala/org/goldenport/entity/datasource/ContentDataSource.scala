@@ -8,10 +8,11 @@ import org.goldenport.entity.content.GContent
 
 /*
  * @since   Aug. 14, 2008
- * @version Jul. 15, 2010
+ *  version Jul. 15, 2010
+ * @version Sep. 24, 2012
  * @author  ASAMI, Tomoharu
  */
-class ContentDataSource(aContent: ContentLocator, aContext: GEntityContext) extends GDataSource(aContent, aContext) with GContentDataSource {
+class ContentDataSource(aContent: ContentLocator, aContext: GEntityContext) extends GDataSource(aContext, aContent) with GContentDataSource {
   def this(aContent: GContent, aContext: GEntityContext) = this(aContent.locator, aContext)
 
   val content: GContent = aContent.content

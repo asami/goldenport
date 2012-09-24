@@ -7,10 +7,11 @@ import org.goldenport.entity.GEntityContext
 
 /*
  * @since   Aug.  8, 2008
- * @version Jul. 15, 2010
+ *  version Jul. 15, 2010
+ * @version Sep. 24, 2012
  * @author  ASAMI, Tomoharu
  */
-class ResourceDataSource(aResource: ResourceLocator, aContext: GEntityContext) extends GDataSource(aResource, aContext) with GContentDataSource {
+class ResourceDataSource(aResource: ResourceLocator, aContext: GEntityContext) extends GDataSource(aContext, aResource) with GContentDataSource {
   private val resource_locator = aResource
 
   def this(aResourceName: String, aContext: GEntityContext) = this(new ResourceLocator(aResourceName), aContext)

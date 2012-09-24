@@ -4,12 +4,14 @@ import java.io._
 import org.goldenport.entity.GEntityContext
 import org.goldenport.entity.datasource.GDataSource
 import java.net.URI
+import org.goldenport.util.MimeType
 
 /*
  * @since   Aug. 20, 2008
  *  version Jul. 15, 2010
  *  version Nov. 13, 2011
- * @version Jan. 20, 2012
+ *  version Jan. 20, 2012
+ * @version Sep. 24, 2012
  * @author  ASAMI, Tomoharu
  */
 abstract class GDataSourceContent(aIn: GDataSource, aOut: GDataSource, aContext: GEntityContext) extends GContent(aContext) {
@@ -35,5 +37,5 @@ abstract class GDataSourceContent(aIn: GDataSource, aOut: GDataSource, aContext:
   def simpleName: String = inputDataSource.simpleName
   def suffix: Option[String] = inputDataSource.getSuffix()
 
-  def mimeType: Option[String] = inputDataSource.mimeType
+  def mimeType: Option[MimeType] = inputDataSource.mimeType
 }

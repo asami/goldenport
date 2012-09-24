@@ -16,7 +16,8 @@ import org.apache.commons.fileupload.FileItem
 
 /*
  * @since   Nov. 25, 2011
- * @version Nov. 25, 2011
+ *  version Nov. 25, 2011
+ * @version Sep. 24, 2012
  * @author  ASAMI, Tomoharu
  */
 class GServlet extends HttpServlet {
@@ -134,7 +135,7 @@ class GServlet extends HttpServlet {
     try {
       println("_result:" + b)
       b.mimeType match {
-        case Some(mime) => resp.setContentType(mime)
+        case Some(mime) => resp.setContentType(mime.name)
         case None => resp.setContentType("application/octet-stream")
       }
       b.write(out)

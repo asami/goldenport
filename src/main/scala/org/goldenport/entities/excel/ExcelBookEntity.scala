@@ -1,5 +1,6 @@
 package org.goldenport.entities.excel
 
+import scalaz._, Scalaz._
 import java.io.OutputStream
 import org.goldenport.entity._
 import org.goldenport.entity.datasource.{GDataSource, NullDataSource, ResourceDataSource}
@@ -16,7 +17,8 @@ import scala.collection.mutable.LinkedHashMap
 /**
  * @since   Nov. 29, 2011
  *  version Jun. 19, 2012
- * @version Jul. 21, 2012
+ *  version Jul. 21, 2012
+ * @version Sep. 25, 2012
  * @author  ASAMI, Tomoharu
  */
 class ExcelBookEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityContext) extends GTableListEntity[ExcelSheetEntity](aIn, aOut, aContext) {
@@ -24,6 +26,7 @@ class ExcelBookEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityCont
 
   private var _workbook: HSSFWorkbook  = null;
   private val _sheets = new LinkedHashMap[String, ExcelSheetEntity]()
+  private var _activeSheetName: Option[String] = None
 
   val excelContext = new GSubEntityContext(entityContext) {
     override def text_Encoding = Some("UTF-8")
@@ -57,6 +60,7 @@ class ExcelBookEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityCont
           _sheets += sheet.name -> sheet
         }
       }
+      _activeSheetName = ds.resource.flatMap(_.fragment)
     } finally {
       if (in != null) {
         try {
@@ -86,8 +90,31 @@ class ExcelBookEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityCont
   def sheet(key: String): Option[ExcelSheetEntity] = {
     _sheets.get(key)
   }
+  
+  def activeSheet: Option[ExcelSheetEntity] = {
+    _activeSheetName.fold(_sheets.get, firstSheet)
+  }
 
   def head: ExcelSheetEntity = firstSheet.get
+  def headOption: Option[ExcelSheetEntity] = firstSheet
+  def active: ExcelSheetEntity = {
+    activeSheet match {
+      case Some(s) => s
+      case None => {
+        _activeSheetName match {
+          case Some(n) => throw new NoSuchElementException(entityContext.formatString("シート「%s」がありません。", n))
+          case None => {
+            if (_sheets.isEmpty)
+              throw new NoSuchElementException(entityContext.formatString("シートが空です。"))
+            else
+              sys.error(entityContext.formatString("シートが空です。"))
+          }
+        }
+      }
+    }
+  }
+  def activeOption: Option[ExcelSheetEntity] = activeSheet
+
 /*
     public ExcelSheetModel getSheetModel(String key) throws RModelException {
         return (ExcelSheetModel)getModel(key);

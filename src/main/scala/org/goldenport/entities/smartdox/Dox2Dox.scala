@@ -18,7 +18,7 @@ import org.goldenport.value.GTable
  *  version Jul. 21, 2012
  *  version Aug. 25, 2012
  *  version Sep.  9, 2012 (goldenport)
- * @version Sep. 24, 2012
+ * @version Sep. 25, 2012
  * @author  ASAMI, Tomoharu
  */
 trait Dox2Dox {
@@ -74,16 +74,28 @@ trait Dox2Dox {
     (table, Stream(tt.caption, h, b.some).flatten.map(Dox.tree))
   }
 
+  protected final def error_sentence_tbody(msg: String, args: Any*): TBody = {
+    val m = msg.format(args: _*)
+    TBody(List(TR(List(TD(List(Text(m)))))))
+  }
+
   protected final def load_table(tt: TTable): (Option[THead], TBody) = {
-    val uri = baseUri match {
-      case Some(s) => UPathString.concatPathname(s, tt.uri)
-      case None => tt.uri
-    }
-    entitySpace.reconstitute(uri) match {
-      case Some(e) => load_table_entity(e)
-      case None => {
-        record_warning("%s not found in table.".format(tt.uri))
-        (None, TBody(List(TR(List(TD(List(Text("%s not found.".format(tt.uri)))))))))
+    try {
+      val uri = baseUri match {
+        case Some(s) => UPathString.concatPathname(s, tt.uri)
+        case None => tt.uri
+      }
+      entitySpace.reconstitute(uri) match {
+        case Some(e) => load_table_entity(e)
+        case None => {
+          record_warning("%sが見つかりません。", tt.uri)
+          (None, error_sentence_tbody("%sが見つかりません。", tt.uri))
+        }
+      }
+    } catch {
+      case e => {
+        record_warning("%sが見つかりません。", tt.uri, e)
+        (None, error_sentence_tbody("%sが見つかりません。[詳細] %s", tt.uri, e.getMessage))
       }
     }
   }
@@ -97,13 +109,13 @@ trait Dox2Dox {
       }
       case tables: GTableListEntity[_] => {
         tables using {
-          _load_table_trees(tables.head)
+          _load_table_trees(tables.active)
         }
       }
       case _ => {
         val uri = entity.inputDataSource
-        record_warning("%s not found in table.".format(uri))
-        (None, TBody(List(TR(List(TD(List(Text("%s not found.".format(uri)))))))))
+        record_warning("%sが見つかりません。".format(uri))
+        (None, error_sentence_tbody("%sが見つかりません。", uri))
       }
     }
   }

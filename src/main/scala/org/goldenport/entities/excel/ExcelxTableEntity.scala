@@ -15,7 +15,8 @@ import org.goldenport.value.GTableBase
 
 /**
  * @since   Jun. 12, 2012
- * @version Jul. 22, 2012
+ *  version Jul. 22, 2012
+ * @version Sep. 25, 2012
  * @author  ASAMI, Tomoharu
  */
 class ExcelxTableEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityContext) 
@@ -44,9 +45,7 @@ class ExcelxTableEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityCo
     var in: InputStream = null
     try {
       _book = new ExcelBookEntity(ds, excelContext)
-      for (sheet <- _book.firstSheet) {
-        copyIn(sheet)
-      }
+      copyIn(_book.active)
     } finally {
       if (in != null) {
         try {

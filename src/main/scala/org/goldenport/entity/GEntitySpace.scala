@@ -20,7 +20,7 @@ import org.goldenport.entity._
  *  version Sep. 18, 2010
  *  version Feb.  1, 2012
  *  version Aug.  4, 2012
- * @version Sep.  9, 2012
+ * @version Sep. 24, 2012
  * @author  ASAMI, Tomoharu
  */
 abstract class GEntitySpace(val containerContext: GContainerContext, theParams: GParameterRepository) extends GTreeContainerObject {
@@ -94,10 +94,10 @@ abstract class GEntitySpace(val containerContext: GContainerContext, theParams: 
     val scheme = uri.getScheme();
     if (scheme == null)
       new FileDataSource(uri.getSchemeSpecificPart(), context)
-    else if (scheme.length == 1)
+    else if (scheme.length == 1) // Windows
       new FileDataSource(name, context)
     else if (scheme == "file")
-      new FileDataSource(uri.getSchemeSpecificPart(), context)
+      FileDataSource.fromUri(context, uri)
     else if (scheme == "resource")
       new ResourceDataSource(uri.getSchemeSpecificPart(), context)
 //    else if (scheme == "jar")
@@ -121,9 +121,9 @@ abstract class GEntitySpace(val containerContext: GContainerContext, theParams: 
     val scheme = uri.getScheme();
     if (scheme == null)
       new FileContent(uri.getSchemeSpecificPart(), aContext)
-    else if (scheme.length == 1)
+    else if (scheme.length == 1) // Windows
       new FileContent(aName, aContext)
-    else if (scheme == "file")
+    else if (scheme == "file") // XXX UriAux
       new FileContent(uri.getSchemeSpecificPart(), aContext)
     else if (scheme == "resource")
       new ResourceContent(uri.getSchemeSpecificPart(), aContext)
