@@ -8,7 +8,8 @@ package org.goldenport.recorder
  * @since   Oct. 28, 2008
  *  version Nov. 10, 2011
  *  version Feb.  1, 2012
- * @version Jun. 17, 2012
+ *  version Jun. 17, 2012
+ * @version Oct. 19, 2012
  * @author  ASAMI, Tomoharu
  */
 trait GRecordable extends Recordable {
@@ -16,16 +17,32 @@ trait GRecordable extends Recordable {
     setup_FowardingRecorder(aRecorder)
   }
 
-  //
+  protected final def record_error[A, B](lr: Either[String, A])(f: A => B): Either[String, B] = {
+    lr match {
+      case Right(r) => Right(f(r))
+      case Left(l) => record_error(l);Left(l)
+    }
+  }
+
+  protected final def record_warning[A, B](lr: Either[String, A])(f: A => B): Either[String, B] = {
+    lr match {
+      case Right(r) => Right(f(r))
+      case Left(l) => record_warning(l);Left(l)
+    }
+  }
+
+  // XXX fix spec
+  @deprecated("fix spec", "0.5")
   final protected def not_implemented_yet {
     sys.error("Not implmented yet (" + this + ")")
   }
 
+  @deprecated("fix spec", "0.5")
   final protected def not_implemented_yet(anAny: Any) {
     sys.error("Not implmented yet ( " + this + ") : " + anAny)
   }
 }
-
+/*
 trait GRecordable0 {
   var recorder: GRecorder = NullRecorder
 
@@ -73,3 +90,4 @@ trait GRecordable0 {
     sys.error("Not implmented yet ( " + this + ") : " + anAny)
   }
 }
+*/
