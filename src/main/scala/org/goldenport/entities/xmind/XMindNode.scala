@@ -5,8 +5,7 @@ import java.util.UUID
 
 /**
  * @since   Feb.  2, 2009
- *  version Feb.  2, 2009
- * @since   Feb.  2, 2009
+ * @version Oct. 19, 2012
  * @author  ASAMI, Tomoharu
  */
 abstract class XMindNode(aName: String) extends GTreeNodeBase[XMindNode] {
@@ -15,15 +14,18 @@ abstract class XMindNode(aName: String) extends GTreeNodeBase[XMindNode] {
   content = this
 
   override protected def new_Node(aName: String): TreeNode_TYPE = {
-    new TopicNode(aName)
+    new XTopicNode(aName)
   }
 }
 
-class RootNode extends XMindNode(null) {
+@deprecated("use outline node", "0.5")
+class XRootNode extends XMindNode(null) {
 }
 
-class SheetNode(aName: String) extends XMindNode(aName) {
+@deprecated("use outline node", "0.5")
+class XSheetNode(aName: String) extends XMindNode(aName) {
 }
 
-class TopicNode(aName: String) extends XMindNode(aName) {
+@deprecated("use outline node", "0.5")
+class XTopicNode(aName: String) extends XMindNode(aName) {
 }

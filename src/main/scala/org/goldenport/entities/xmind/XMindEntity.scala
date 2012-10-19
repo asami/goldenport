@@ -9,15 +9,16 @@ import org.goldenport.entity.locator.EntityLocator
 import org.goldenport.sdoc.structure._
 import org.goldenport.entities.workspace.TreeWorkspaceEntity
 import org.goldenport.entities.zip.ZipEntity
+import org.goldenport.entities.outline._
 import org.goldenport.value.GTreeBase
 
 /*
- * Jan. 31, 2009
- * Feb. 28, 2009
+ * @since   Jan. 31, 2009
+ * @version Oct. 19, 2012
+ * @version Oct. 19, 2012
+ * @author  ASAMi, Tomoharu
  */
-class XMindEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityContext) extends GTreeEntityBase[XMindNode](aIn, aOut, aContext) {
-  type DataSource_TYPE = GDataSource
-  override type TreeNode_TYPE = XMindNode
+class XMindEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityContext) extends OutlineEntityBase(aIn, aOut, aContext) {
 
   val xmindContext = new GSubEntityContext(entityContext) {
     override def text_Encoding = Some("UTF-8")
@@ -43,7 +44,11 @@ class XMindEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityContext)
     load_datasource(aDataSource)
   }
 
-  private def load_datasource(aDataSource: GDataSource) {
+  protected def load_datasource(aDataSource: GDataSource) {
+    load_Datasource(aDataSource)
+  }
+
+  override protected def load_Datasource(aDataSource: GDataSource) {
     val file = new ZipEntity(aDataSource, xmindContext)
     file.open()
     try {
@@ -80,9 +85,9 @@ class XMindEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityContext)
     }
   }
 
-  private def add_topic(aTopic: Node, aParent: XMindNode) {
+  private def add_topic(aTopic: Node, aParent: OutlineNode) {
     val id = (aTopic \ "@id").text
-    val topic = new TopicNode(id)
+    val topic = TopicNode(id)
     topic.title = (aTopic \ "title").text
     aParent.addChild(topic)
     for (child <- aTopic \ "children" \ "topics" \ "topic") {
@@ -100,7 +105,7 @@ class XMindEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityContext)
     file.close()
   }
 
-  final def firstThema: TopicNode = {
+  override def firstThema: TopicNode = {
     root.getChild(0).getChild(0).asInstanceOf[TopicNode]
   }
 
@@ -110,7 +115,7 @@ class XMindEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityContext)
   }
 
   private def make_content_xml: Elem = {
-    def make_child(child: XMindNode): Elem = {
+    def make_child(child: OutlineNode): Elem = {
       child match {
 	case root: RootNode => sys.error("not reached.")
 	case sheet: SheetNode => {
@@ -158,7 +163,7 @@ class XMindEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityContext)
       }
     }
 
-    def make_xml_node(aNode: XMindNode): Seq[Node] = {
+    def make_xml_node(aNode: OutlineNode): Seq[Node] = {
       aNode.children.map(make_child)
     }
 
