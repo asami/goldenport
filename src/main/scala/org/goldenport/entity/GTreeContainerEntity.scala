@@ -3,11 +3,13 @@ package org.goldenport.entity
 import org.goldenport.entity.datasource.GDataSource
 import org.goldenport.entity.content.GContent
 import org.goldenport.value.{GTree, GTreeNode}
+import org.goldenport.util.DumpLoggerable
 
 /*
  * @since   Aug.  5, 2008
  *  version Oct.  7, 2008
- * @version Jan. 22, 2012
+ *  version Jan. 22, 2012
+ * @version Nov.  1, 2012
  * @author  ASAMI, Tomoharu
  */
 abstract class GTreeContainerEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityContext) extends GContainerEntity(aIn, aOut, aContext) with GTree[GContent] {

@@ -7,7 +7,8 @@ import scalaz.Tree
  * @since   Jul. 27, 2008
  *  version Apr. 17, 2011
  *  version Feb. 21, 2012
- * @version Apr. 30, 2012
+ *  version Apr. 30, 2012
+ * @version Nov.  2, 2012
  * @author  ASAMI, Tomoharu
  */
 trait GTree[E] {

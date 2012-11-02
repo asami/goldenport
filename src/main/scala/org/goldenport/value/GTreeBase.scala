@@ -3,15 +3,17 @@ package org.goldenport.value
 import scala.xml.Node
 import scalaz._
 import Scalaz._
+import org.goldenport.util.Dumpable
 
 /*
  * @since   Aug. 12, 2008
  *  version Apr. 17, 2011
  *  version Feb. 27, 2012
- * @version May.  6, 2012
+ *  version May.  6, 2012
+ * @version Nov.  2, 2012
  * @author  ASAMI, Tomoharu
  */
-trait GTreeBase[E] extends GTree[E] {
+trait GTreeBase[E] extends GTree[E] with Dumpable {
   private var root_node: TreeNode_TYPE = _
   private var is_modified: Boolean = false
 
@@ -173,14 +175,6 @@ trait GTreeBase[E] extends GTree[E] {
     
   }
 
-  def print {
-    traverse(new GTreeVisitor[E] {
-      override def startEnter(node: GTreeNode[E]) {
-    	println(node.pathname)
-      }
-    })
-  }
-
   final def cursor: GTreeCursor[E] = {
     new GTreeCursor[E](this)
   }
@@ -215,5 +209,27 @@ trait GTreeBase[E] extends GTree[E] {
       x => _ztree0(x.asInstanceOf[TreeNode_TYPE])    
     }
     Scalaz.node(node.content, cs)
+  }
+
+  /*
+   * Debug
+   */
+  override def dumpString(): String = {
+    val buf = new StringBuilder
+    traverse(new GTreeVisitor[E] {
+      override def startEnter(node: GTreeNode[E]) {
+    	buf.append(node.pathname)
+        buf.append("\n")
+      }
+    })
+    buf.toString
+  }
+
+  override def dump(): Unit = {
+    traverse(new GTreeVisitor[E] {
+      override def startEnter(node: GTreeNode[E]) {
+    	println(node.pathname)
+      }
+    })
   }
 }

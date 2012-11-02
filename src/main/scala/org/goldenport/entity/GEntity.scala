@@ -25,7 +25,8 @@ import java.net.URI
  *  version May.  5, 2012
  *  version Jul. 21, 2012
  *  version Aug. 25, 2012
- * @version Sep.  8, 2012
+ *  version Sep.  8, 2012
+ * @version Nov.  1, 2012
  * @author  ASAMI, Tomoharu
  */
 abstract class GEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityContext) extends GObject {
