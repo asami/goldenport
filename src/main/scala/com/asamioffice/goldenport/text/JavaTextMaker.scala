@@ -5,7 +5,8 @@ import scala.collection.mutable.ArrayBuffer
 
 /*
  * @since   May.  5, 2009
- * @version Aug. 14, 2011
+ *  version Aug. 14, 2011
+ * @version Nov.  3, 2012
  * @author  ASAMI, Tomoharu
  */
 class JavaTextMaker(aTemplate: CharSequence, theReplaces: Map[String, String]) extends TextMaker {
@@ -632,6 +633,14 @@ class JavaTextMaker(aTemplate: CharSequence, theReplaces: Map[String, String]) e
   def makeReturnThis(): JavaTextMaker = {
     println("return this;")
     this
+  }
+
+  def makeReturnVarOrNull(varname: String) {
+    println("return %s != null ? %s : null;".format(varname, varname))
+  }
+
+  def makeReturnExprOrNull(varname: String, expr: String) {
+    println("return %s != null ? %s : null;".format(varname, expr.format(varname)))
   }
 
   def makeString(string: String, params: AnyRef*) {

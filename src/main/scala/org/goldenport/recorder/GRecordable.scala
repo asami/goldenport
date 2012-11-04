@@ -9,7 +9,8 @@ package org.goldenport.recorder
  *  version Nov. 10, 2011
  *  version Feb.  1, 2012
  *  version Jun. 17, 2012
- * @version Oct. 19, 2012
+ *  version Oct. 19, 2012
+ * @version Nov.  4, 2012
  * @author  ASAMI, Tomoharu
  */
 trait GRecordable extends Recordable {
@@ -17,17 +18,24 @@ trait GRecordable extends Recordable {
     setup_FowardingRecorder(aRecorder)
   }
 
-  protected final def record_error[A, B](lr: Either[String, A])(f: A => B): Either[String, B] = {
+  protected final def do_e[A, B](lr: Either[String, A])(f: A => B): Either[String, B] = {
     lr match {
       case Right(r) => Right(f(r))
       case Left(l) => record_error(l);Left(l)
     }
   }
 
-  protected final def record_warning[A, B](lr: Either[String, A])(f: A => B): Either[String, B] = {
+  protected final def do_w[A, B](lr: Either[String, A])(f: A => B): Either[String, B] = {
     lr match {
       case Right(r) => Right(f(r))
       case Left(l) => record_warning(l);Left(l)
+    }
+  }
+
+  protected final def do_t[A, B](lr: Either[String, A])(f: A => B): Either[String, B] = {
+    lr match {
+      case Right(r) => Right(f(r))
+      case Left(l) => record_trace(l);Left(l)
     }
   }
 
