@@ -17,12 +17,15 @@ import com.asamioffice.goldenport.io.UFile
  * @since   Feb. 28, 2009
  *  version Jul. 15, 2010
  *  version Aug.  4, 2012
- * @version Sep.  9, 2012
+ *  version Sep.  9, 2012
+ * @version Nov.  8, 2012
  * @author  ASAMI, Tomoharu
  */
 abstract class GSubEntityContext(val parentContext: GEntityContext, theParams: GParameterRepository) extends GEntityContext {
 
   def this(aParent: GEntityContext) = this(aParent, NullParameterRepository)
+
+  setup_FowardingRecorder(parentContext, theParams)
 
   final def entitySpace: GEntitySpace = {
     entity_Space match {

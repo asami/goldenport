@@ -10,7 +10,8 @@ import org.goldenport.parameter.{GParameterRepository, NullParameterRepository}
  * @since   Oct. 29, 2008
  *  version Nov.  5, 2011
  *  version Dec.  9, 2011
- * @version Jan. 23, 2012
+ *  version Jan. 23, 2012
+ * @version Nov.  8, 2012
  * @author  ASAMI, Tomoharu
  */
 trait ForwardingRecorder extends GRecorder {
@@ -29,8 +30,8 @@ trait ForwardingRecorder extends GRecorder {
   }
 
   protected final def setup_FowardingRecorder(aRecorder: GRecorder, theParams: GParameterRepository) {
-    require (aRecorder != null)
-    require (_recorder == null)
+    require (aRecorder != null, "recorder parameter must not be null")
+    require (_recorder == null, "recorder must not be setted")
     _recorder = aRecorder
     setup_GRecorder(theParams)
   }

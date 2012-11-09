@@ -10,7 +10,7 @@ package org.goldenport.recorder
  *  version Feb.  1, 2012
  *  version Jun. 17, 2012
  *  version Oct. 19, 2012
- * @version Nov.  4, 2012
+ * @version Nov.  9, 2012
  * @author  ASAMI, Tomoharu
  */
 trait GRecordable extends Recordable {
@@ -18,25 +18,105 @@ trait GRecordable extends Recordable {
     setup_FowardingRecorder(aRecorder)
   }
 
-  protected final def do_e[A, B](lr: Either[String, A])(f: A => B): Either[String, B] = {
+  protected final def doe_e[A, B](lr: Either[String, A])(f: A => B): Either[String, B] = {
     lr match {
       case Right(r) => Right(f(r))
       case Left(l) => record_error(l);Left(l)
     }
   }
 
-  protected final def do_w[A, B](lr: Either[String, A])(f: A => B): Either[String, B] = {
+  protected final def doe_w[A, B](lr: Either[String, A])(f: A => B): Either[String, B] = {
     lr match {
       case Right(r) => Right(f(r))
       case Left(l) => record_warning(l);Left(l)
     }
   }
 
-  protected final def do_t[A, B](lr: Either[String, A])(f: A => B): Either[String, B] = {
+  protected final def doe_i[A, B](lr: Either[String, A])(f: A => B): Either[String, B] = {
+    lr match {
+      case Right(r) => Right(f(r))
+      case Left(l) => record_info(l);Left(l)
+    }
+  }
+
+  protected final def doe_d[A, B](lr: Either[String, A])(f: A => B): Either[String, B] = {
+    lr match {
+      case Right(r) => Right(f(r))
+      case Left(l) => record_debug(l);Left(l)
+    }
+  }
+
+  protected final def doe_t[A, B](lr: Either[String, A])(f: A => B): Either[String, B] = {
     lr match {
       case Right(r) => Right(f(r))
       case Left(l) => record_trace(l);Left(l)
     }
+  }
+
+  //
+  protected final def dor_e[T](msg: String, args: Any*)(f: => T)(implicit formatter: T => String = (_: T).toString): T = {
+    val r = f
+    record_error(msg.format(args: _*) + " = " + formatter(r))
+    r
+  }
+
+  protected final def dor_w[T](msg: String, args: Any*)(f: => T)(implicit formatter: T => String = (_: T).toString): T = {
+    val r = f
+    record_warning(msg.format(args: _*) + " = " + formatter(r))
+    r
+  }
+
+  protected final def dor_i[T](msg: String, args: Any*)(f: => T)(implicit formatter: T => String = (_: T).toString): T = {
+    val r = f
+    record_info(msg.format(args: _*) + " = " + formatter(r))
+    r
+  }
+
+  protected final def dor_d[T](msg: String, args: Any*)(f: => T)(implicit formatter: T => String = (_: T).toString): T = {
+    val r = f
+    record_debug(msg.format(args: _*) + " = " + formatter(r))
+    r
+  }
+
+  protected final def dor_t[T](msg: String, args: Any*)(f: => T)(implicit formatter: T => String = (_: T).toString): T = {
+    val r = f
+    record_trace(msg.format(args: _*) + " = " + formatter(r))
+    r
+  }
+
+  protected final def none_e[T](msg: String)(x: Option[T]): Option[T] = {
+    if (x.isEmpty) {
+      record_error(msg)
+    }
+    x
+  }
+
+  protected final def none_w[T](msg: String)(x: Option[T]): Option[T] = {
+    if (x.isEmpty) {
+      record_warning(msg)
+    }
+    x
+  }
+
+  protected final def none_i[T](msg: String)(x: Option[T]): Option[T] = {
+    if (x.isEmpty) {
+      record_info(msg)
+    }
+    x
+  }
+
+  protected final def none_d[T](msg: String)(x: Option[T]): Option[T] = {
+    if (x.isEmpty) {
+      record_debug(msg)
+    }
+    x
+  }
+
+  protected final def none_t[T](msg: String)(x: Option[T]): Option[T] = {
+    if (x.isEmpty) {
+      record_trace(msg)
+    }
+    x
   }
 
   // XXX fix spec
