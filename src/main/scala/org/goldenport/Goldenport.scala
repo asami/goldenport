@@ -5,6 +5,7 @@ import scala.tools.nsc.{ScriptRunner, GenericRunnerSettings, Interpreter}
 import scala.tools.nsc.util.BatchSourceFile
 import java.io.File
 import java.net.{URL, URLClassLoader}
+import com.asamioffice.goldenport.io.UURL
 import org.goldenport.monitor._
 import org.goldenport.recorder._
 import org.goldenport.container.GContainerContext
@@ -26,12 +27,12 @@ import org.goldenport.entity.datasource.StringDataSource
  * @since   Aug. 28, 2008
  *  version Feb. 21, 2012
  *  version Sep. 25, 2012
- * @version Nov.  9, 2012
+ * @version Nov. 14, 2012
  * @author  ASAMI, Tomoharu
  */
 class Goldenport(theArgs: Array[String], aDesc: GApplicationDescriptor) extends GoldenportConstants {
-  val version = "0.4.4"
-  val build = "20121109"
+  val version = "0.4.5"
+  val build = "20121114"
   private var _system_parameters = setup_system_parameters
   private var _container_parameters = setup_container_parameters
   private var _application_parameters = setup_application_parameters(aDesc)
@@ -46,6 +47,7 @@ class Goldenport(theArgs: Array[String], aDesc: GApplicationDescriptor) extends 
 
   setup_default_services
   setup_application(aDesc)
+  setup_extension()
 
   def this(theArgs: Array[String]) = this (theArgs, NullApplicationDescriptor)
 
@@ -188,6 +190,32 @@ class Goldenport(theArgs: Array[String], aDesc: GApplicationDescriptor) extends 
     aDesc.entities.foreach(addEntityClass)
     aDesc.importers.foreach(addImporterClass)
     aDesc.exporters.foreach(addExporterClass)
+  }
+
+  private def setup_extension() {
+    val url = _startup_parameters.getString("container.extension")
+    for (u <- url) {
+        val x = UURL.getURLFromFileOrURLName(u)
+        _container_context.addClassLoader(x)
+      _load_feature("container.extension.service", addServiceClass)
+    }
+  }
+
+  private def _add_service_class(c: Class[_]) {
+    addServiceClass(c.asInstanceOf[GServiceClass])
+  }
+
+  private def _load_feature[T](param: String, f: T => Unit) {
+    val service = _startup_parameters.getString(param)
+    service match {
+      case Some(n) => {
+        val s = _container_context.newInstance(n)
+        f(s)
+      }
+      case None => {
+        println("Goldenport#setup_extension")
+      }
+    }
   }
 
   //
