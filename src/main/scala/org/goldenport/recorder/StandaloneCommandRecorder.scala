@@ -16,7 +16,8 @@ import org.goldenport.reporter._
  *  version Oct. 30, 2011
  *  version Jan. 25, 2012
  *  version Sep. 25, 2012
- * @version Oct. 19, 2012
+ *  version Oct. 19, 2012
+ * @version Nov. 14, 2012
  * @author  ASAMI, Tomoharu
  */
 class StandaloneCommandRecorder(val context: GContainerContext) extends GRecorder {
@@ -50,7 +51,7 @@ class StandaloneCommandRecorder(val context: GContainerContext) extends GRecorde
   }
 
   private def _messager_errorln(msg: String) {
-    messager.errorln(Console.YELLOW_B + Console.RED + Console.BOLD + msg + Console.RESET)
+    messager.errorln(Console.BLACK_B + Console.RED + Console.BOLD + msg + Console.RESET)
   }
 
   private def _messager_warningln(msg: String) {
