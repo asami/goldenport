@@ -11,8 +11,10 @@ import org.goldenport.exporter.GExporterClass
 /*
  * Service instance which binds with ServiceCall and UnitofWork.
  *
- * Aug. 28, 2008
- * Nov.  4, 2008
+ * @since   Aug. 28, 2008
+ *  version Nov.  4, 2008
+ * @version Nov. 17, 2012
+ * @author  ASAMI, Tomoharu
  */
 abstract class GService(val call: GServiceCall, val serviceClass: GServiceClass) extends GObject {
   private val _importers = new ArrayBuffer[GImporterClass]
@@ -32,6 +34,10 @@ abstract class GService(val call: GServiceCall, val serviceClass: GServiceClass)
   call.setup(this)
   name = serviceClass.name
   setup_Recordable(serviceContext)
+
+  def isSystemService: Boolean = {
+    getClass.getPackage().getName().startsWith("org.goldenport.service")
+  }
 
   final def execute() {
     execute_prologue()
