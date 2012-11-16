@@ -21,7 +21,7 @@ import org.goldenport.recorder.InfoLevel
  *  version Jul. 31, 2010
  *  version Jan. 23, 2012
  *  version Jul. 21, 2012
- * @version Nov. 14, 2012
+ * @version Nov. 16, 2012
  * @author  ASAMI, Tomoharu
  */
 abstract class GContainerContext(val monitor: GMonitor, val parameters: GParameterRepository) extends ForwardingRecorder with GoldenportConstants {
@@ -45,7 +45,8 @@ abstract class GContainerContext(val monitor: GMonitor, val parameters: GParamet
   }
 
   final def addClassLoader(url: URL) {
-    addClassLoader(new java.net.URLClassLoader(Array(url)))
+    val cl = monitor.getClassLoader
+    addClassLoader(new java.net.URLClassLoader(Array(url), cl))
   }
 
   final def textEncoding: String = {

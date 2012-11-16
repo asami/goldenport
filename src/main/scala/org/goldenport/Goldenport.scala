@@ -31,7 +31,7 @@ import org.goldenport.entity.datasource.StringDataSource
  * @author  ASAMI, Tomoharu
  */
 class Goldenport(theArgs: Array[String], aDesc: GApplicationDescriptor) extends GoldenportConstants {
-  val version = "0.4.5"
+  val version = "0.4.6"
   val build = "20121116"
   private var _system_parameters = setup_system_parameters
   private var _container_parameters = setup_container_parameters
@@ -209,7 +209,7 @@ class Goldenport(theArgs: Array[String], aDesc: GApplicationDescriptor) extends 
     val service = _startup_parameters.getString(param)
     service match {
       case Some(n) => {
-        val s = _container_context.newInstance(n)
+        val s = _container_context.newInstance(n).asInstanceOf[T]
         f(s)
       }
       case None => {
