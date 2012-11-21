@@ -12,7 +12,8 @@ import com.asamioffice.goldenport.xml.UXML
  * @since   Apr.  2, 2009
  *  version Oct. 30, 2011
  *  version Jul. 21, 2012
- * @version Sep. 18, 2012
+ *  version Sep. 18, 2012
+ * @version Nov. 21, 2012
  * @author  ASAMI, Tomoharu
  */
 class StandaloneCommandLogger(val context: GContainerContext) extends GLogger {
@@ -65,12 +66,42 @@ class StandaloneCommandLogger(val context: GContainerContext) extends GLogger {
     log_print(UDateTime.getCurrentDateTimeMillXmlString)
     log_print("\" level=\"")
     log_print(level)
+    log_print("\">")
+    log_print(_escape_char_data(text))
+    log_println("</log>")
+  }
+
+  protected final def log_record_detail(level: String, text: String)(detail: => Unit) {
+    log_print("<log datetime=\"")
+    log_print(UDateTime.getCurrentDateTimeMillXmlString)
+    log_print("\" level=\"")
+    log_print(level)
+    log_println("\">")
+    log_print("<message>")
+    log_print(_escape_char_data(text))
+    log_println("</message>")
+    detail
+    log_println("</log>")
+  }
+
+  private def _escape_char_data(s: String): String = {
+    if (s.indexOf('<') == -1 &&
+        s.indexOf('&') == -1 &&
+        s.indexOf('>') == -1) s
+    else "<![CDATA[" + s + "]]>"
+  }
+
+  protected final def log_record0(level: String, text: String) {
+    log_print("<log datetime=\"")
+    log_print(UDateTime.getCurrentDateTimeMillXmlString)
+    log_print("\" level=\"")
+    log_print(level)
     log_print("\" message=\"")
     log_print(UXML.escape(text))
     log_println("\"/>")
   }
 
-  protected final def log_record_detail(level: String, text: String)(detail: => Unit) {
+  protected final def log_record_detail0(level: String, text: String)(detail: => Unit) {
     log_print("<log datetime=\"")
     log_print(UDateTime.getCurrentDateTimeMillXmlString)
     log_print("\" level=\"")
