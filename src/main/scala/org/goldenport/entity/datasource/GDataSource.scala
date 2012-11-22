@@ -15,7 +15,8 @@ import com.asamioffice.goldenport.io.UIO
  *  version Jul. 15, 2010
  *  version Nov. 13, 2011
  *  version Jan. 20, 2012
- * @version Sep. 25, 2012
+ *  version Sep. 25, 2012
+ * @version Nov. 22, 2012
  * @author  ASAMI, Tomoharu
  */
 abstract class GDataSource(
@@ -99,20 +100,21 @@ abstract class GDataSource(
     }
   }
 
-  def openWriter(): Writer = {
-    open_Writer() match {
-      case null => new OutputStreamWriter(openOutputStream(), textEncoding)
-      case writer => writer
+  def openWriter(mode: OutputMode): Option[Writer] = {
+    open_Writer(mode) match {
+      case None => {
+        openOutputStream(mode).map(new OutputStreamWriter(_, textEncoding))
+      }
+      case Some(writer) => Some(writer)
     }
   }
 
-  protected def open_Writer(): Writer = null
+  protected def open_Writer(mode: OutputMode): Option[Writer] = None
 
-  def openBufferedWriter(): BufferedWriter = {
+  def openBufferedWriter(mode: OutputMode): Option[BufferedWriter] = {
     var out: Writer = null
     try {
-      out = openWriter()
-      return new BufferedWriter(out)
+      openWriter(mode).map(x => new BufferedWriter(x))
     } catch {
       case e: IOException => {
 	if (out != null) out.close()
@@ -121,12 +123,13 @@ abstract class GDataSource(
     }
   }
 
-  def write(ds: GContentDataSource) {
-    var out: OutputStream = ds.openOutputStream()
-    try {
-      write(out)
-    } finally {
-      out.close
+  def write(mode: OutputMode, ds: GContentDataSource) {
+    for (out <- ds.openOutputStream(mode)) {
+      try {
+        write(out)
+      } finally {
+        out.close
+      }
     }
   }
 
@@ -153,11 +156,11 @@ abstract class GDataSource(
 
   protected def write_OutputStream(out: OutputStream): Boolean = false
 
-  def openOutputStream(): OutputStream = {
-    open_OutputStream()
+  def openOutputStream(mode: OutputMode): Option[OutputStream] = {
+    open_OutputStream(mode)
   }
 
-  protected def open_OutputStream(): OutputStream = null
+  protected def open_OutputStream(mode: OutputMode): Option[OutputStream] = None
 
   final def loadXml(): Elem = {
     val element = load_Xml()
@@ -191,3 +194,22 @@ class NullDataSource(aContext: GEntityContext) extends GDataSource(aContext) {
 }
 
 object NullDataSource extends NullDataSource
+
+sealed trait OutputMode {
+  def suffix: String
+}
+case object OverwriteOutput extends OutputMode {
+  val suffix = "bak"
+}
+case object SampleOutput extends OutputMode {
+  val suffix = "sample"
+}
+case object BackupOutput extends OutputMode {
+  val suffix = "bak"
+}
+case object TryOutput extends OutputMode {
+  val suffix = "bak"
+}
+case object TrySampleOutput extends OutputMode {
+  val suffix = "sample"
+}

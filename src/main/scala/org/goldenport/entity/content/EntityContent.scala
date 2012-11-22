@@ -8,14 +8,15 @@ import org.goldenport.entity.datasource.GDataSource
 /*
  * @since   Aug. 10, 2008
  *  version Jul. 29, 2010
- * @version Dec. 14, 2011
+ *  version Dec. 14, 2011
+ * @version Nov. 22, 2012
  * @author  ASAMI, Tomoharu
  */
 class EntityContent(aEntity: GEntity, aContext: GEntityContext) extends GContent(aContext) {
   val entity: GEntity = aEntity
   lazy private val _binary: BinaryContent = entity.toBinaryContent
 
-  override def isCommitable = entity.isCommtable
+  override def isCommitable = entity.isCommitable
 
   override def get_Suffix: Option[String] = entity.getSuffix()
 

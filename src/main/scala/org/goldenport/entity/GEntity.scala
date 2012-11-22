@@ -3,8 +3,7 @@ package org.goldenport.entity
 import com.asamioffice.goldenport.text.UPathString
 import java.io._
 import org.goldenport.GObject
-import org.goldenport.entity.datasource.{GDataSource, NullDataSource}
-import org.goldenport.entity.datasource.EntityDataSource
+import org.goldenport.entity.datasource._
 import org.goldenport.entity.content.GContent
 import org.goldenport.entity.content.EntityContent
 import org.goldenport.entity.locator.GLocator
@@ -26,7 +25,7 @@ import java.net.URI
  *  version Jul. 21, 2012
  *  version Aug. 25, 2012
  *  version Sep.  8, 2012
- * @version Nov.  1, 2012
+ * @version Nov. 22, 2012
  * @author  ASAMI, Tomoharu
  */
 abstract class GEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityContext) extends GObject {
@@ -41,7 +40,8 @@ abstract class GEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityCon
   private var entity_locator: EntityLocator = _
   var mountNode: GContainerEntityNode = null
 
-  protected def is_Commitable: Boolean = true
+  var commitMode: CommitMode = NormalCommit // XXX protected
+
   protected def is_Writable: Boolean = true
   protected def is_Special_Commit: Boolean = false
   protected def is_Text_Output: Boolean = false
@@ -176,7 +176,7 @@ abstract class GEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityCon
   }
 
   def commit() {
-    if (!is_Commitable) {
+    if (!commitMode.isCommitable) {
       is_dirty = false
       return
     }
@@ -192,6 +192,7 @@ abstract class GEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityCon
   protected def entity_Commit(): Unit = null
 
   private def entity_commit() {
+//    println("GEntity#entity_commit(%s)".format(name))
     if (output_dataSource == null || output_dataSource == NullDataSource)
       return
     if (is_Text_Output)
@@ -200,25 +201,27 @@ abstract class GEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityCon
       entity_commit_binary()
   }
 
+  private def _output_mode = commitMode.outputMode
+
   private def entity_commit_text() {
-    var out: BufferedWriter  = null
-    try {
-      out = output_dataSource.openBufferedWriter()
-      write_Content(out)
-      out.flush()
-    } finally {
-      if (out != null) out.close()
+    for (out <- output_dataSource.openBufferedWriter(_output_mode)) {
+      try {
+        write_Content(out)
+        out.flush()
+      } finally {
+        if (out != null) out.close()
+      }
     }
   }
 
   private def entity_commit_binary() {
-    var out: OutputStream = null
-    try {
-      out = output_dataSource.openOutputStream()
-      write_Content(out)
-      out.flush()
-    } finally {
-      if (out != null) out.close()
+    for (out <- output_dataSource.openOutputStream(_output_mode)) {
+      try {
+        write_Content(out)
+        out.flush()
+      } finally {
+        if (out != null) out.close()
+      }
     }
   }
 
@@ -234,7 +237,7 @@ abstract class GEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityCon
     not_implemented_yet
   }
 
-  def isCommtable: Boolean = is_Commitable
+  def isCommitable: Boolean = commitMode.isCommitable
 
   def isExist: Boolean = {
     assert_opened
@@ -289,17 +292,20 @@ abstract class GEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityCon
   protected def entity_Suffix: Option[String] = None
 
   final def write(aDataSource: GDataSource): Unit = {
+//    println("GEntity#write(%s)".format(name))
     require (is_Writable)
-    val out = aDataSource.openOutputStream()
-    try {
-      write(out)
-      out.flush()
-    } finally {
-      out.close()
+    for (out <- aDataSource.openOutputStream(_output_mode)) {
+      try {
+        write(out)
+        out.flush()
+      } finally {
+        out.close()
+      }
     }
   }
 
   final def write(aOut: OutputStream): Unit = {
+//    println("GEntity#write(%s)".format(name))
     require (is_Writable)
     if (is_Text_Output) {
       var writer = new BufferedWriter(
@@ -377,4 +383,29 @@ abstract class GEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityCon
   protected final def m(s: String, args: Any*): String = {
     entityContext.formatString(s, args: _*)
   }
+}
+
+sealed trait CommitMode {
+  def isCommitable: Boolean
+  def outputMode: OutputMode
+}
+case object NormalCommit extends CommitMode {
+  def isCommitable: Boolean = true
+  def outputMode: OutputMode = OverwriteOutput
+}
+case object NoCommit extends CommitMode {
+  def isCommitable: Boolean = false
+  def outputMode: OutputMode = sys.error("Not reached.")
+}
+case object SampleCommit extends CommitMode {
+  def isCommitable: Boolean = true
+  def outputMode: OutputMode = SampleOutput
+}
+case object TryCommit extends CommitMode {
+  def isCommitable: Boolean = true
+  def outputMode: OutputMode = TryOutput
+}
+case object TrySampleCommit extends CommitMode {
+  def isCommitable: Boolean = true
+  def outputMode: OutputMode = TrySampleOutput
 }

@@ -8,13 +8,16 @@ import org.goldenport.entity.locator.EntityLocator
 import org.goldenport.value.GTreeBase
 
 /*
- * Aug. 19, 2008
- * Aug. 24, 2008
+ * @since   Aug. 19, 2008
+ *  version Aug. 24, 2008
+ * @version Nov. 22, 2012
+ * @author  ASAMI, Tomoharu
  */
 class TreeWorkspaceEntity(aContext: GEntityContext) extends GTreeContainerEntityBase(null, aContext) {
   type DataSource_TYPE = FileDataSource
   override type TreeNode_TYPE = TreeWorkspaceNode
-  override def is_Commitable = false
+
+  commitMode = NoCommit
 
   override def entity_Locator: EntityLocator = new EntityLocator(this) {}
 

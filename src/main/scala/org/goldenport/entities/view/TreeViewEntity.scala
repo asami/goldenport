@@ -8,13 +8,16 @@ import org.goldenport.entity.locator.EntityLocator
 import org.goldenport.value.GTreeBase
 
 /*
- * Aug. 26, 2008
- * Oct. 31, 2008
+ * @since   Aug. 26, 2008
+ *  version Oct. 31, 2008
+ * @version Nov. 22, 2012
+ * @author  ASAMI, Tomoharu
  */
 class TreeViewEntity(aDataSource: TreeViewDataSource, aContext: GEntityContext) extends GTreeContainerEntityBase(aDataSource, aContext) {
   type DataSource_TYPE = TreeViewDataSource
   override type TreeNode_TYPE = TreeViewNode
-  override def is_Commitable = true
+
+  commitMode = NormalCommit
 
   def this(aEntity: GTreeContainerEntity, aContext: GEntityContext) =
     this(new TreeViewDataSource(aEntity, aContext), aContext)

@@ -5,7 +5,7 @@ import scalaz._
 import Scalaz._
 import java.io._
 import org.goldenport.entity.GEntityContext
-import org.goldenport.entity.datasource.GDataSource
+import org.goldenport.entity.datasource._
 import org.goldenport.entity.locator.GLocator
 import org.goldenport.entity.locator.ContentLocator
 import com.asamioffice.goldenport.io.UIO
@@ -18,7 +18,8 @@ import com.asamioffice.goldenport.io.UIO
  * @since   Aug. 10, 2008
  *  version Jul. 29, 2010
  *  version Dec. 14, 2011
- * @version Feb. 21, 2012
+ *  version Feb. 21, 2012
+ * @version Nov. 22, 2012
  * @author  ASAMI, Tomoharu
  */
 abstract class GContent(aContext: GEntityContext) {
@@ -96,12 +97,12 @@ abstract class GContent(aContext: GEntityContext) {
   protected def open_Reader(): Reader = null
 
   final def write(aDataSource: GDataSource) {
-    var out: OutputStream = null
-    try {
-      out = aDataSource.openOutputStream()
-      write(out)
-    } finally {
-      if (out != null) out.close()
+    for (out <- aDataSource.openOutputStream(OverwriteOutput)) {
+      try {
+        write(out)
+      } finally {
+        if (out != null) out.close()
+      }
     }
   }
 

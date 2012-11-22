@@ -8,7 +8,8 @@ import com.asamioffice.goldenport.text.UPathString
 /**
  * @since   Aug.  5, 2008
  *  version Mar. 12, 2009
- * @version Feb.  3, 2012
+ *  version Feb.  3, 2012
+ * @version Nov. 22, 2012
  * @author  ASAMI, Tomoharu
  */
 abstract class GContainerEntityNode(aName: String, aEntity: GContainerEntity) {
