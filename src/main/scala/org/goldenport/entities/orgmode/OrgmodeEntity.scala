@@ -22,7 +22,8 @@ import org.smartdox.parser.DoxParser
  * @since   Sep. 15, 2010 (in g3)
  *  since   Nov. 29, 2011
  *  version Nov. 29, 2011
- * @version Mar.  3, 2012
+ *  version Mar.  3, 2012
+ * @version Nov. 23, 2012
  * @author  ASAMI, Tomoharu
  */
 class OrgmodeEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityContext) extends OutlineEntityBase(aIn, aOut, aContext) {
@@ -30,11 +31,13 @@ class OrgmodeEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityContex
   def this(aContext: GEntityContext) = this(null, aContext)
 
   protected override def load_Datasource(aDataSource: GDataSource) {
-    val reader = aDataSource.openBufferedReader()
-    DoxParser.parseOrgmodeZ(reader).fold(_set_error, _load_dox)
+//    println("OrgmodeEntity#load_Datasource")
+    val uri = aDataSource.uri
+    DoxParser.parseOrgmodeZ(uri).fold(_set_error, _load_dox)
   }
 
   private def _set_error(errors: NonEmptyList[String]) {
+    // XXX
   }
 
   private def _load_dox(dox: Dox) {
@@ -42,6 +45,7 @@ class OrgmodeEntity(aIn: GDataSource, aOut: GDataSource, aContext: GEntityContex
   }
 
   private def _load_dox(tree: Tree[Dox]) {
+//    println(tree.drawTree)
     // XXX addresses doc meta data
     val home = ZTrees.find(tree)(_.rootLabel.isInstanceOf[Body]) | tree
     val (stubs, content) = _subs_content(home.subForest)
