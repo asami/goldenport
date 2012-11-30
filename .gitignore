@@ -2,7 +2,6 @@
 bin
 gen
 lib_managed
-lib
 *.bak
 target
 .*

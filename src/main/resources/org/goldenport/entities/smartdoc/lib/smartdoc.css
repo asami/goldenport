@@ -1,0 +1,62 @@
+/*
+ * #b7282e akane-iro
+ * #393f4c aitetsu
+ * #95949a kikyo-nezumi
+ * #1e50a2 ruri-iro
+ * #e5e4e6 shiro-ume-nezu
+ * #ebf6f7 ai-jiro
+ * #165e83 ai-iro
+ * #89c3eb wasurenagusa-iro
+ * #888084 genjinezu
+ * #68be8d wakatake-iro
+ * #38a1db tsuyukusa-iro
+ *
+ * #E76300 yui
+ */
+table.basic-table {margin-top:0; margin-bottom:.2em}
+.basic-table caption {border:1px solid #dedede;color:#b7282e; background-color:#e5e4e6; font-weight:bold; margin-bottom:0; margin-top:0.7em}
+.basic-table td {border:1px solid #dedede; padding:2px; font-size:100%; vertical-align:top;}
+.basic-table td.title {width:25%;}
+.basic-table td.description {width:65%;}
+.basic-table tr.odd {background-color:#ebf6f7;}
+.basic-table th {border:1px solid #dedede; padding:2px; background-color:#165e83; color:#FFFFFF; font-weight:bold; font-size:100%; text-align:center}
+.basic-table th.title {background-color:#F4F4F4;}
+.basic-table th a.label-with-reference:link {color: #FFFFFF}
+.basic-table th a.label-with-reference:visited {color: #FFFFFF}
+.basic-table th a.label-with-reference:active {color: #FFFFFF}
+.basic-table th a.label-with-reference:hover {color: #FFFFFF}
+h1, h2, h3, h4 {margin-top:.7em; margin-bottom:.2em; font-weight:bold; border-top:none;}
+
+
+/* Book, Part, Chapter */
+h1 {font-size:162%; color:#b7282e;}
+/* Section */
+h2 {font-size:144%; border-bottom:1px solid #dedede; color:#b7282e;}
+/* SubSection */
+h3 {font-size:129%; border-bottom:1px solid #eeeeee; color:#b7282e;}
+/* SubSubSection */
+h4 {font-size:114%; color:#b7282e;}
+/* Paragraph */
+h5 {font-size:107%; display:inline; margin-bottom:0; color:#b7282e;}
+
+/*
+ * #doc { width:57.69em;*width:56.301em}
+ * .yui-b { width:13.8456em;*width:13.512em}.yui-t4
+ */
+div.t4-body { width:43.0000em; *width:42.000em } /* 57.59-13.8456-0.7444, 56.301-13.512-0.789  */
+
+th.label-with-help:hover { background-color: green }
+td.label-with-help:hover { background-color: green }
+
+a.label-with-help:link { color: black;  text-decoration: none }
+a.label-with-help:visited { color: black; text-decoration: none }
+a.label-with-help:active { color: black; text-decoration: none }
+a.label-with-help:hover { color: white; background-color: #68be8d; font-weight: bold; text-decoration: underline; }
+
+th.label-with-reference:hover { background-color: green }
+td.label-with-reference:hover { background-color: green }
+
+a.label-with-reference:link { color: black; font-weight: bold; text-decoration: none }
+a.label-with-reference:visited { color: black; font-weight: bold; text-decoration: none }
+a.label-with-reference:active { color: black; font-weight: bold; text-decoration: none }
+a.label-with-reference:hover { color: white; background-color: #38a1db; font-weight: bolder; text-decoration: underline; }
