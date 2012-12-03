@@ -27,12 +27,13 @@ import org.goldenport.entity.datasource.StringDataSource
  * @since   Aug. 28, 2008
  *  version Feb. 21, 2012
  *  version Sep. 25, 2012
- * @version Nov. 23, 2012
+ *  version Nov. 23, 2012
+ * @version Dec.  4, 2012
  * @author  ASAMI, Tomoharu
  */
 class Goldenport(theArgs: Array[String], aDesc: GApplicationDescriptor) extends GoldenportConstants {
-  val version = "0.4.7"
-  val build = "20121123"
+  val version = "0.4.8"
+  val build = "20121204"
   private var _system_parameters = setup_system_parameters
   private var _container_parameters = setup_container_parameters
   private var _application_parameters = setup_application_parameters(aDesc)
@@ -193,12 +194,9 @@ class Goldenport(theArgs: Array[String], aDesc: GApplicationDescriptor) extends 
   }
 
   private def setup_extension() {
-    val url = _startup_parameters.getString("container.extension")
-    for (u <- url) {
-        val x = UURL.getURLFromFileOrURLName(u)
-        _container_context.addClassLoader(x)
-      _load_feature("container.extension.service", addServiceClass)
-    }
+    val urls = _startup_parameters.getUrls("container.extension")
+    _container_context.addClassLoaders(urls)
+    _load_feature("container.extension.service", addServiceClass)
   }
 
   private def _add_service_class(c: Class[_]) {
@@ -206,15 +204,10 @@ class Goldenport(theArgs: Array[String], aDesc: GApplicationDescriptor) extends 
   }
 
   private def _load_feature[T](param: String, f: T => Unit) {
-    val service = _startup_parameters.getString(param)
-    service match {
-      case Some(n) => {
-        val s = _container_context.newInstance(n).asInstanceOf[T]
-        f(s)
-      }
-      case None => {
-        println("Goldenport#setup_extension")
-      }
+    val service = _startup_parameters.getStrings(param)
+    for (n <- service) {
+      val s = _container_context.newInstance(n).asInstanceOf[T]
+      f(s)
     }
   }
 

@@ -7,8 +7,9 @@ import com.asamioffice.goldenport.io.UURL
 
 /*
  * @since   Oct. 30, 2008
- * Feb.  7, 2009
- * @version Jan.  7, 2011
+ *  version Feb.  7, 2009
+ *  version Jan.  7, 2011
+ * @version Dec.  4, 2012
  * @author  ASAMI, Tomoharu
  */
 class GParameterRepository {
@@ -140,6 +141,13 @@ class GParameterRepository {
       case None => None
       case Some(string: String) => Some(string)
       case Some(value) => Some(value.toString)
+    }
+  }
+
+  final def getStrings(aKey: String): List[String] = {
+    getString(aKey) match {
+      case Some(s) => UString.getTokens(s, ";, ").toList
+      case None => Nil
     }
   }
 
