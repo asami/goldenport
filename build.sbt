@@ -20,7 +20,7 @@ scalacOptions += "-unchecked"
 
 // resolvers += Classpaths.typesafeResolver
 
-// resolvers += "Local Maven Repository" at "file://"+Path.userHome.absolutePath+"/.m2/repository"
+resolvers += "Local Maven Repository" at "file://"+Path.userHome.absolutePath+"/.m2/repository"
 
 resolvers += "Asami Maven Repository" at "http://www.asamioffice.com/maven"
 
@@ -44,9 +44,9 @@ libraryDependencies += "org.apache.poi" % "poi-ooxml" % "3.8" % "provided"
 
 libraryDependencies += "org.scalaz" %% "scalaz-core" % "6.0.4"
 
-libraryDependencies += "org.goldenport" % "goldenport-java-lib" % "0.1.1"
+libraryDependencies += "org.goldenport" % "goldenport-java-lib" % "0.1.2-SNAPSHOT"
 
-libraryDependencies += "org.goldenport" %% "goldenport-scala-lib" % "0.1.3"
+libraryDependencies += "org.goldenport" %% "goldenport-scala-lib" % "0.1.4-SNAPSHOT"
 
 libraryDependencies += "org.goldenport" %% "goldenport-record" % "0.2.0"
 
