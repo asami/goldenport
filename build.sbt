@@ -2,7 +2,7 @@
 
 name := "goldenport"
 
-version := "0.4.9-SNAPSHOT"
+version := "0.4.9"
 
 organization := "org.goldenport"
 
