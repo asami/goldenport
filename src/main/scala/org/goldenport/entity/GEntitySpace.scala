@@ -20,7 +20,7 @@ import org.goldenport.entity._
  *  version Sep. 18, 2010
  *  version Feb.  1, 2012
  *  version Aug.  4, 2012
- * @version Sep. 24, 2012
+ * @version Dec. 17, 2012
  * @author  ASAMI, Tomoharu
  */
 abstract class GEntitySpace(val containerContext: GContainerContext, theParams: GParameterRepository) extends GTreeContainerObject {
@@ -58,7 +58,24 @@ abstract class GEntitySpace(val containerContext: GContainerContext, theParams: 
     reconstitute_DataSource(aDataSource).asInstanceOf[Option[R]]
   }
 
+  final def reconstitute_or_new[R <: GEntity](anAny: Any): Option[R] = {
+    if (anAny.isInstanceOf[GEntity]) Some(anAny.asInstanceOf[R])
+    else reconstitute_or_new[R](getDataSource(anAny)) 
+  }
+
+  final def reconstitute_or_new[R <: GEntity](aDataSource: GDataSource): Option[R] = {
+    reconstitute(aDataSource) orElse {
+      entityClasses.find(_.acceptCreate(aDataSource, context)) match {
+        case Some(clazz) => return clazz.create(aDataSource, context).asInstanceOf[Option[R]]
+        case _ => 
+      }
+      create_DataSource(aDataSource).asInstanceOf[Option[R]]
+    }
+  }
+
   protected def reconstitute_DataSource(aDataSource: GDataSource): Option[GEntity] = None
+
+  protected def create_DataSource(aDataSource: GDataSource): Option[GEntity] = None
 
   final def reconstitute(aNode: GContainerEntityNode): Option[GEntity] = {
     entityClasses.find(_.accept(aNode, context)) match {
