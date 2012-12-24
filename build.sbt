@@ -2,7 +2,7 @@
 
 name := "goldenport"
 
-version := "0.4.10-SNAPSHOT"
+version := "0.4.10"
 
 organization := "org.goldenport"
 
@@ -52,6 +52,6 @@ libraryDependencies += "org.goldenport" %% "goldenport-record" % "0.2.0"
 
 libraryDependencies += "org.goldenport" %% "goldenport-swing" % "0.2.0"
 
-libraryDependencies += "org.smartdox" %% "smartdox" % "0.3.3-SNAPSHOT"
+libraryDependencies += "org.smartdox" %% "smartdox" % "0.3.3"
 
 publishTo := Some(Resolver.file("asamioffice", file("target/maven-repository")))
