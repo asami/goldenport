@@ -1,7 +1,9 @@
 package org.goldenport.parameter
 
 import scala.collection.mutable.{ArrayBuffer, HashMap}
+import java.util.Date
 import java.net.URL
+import scala.math.BigInt
 import com.asamioffice.goldenport.text.UString
 import com.asamioffice.goldenport.io.UURL
 
@@ -9,7 +11,7 @@ import com.asamioffice.goldenport.io.UURL
  * @since   Oct. 30, 2008
  *  version Feb.  7, 2009
  *  version Jan.  7, 2011
- * @version Dec.  4, 2012
+ * @version Dec. 26, 2012
  * @author  ASAMI, Tomoharu
  */
 class GParameterRepository {
@@ -158,6 +160,143 @@ class GParameterRepository {
       case Some(value: Boolean) => value
       case _ => false
     }
+  }
+
+  def getBooleanOption(aKey: String): Option[Boolean] = {
+    get(aKey) collect {
+      case string: String => string.toLowerCase() == "true"
+      case value: Boolean => value
+    }
+  }
+
+  final def getBooleans(aKey: String): List[Boolean] = {
+    throw new UnsupportedOperationException(aKey)
+  }
+
+  final def getByte(key: String): Option[Byte] = {
+    get(key) collect {
+      case string: String => string.toByte
+      case value: Byte => value
+    }
+  }
+
+  final def getBytes(key: String): List[Byte] = {
+    getStrings(key).map(_.toByte)
+  }
+
+  final def getShort(key: String): Option[Short] = {
+    get(key) collect {
+      case string: String => string.toShort
+      case value: Short => value
+    }
+  }
+
+  final def getShorts(key: String): List[Short] = {
+    getStrings(key).map(_.toShort)
+  }
+
+  final def getInt(key: String): Option[Int] = {
+    get(key) collect {
+      case string: String => string.toInt
+      case value: Int => value
+    }
+  }
+
+  final def getInts(key: String): List[Int] = {
+    getStrings(key).map(_.toInt)
+  }
+
+  final def getLong(key: String): Option[Long] = {
+    get(key) collect {
+      case string: String => string.toLong
+      case value: Long => value
+    }
+  }
+
+  final def getLongs(key: String): List[Long] = {
+    getStrings(key).map(_.toLong)
+  }
+
+  final def getFloat(key: String): Option[Float] = {
+    get(key) collect {
+      case string: String => string.toFloat
+      case value: Float => value
+    }
+  }
+
+  final def getFloats(key: String): List[Float] = {
+    getStrings(key).map(_.toFloat)
+  }
+
+  final def getDouble(key: String): Option[Double] = {
+    get(key) collect {
+      case string: String => string.toDouble
+      case value: Double => value
+    }
+  }
+
+  final def getDoubles(key: String): List[Double] = {
+    getStrings(key).map(_.toDouble)
+  }
+
+  final def getInteger(key: String): Option[BigInt] = {
+    get(key) collect {
+      case string: String => BigInt(string)
+      case value: BigInt => value
+    }
+  }
+
+  final def getIntegers(key: String): List[BigInt] = {
+    getStrings(key).map(BigInt(_))
+  }
+
+  final def getDecimal(key: String): Option[BigDecimal] = {
+    get(key) collect {
+      case string: String => BigDecimal(string)
+      case value: BigDecimal => value
+    }
+  }
+
+  final def getDecimals(key: String): List[BigDecimal] = {
+    getStrings(key).map(BigDecimal(_))
+  }
+
+  final def getDate(key: String): Option[Date] = {
+    get(key) collect {
+      case string: String => sys.error("???")
+      case value: Date => value
+    }
+  }
+
+  final def getDates(key: String): List[Date] = {
+    // getStrings(key).map(_.toDate)
+    sys.error("???")
+  }
+
+
+  final def getTime(key: String): Option[Date] = {
+    get(key) collect {
+      case string: String => sys.error("???")
+
+      case value: Date => value
+    }
+  }
+
+  final def getTimes(key: String): List[Date] = {
+//    getStrings(key).map(_.toDate)
+    sys.error("???")
+  }
+
+  final def getDateTime(key: String): Option[Date] = {
+    get(key) collect {
+      case string: String => sys.error("???")
+      case value: Date => value
+    }
+  }
+
+  final def getDateTimes(key: String): List[Date] = {
+//    getStrings(key).map(_.toDate)
+    sys.error("???")
   }
 
   final def getUrls(aKey: String): Seq[URL] = {
