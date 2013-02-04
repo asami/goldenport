@@ -2,7 +2,7 @@
 
 name := "goldenport"
 
-version := "0.4.12"
+version := "0.4.12a"
 
 organization := "org.goldenport"
 
@@ -44,7 +44,7 @@ libraryDependencies += "org.apache.poi" % "poi-ooxml" % "3.8" % "provided"
 
 libraryDependencies += "org.scalaz" %% "scalaz-core" % "6.0.4"
 
-libraryDependencies += "org.goldenport" % "goldenport-java-lib" % "0.1.2"
+// libraryDependencies += "org.goldenport" % "goldenport-java-lib" % "0.1.2"
 
 libraryDependencies += "org.goldenport" %% "goldenport-scala-lib" % "0.1.5"
 
